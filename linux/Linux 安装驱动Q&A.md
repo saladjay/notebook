@@ -1,0 +1,1 @@
+[NVIDIA驱动安装 - 从问题到解决(Linux/Ubuntu) - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/115758882)

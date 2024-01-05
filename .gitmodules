@@ -1,0 +1,6 @@
+[submodule "HPC_STUDY"]
+	path = HPC_STUDY
+	url = https://github.com/saladjay/HPC_STUDY.git
+[submodule "sys_operation_script"]
+	path = sys_operation_script
+	url = https://github.com/saladjay/sys_operation_script.git

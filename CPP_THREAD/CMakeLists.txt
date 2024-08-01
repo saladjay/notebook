@@ -3,5 +3,10 @@ project(CPP_THREAD)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(cpp_thread main.cpp) 
+add_executable(thread thread.cpp)
+add_executable(simple_condition_variable simple_condition_variable.cpp) 
+add_executable(complex_condition_variable complex_condition_variable.cpp)
+add_executable(demo1 demo1.cpp)
+if(UNIX)
 target_link_libraries(cpp_thread pthread)
+endif(UNIX)

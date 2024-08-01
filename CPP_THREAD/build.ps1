@@ -1,0 +1,2 @@
+cmake -B build -DCMAKE_BUILD_TYPE=Release -G "Visual Studio 15 2017" -T host=x64 -A x64                                                                                                                                                                                                                                                                                                       
+cmake --build ./build --config release 

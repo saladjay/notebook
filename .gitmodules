@@ -4,3 +4,6 @@
 [submodule "sys_operation_script"]
 	path = sys_operation_script
 	url = https://github.com/saladjay/sys_operation_script.git
+[submodule "TBB/oneTBB"]
+	path = TBB/oneTBB
+	url = https://github.com/oneapi-src/oneTBB.git

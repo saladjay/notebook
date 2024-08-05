@@ -1,0 +1,2492 @@
+nohup: 忽略输入
+[34m[1mtrain_continue_cfg2: [0mepochs=200, teacher_batch_size=8, student_batch_size=16, yolo_loss_alpha=4, imgsz=1024, save_period=10, patience=200, patience_mode=/data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt, multi_scale=False, single_cls=False, rect=False, noautoanchor=True, cache=True, image_weights=False, optimizer=SGD, workers=8, project=0, exist_ok=0, quad=False, cos_lr=False, label_smoothing=0, hyp_lr0=0.001, hyp_lrf=0.1, hyp_momentum=0.937, hyp_weight_decay=0.0005, hyp_warmup_epochs=3, hyp_warmup_momentum=0.8, hyp_warmup_bias_lr=0.1, hyp_box=0.05, hyp_cls=0.5, hyp_cls_pw=1, hyp_obj=1, hyp_obj_pw=1, hyp_iou_t=0.2, hyp_anchor_t=4, hyp_anchors=3, hyp_fl_gamma=0, hyp_hsv_h=0.015, hyp_hsv_s=0.015, hyp_hsv_v=0.015, hyp_degrees=0, hyp_translate=0.1, hyp_scale=0.5, hyp_shear=0, hyp_perspective=0, hyp_flipud=0, hyp_fliplr=0.5, hyp_mosaic=0.5, hyp_mixup=0, hyp_copy_paste=0, resume=0, cfg=yolov5s.yaml, student_train_filename=/data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt, student_valid_filename=/data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt, teacher_train_filename=/data4/times-ai-cloud/model/train/shimopian_test6/teacher_train.txt, teacher_valid_filename=/data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt, class_names=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], device=0, model=/data4/times-ai-cloud/model/train/shimopian_test6/student_model12, labels_file=/data4/times-ai-cloud/model/train/shimopian_test6/label/label.json, view_augment_dir=None, weights=/data4/times-ai-cloud/model/train/shimopian_test6/model/weights/best.pt, teacher_weight=/data4/times-ai-cloud/model/train/shimopian_test6/model/weights/best.pt, evolve=None, data={'train': '/data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt', 'val': '/data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt', 'student_train': '/data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt', 'student_valid': '/data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt', 'teacher_train': '/data4/times-ai-cloud/model/train/shimopian_test6/teacher_train.txt', 'teacher_valid': '/data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt', 'nc': 10, 'names': ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']}, batch_size=24, nosave=False, noval=False, bucket=, sync_bn=False, name=exp, freeze=[0], local_rank=-1, entity=None, noplots=False, seed=0, upload_dataset=False, bbox_interval=-1, artifact_alias=latest
+YOLOv5 🚀 王涛发现这是个bug-5-ge9bb222 Python-3.8.16 torch-1.7.1+cu110 CUDA:0 (NVIDIA GeForce RTX 3090, 24257MiB)
+
+Overriding model.yaml nc=80 with nc=10
+Overriding model.yaml anchors with anchors=3
+
+                 from  n    params  module                                  arguments                     
+  0                -1  1      3520  models.common.Conv                      [3, 32, 6, 2, 2]              
+  1                -1  1     18560  models.common.Conv                      [32, 64, 3, 2]                
+  2                -1  1     18816  models.common.C3                        [64, 64, 1]                   
+  3                -1  1     73984  models.common.Conv                      [64, 128, 3, 2]               
+  4                -1  2    115712  models.common.C3                        [128, 128, 2]                 
+  5                -1  1    295424  models.common.Conv                      [128, 256, 3, 2]              
+  6                -1  3    625152  models.common.C3                        [256, 256, 3]                 
+  7                -1  1   1180672  models.common.Conv                      [256, 512, 3, 2]              
+  8                -1  1   1182720  models.common.C3                        [512, 512, 1]                 
+  9                -1  1    656896  models.common.SPPF                      [512, 512, 5]                 
+ 10                -1  1    131584  models.common.Conv                      [512, 256, 1, 1]              
+ 11                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          
+ 12           [-1, 6]  1         0  models.common.Concat                    [1]                           
+ 13                -1  1    361984  models.common.C3                        [512, 256, 1, False]          
+ 14                -1  1     33024  models.common.Conv                      [256, 128, 1, 1]              
+ 15                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          
+ 16           [-1, 4]  1         0  models.common.Concat                    [1]                           
+ 17                -1  1     90880  models.common.C3                        [256, 128, 1, False]          
+ 18                -1  1    147712  models.common.Conv                      [128, 128, 3, 2]              
+ 19          [-1, 14]  1         0  models.common.Concat                    [1]                           
+ 20                -1  1    296448  models.common.C3                        [256, 256, 1, False]          
+ 21                -1  1    590336  models.common.Conv                      [256, 256, 3, 2]              
+ 22          [-1, 10]  1         0  models.common.Concat                    [1]                           
+ 23                -1  1   1182720  models.common.C3                        [512, 512, 1, False]          
+ 24      [17, 20, 23]  1     40455  models.yolo.Detect                      [10, [[0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]], [128, 256, 512]]
+YOLOv5s summary: 270 layers, 7046599 parameters, 7046599 gradients, 16.0 GFLOPs
+
+Transferred 349/349 items from /data4/times-ai-cloud/model/train/shimopian_test6/model/weights/best.pt
+Overriding model.yaml nc=80 with nc=10
+Overriding model.yaml anchors with anchors=3
+
+                 from  n    params  module                                  arguments                     
+  0                -1  1      3520  models.common.Conv                      [3, 32, 6, 2, 2]              
+  1                -1  1     18560  models.common.Conv                      [32, 64, 3, 2]                
+  2                -1  1     18816  models.common.C3                        [64, 64, 1]                   
+  3                -1  1     73984  models.common.Conv                      [64, 128, 3, 2]               
+  4                -1  2    115712  models.common.C3                        [128, 128, 2]                 
+  5                -1  1    295424  models.common.Conv                      [128, 256, 3, 2]              
+  6                -1  3    625152  models.common.C3                        [256, 256, 3]                 
+  7                -1  1   1180672  models.common.Conv                      [256, 512, 3, 2]              
+  8                -1  1   1182720  models.common.C3                        [512, 512, 1]                 
+  9                -1  1    656896  models.common.SPPF                      [512, 512, 5]                 
+ 10                -1  1    131584  models.common.Conv                      [512, 256, 1, 1]              
+ 11                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          
+ 12           [-1, 6]  1         0  models.common.Concat                    [1]                           
+ 13                -1  1    361984  models.common.C3                        [512, 256, 1, False]          
+ 14                -1  1     33024  models.common.Conv                      [256, 128, 1, 1]              
+ 15                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']          
+ 16           [-1, 4]  1         0  models.common.Concat                    [1]                           
+ 17                -1  1     90880  models.common.C3                        [256, 128, 1, False]          
+ 18                -1  1    147712  models.common.Conv                      [128, 128, 3, 2]              
+ 19          [-1, 14]  1         0  models.common.Concat                    [1]                           
+ 20                -1  1    296448  models.common.C3                        [256, 256, 1, False]          
+ 21                -1  1    590336  models.common.Conv                      [256, 256, 3, 2]              
+ 22          [-1, 10]  1         0  models.common.Concat                    [1]                           
+ 23                -1  1   1182720  models.common.C3                        [512, 512, 1, False]          
+ 24      [17, 20, 23]  1     40455  models.yolo.Detect                      [10, [[0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5], [0, 1, 2, 3, 4, 5]], [128, 256, 512]]
+YOLOv5s summary: 270 layers, 7046599 parameters, 7046599 gradients, 16.0 GFLOPs
+
+Load teacher model from /data4/times-ai-cloud/model/train/shimopian_test6/model/weights/best.pt
+[34m[1mAMP: [0mchecks passed ✅
+3.8.16
+2 ['train_continue_cfg2.py', '/data4/times-ai-cloud/model/train/shimopian_test6/cfg_train_student2.yaml']
+---opt.class_names ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] <class 'list'>
+0
+[]
+New cache created: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.cache
+  0%|          | 0/293 [00:00<?, ?it/s][34m[1mstudent train: [0mCaching images (0.6GB True):   0%|          | 0/293 [00:02<?, ?it/s]
+New cache created: /data4/times-ai-cloud/model/train/shimopian_test6/teacher_train.cache
+  0%|          | 0/2982 [00:00<?, ?it/s][34m[1mteacher train: [0mCaching images (6.6GB True):   0%|          | 0/2982 [01:08<?, ?it/s]
+New cache created: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.cache
+  0%|          | 0/293 [00:00<?, ?it/s][34m[1mval: [0mCaching images (0.6GB True):   0%|          | 0/293 [00:03<?, ?it/s]
+New cache created: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.cache
+  0%|          | 0/1114 [00:00<?, ?it/s][34m[1mval: [0mCaching images (2.5GB True):   0%|          | 0/1114 [00:25<?, ?it/s]
+New cache created: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.cache
+  0%|          | 0/58 [00:00<?, ?it/s][34m[1mval: [0mCaching images (0.1GB True):   0%|          | 0/58 [00:00<?, ?it/s]
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.0437, R: 0.0235, MAP@5: 0.0236, MAP@50: 0.0138
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.8623, R: 0.7107, MAP@5: 0.7436, MAP@50: 0.4698
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.1277, R: 0.0656, MAP@5: 0.0953, MAP@50: 0.0723
+Plotting labels to /data4/times-ai-cloud/model/train/shimopian_test6/student_model12/labels.jpg... 
+Image sizes 1024 train, 1024 val
+Using 8 dataloader workers
+Logging results to [1m/data4/times-ai-cloud/model/train/shimopian_test6/student_model12[0m
+Starting training for 200 epochs...
+yolo loss alpha:4
+0
+Step: 10/3800, batch_cost: 0.8983, loss: 17.9155, loss_ori: 4.4727, loss_kd: 0.0246 loss_box: 2.0035 loss_obj: 0.4483 loss_cls: 2.0209 ETA: 00:53:15
+Epoch: 1/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.0922, R: 0.1402, MAP@5: 0.0704, MAP@50: 0.0321
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.8501, R: 0.7020, MAP@5: 0.7374, MAP@50: 0.4586
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.1944, R: 0.0602, MAP@5: 0.0955, MAP@50: 0.0582
+Epoch: 1/200, dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt 
+, P: 0.8501, R: 0.7020, MAP@5: 0.7374, MAP@50: 0.4586, box_loss:0.0338 , obj_loss:0.0091 , cls_loss:0.0111
+Step: 20/3800, batch_cost: 13.1506, loss: 15.7454, loss_ori: 3.7969, loss_kd: 0.5578 loss_box: 1.9103 loss_obj: 0.4885 loss_cls: 1.3981 ETA: 01:32:51
+Step: 30/3800, batch_cost: 0.7655, loss: 18.3590, loss_ori: 4.4835, loss_kd: 0.4249 loss_box: 2.0637 loss_obj: 0.5201 loss_cls: 1.8997 ETA: 01:29:23
+Epoch: 2/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:04
+Preds: 293, Labels: 270, P: 0.0746, R: 0.2658, MAP@5: 0.0920, MAP@50: 0.0455
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:09
+Preds: 1114, Labels: 1697, P: 0.8366, R: 0.7047, MAP@5: 0.7376, MAP@50: 0.4499
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.0768, R: 0.2638, MAP@5: 0.1095, MAP@50: 0.0632
+Step: 40/3800, batch_cost: 0.7795, loss: 17.1898, loss_ori: 4.0273, loss_kd: 1.0807 loss_box: 2.0874 loss_obj: 0.4228 loss_cls: 1.5170 ETA: 01:46:17
+Step: 50/3800, batch_cost: 0.7886, loss: 17.4160, loss_ori: 3.9480, loss_kd: 1.6239 loss_box: 1.9489 loss_obj: 0.4519 loss_cls: 1.5472 ETA: 01:31:31
+Epoch: 3/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.0878, R: 0.2834, MAP@5: 0.1191, MAP@50: 0.0568
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.8510, R: 0.6832, MAP@5: 0.7337, MAP@50: 0.4407
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2955, R: 0.0972, MAP@5: 0.1375, MAP@50: 0.0801
+Step: 60/3800, batch_cost: 0.7897, loss: 14.0773, loss_ori: 3.4319, loss_kd: 0.3495 loss_box: 1.8250 loss_obj: 0.3426 loss_cls: 1.2644 ETA: 01:32:12
+Step: 70/3800, batch_cost: 0.7909, loss: 15.6748, loss_ori: 3.7541, loss_kd: 0.6584 loss_box: 1.8731 loss_obj: 0.4491 loss_cls: 1.4319 ETA: 01:24:39
+Epoch: 4/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.0801, R: 0.2801, MAP@5: 0.1278, MAP@50: 0.0578
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.8344, R: 0.6852, MAP@5: 0.7315, MAP@50: 0.4387
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2336, R: 0.1389, MAP@5: 0.1660, MAP@50: 0.0876
+Step: 80/3800, batch_cost: 0.7622, loss: 15.9000, loss_ori: 3.6743, loss_kd: 1.2026 loss_box: 1.9153 loss_obj: 0.5880 loss_cls: 1.1711 ETA: 01:25:45
+Step: 90/3800, batch_cost: 1.1211, loss: 16.0413, loss_ori: 3.4873, loss_kd: 2.0920 loss_box: 1.8412 loss_obj: 0.4391 loss_cls: 1.2070 ETA: 01:19:57
+Epoch: 5/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.2119, R: 0.1336, MAP@5: 0.1490, MAP@50: 0.0690
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:08
+Preds: 1114, Labels: 1697, P: 0.8308, R: 0.6812, MAP@5: 0.7319, MAP@50: 0.4385
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.1802, R: 0.2934, MAP@5: 0.1991, MAP@50: 0.1015
+Step: 100/3800, batch_cost: 0.2141, loss: 13.9170, loss_ori: 3.3207, loss_kd: 0.6340 loss_box: 1.6973 loss_obj: 0.3610 loss_cls: 1.2624 ETA: 01:22:09
+Step: 110/3800, batch_cost: 0.4942, loss: 16.1366, loss_ori: 3.6095, loss_kd: 1.6986 loss_box: 1.9064 loss_obj: 0.3873 loss_cls: 1.3158 ETA: 01:17:17
+Epoch: 6/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.1378, R: 0.2565, MAP@5: 0.1523, MAP@50: 0.0768
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.8187, R: 0.6923, MAP@5: 0.7337, MAP@50: 0.4397
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2558, R: 0.1440, MAP@5: 0.1877, MAP@50: 0.1040
+Step: 120/3800, batch_cost: 0.8673, loss: 15.8828, loss_ori: 3.1292, loss_kd: 3.3661 loss_box: 1.8246 loss_obj: 0.3581 loss_cls: 0.9465 ETA: 01:18:43
+Step: 130/3800, batch_cost: 0.2481, loss: 14.9734, loss_ori: 3.2804, loss_kd: 1.8518 loss_box: 1.8349 loss_obj: 0.4073 loss_cls: 1.0382 ETA: 01:14:48
+Epoch: 7/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.3467, R: 0.1557, MAP@5: 0.1924, MAP@50: 0.1027
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:09
+Preds: 1114, Labels: 1697, P: 0.8140, R: 0.6895, MAP@5: 0.7332, MAP@50: 0.4375
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2944, R: 0.1998, MAP@5: 0.2244, MAP@50: 0.1261
+Step: 140/3800, batch_cost: 0.5787, loss: 18.0984, loss_ori: 3.4338, loss_kd: 4.3631 loss_box: 1.9629 loss_obj: 0.3656 loss_cls: 1.1054 ETA: 01:17:04
+Step: 150/3800, batch_cost: 0.7860, loss: 17.7681, loss_ori: 3.4609, loss_kd: 3.9245 loss_box: 1.9914 loss_obj: 0.3653 loss_cls: 1.1042 ETA: 01:13:53
+Epoch: 8/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.3314, R: 0.2167, MAP@5: 0.2149, MAP@50: 0.1168
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7813, R: 0.7063, MAP@5: 0.7333, MAP@50: 0.4415
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2850, R: 0.1966, MAP@5: 0.2270, MAP@50: 0.1263
+Step: 160/3800, batch_cost: 0.3310, loss: 15.8980, loss_ori: 3.1572, loss_kd: 3.2690 loss_box: 1.8318 loss_obj: 0.3929 loss_cls: 0.9326 ETA: 01:14:52
+Step: 170/3800, batch_cost: 0.4966, loss: 16.0144, loss_ori: 3.4097, loss_kd: 2.3757 loss_box: 1.8742 loss_obj: 0.3989 loss_cls: 1.1366 ETA: 01:12:11
+Epoch: 9/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.3425, R: 0.2020, MAP@5: 0.2106, MAP@50: 0.1170
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7685, R: 0.6887, MAP@5: 0.7199, MAP@50: 0.4277
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2231, R: 0.1911, MAP@5: 0.2160, MAP@50: 0.1212
+Step: 180/3800, batch_cost: 0.7871, loss: 16.6948, loss_ori: 3.3412, loss_kd: 3.3301 loss_box: 1.8322 loss_obj: 0.3429 loss_cls: 1.1661 ETA: 01:13:19
+Step: 190/3800, batch_cost: 0.1811, loss: 15.1727, loss_ori: 3.2162, loss_kd: 2.3080 loss_box: 1.8284 loss_obj: 0.3632 loss_cls: 1.0246 ETA: 01:10:46
+Epoch: 10/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.3588, R: 0.2141, MAP@5: 0.2083, MAP@50: 0.1161
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:08
+Preds: 1114, Labels: 1697, P: 0.7757, R: 0.6739, MAP@5: 0.7134, MAP@50: 0.4183
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2671, R: 0.1942, MAP@5: 0.2032, MAP@50: 0.1104
+Step: 200/3800, batch_cost: 0.4672, loss: 15.8391, loss_ori: 3.6043, loss_kd: 1.4220 loss_box: 2.0522 loss_obj: 0.4429 loss_cls: 1.1092 ETA: 01:12:08
+Epoch: 11/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3632, R: 0.2301, MAP@5: 0.2211, MAP@50: 0.1188
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7621, R: 0.6855, MAP@5: 0.7167, MAP@50: 0.4180
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2888, R: 0.2212, MAP@5: 0.2150, MAP@50: 0.1104
+Step: 210/3800, batch_cost: 10.8671, loss: 11.1776, loss_ori: 2.5426, loss_kd: 1.0074 loss_box: 1.3246 loss_obj: 0.2219 loss_cls: 0.9961 ETA: 01:12:52
+Step: 220/3800, batch_cost: 0.7542, loss: 15.2039, loss_ori: 3.3275, loss_kd: 1.8937 loss_box: 1.8535 loss_obj: 0.4374 loss_cls: 1.0367 ETA: 01:11:03
+Epoch: 12/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.2855, R: 0.2349, MAP@5: 0.2055, MAP@50: 0.1089
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7307, R: 0.7128, MAP@5: 0.7159, MAP@50: 0.4180
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2325, R: 0.2149, MAP@5: 0.2160, MAP@50: 0.1113
+Step: 230/3800, batch_cost: 0.4832, loss: 20.4774, loss_ori: 2.8779, loss_kd: 8.9656 loss_box: 1.9210 loss_obj: 0.2396 loss_cls: 0.7174 ETA: 01:11:36
+Step: 240/3800, batch_cost: 0.7869, loss: 16.0935, loss_ori: 3.1810, loss_kd: 3.3697 loss_box: 1.8651 loss_obj: 0.3958 loss_cls: 0.9200 ETA: 01:09:43
+Epoch: 13/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.2902, R: 0.2359, MAP@5: 0.2079, MAP@50: 0.1106
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7597, R: 0.7083, MAP@5: 0.7200, MAP@50: 0.4203
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2184, R: 0.2102, MAP@5: 0.2215, MAP@50: 0.1214
+Step: 250/3800, batch_cost: 0.2451, loss: 14.1149, loss_ori: 3.0937, loss_kd: 1.7401 loss_box: 1.7090 loss_obj: 0.4751 loss_cls: 0.9096 ETA: 01:10:13
+Step: 260/3800, batch_cost: 0.4851, loss: 14.8319, loss_ori: 3.1783, loss_kd: 2.1189 loss_box: 1.7885 loss_obj: 0.4151 loss_cls: 0.9747 ETA: 01:08:29
+Epoch: 14/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3502, R: 0.2373, MAP@5: 0.2471, MAP@50: 0.1313
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7508, R: 0.7152, MAP@5: 0.7204, MAP@50: 0.4187
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3209, R: 0.2107, MAP@5: 0.2440, MAP@50: 0.1342
+Step: 270/3800, batch_cost: 0.7871, loss: 19.6360, loss_ori: 3.1545, loss_kd: 7.0181 loss_box: 1.8705 loss_obj: 0.3377 loss_cls: 0.9463 ETA: 01:09:04
+Step: 280/3800, batch_cost: 0.2147, loss: 17.5586, loss_ori: 3.3053, loss_kd: 4.3374 loss_box: 1.8548 loss_obj: 0.3939 loss_cls: 1.0566 ETA: 01:07:24
+Epoch: 15/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3332, R: 0.2822, MAP@5: 0.2503, MAP@50: 0.1339
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7396, R: 0.7218, MAP@5: 0.7204, MAP@50: 0.4168
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.7484, R: 0.2080, MAP@5: 0.2394, MAP@50: 0.1302
+Step: 290/3800, batch_cost: 0.4846, loss: 18.8764, loss_ori: 3.5322, loss_kd: 4.7478 loss_box: 1.9177 loss_obj: 0.3983 loss_cls: 1.2162 ETA: 01:07:53
+Step: 300/3800, batch_cost: 0.7867, loss: 17.9641, loss_ori: 3.6633, loss_kd: 3.3110 loss_box: 1.8592 loss_obj: 0.4414 loss_cls: 1.3626 ETA: 01:06:27
+Epoch: 16/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.2831, R: 0.1919, MAP@5: 0.2084, MAP@50: 0.1116
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7488, R: 0.7045, MAP@5: 0.7148, MAP@50: 0.4123
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4479, R: 0.2187, MAP@5: 0.2126, MAP@50: 0.1215
+Step: 310/3800, batch_cost: 0.2437, loss: 14.9221, loss_ori: 3.2227, loss_kd: 2.0311 loss_box: 1.8228 loss_obj: 0.3919 loss_cls: 1.0080 ETA: 01:07:02
+Step: 320/3800, batch_cost: 0.4903, loss: 15.1428, loss_ori: 3.1990, loss_kd: 2.3468 loss_box: 1.7995 loss_obj: 0.4017 loss_cls: 0.9978 ETA: 01:05:40
+Epoch: 17/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3486, R: 0.2166, MAP@5: 0.2319, MAP@50: 0.1174
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7322, R: 0.7001, MAP@5: 0.7099, MAP@50: 0.4110
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5174, R: 0.2332, MAP@5: 0.2338, MAP@50: 0.1330
+Step: 330/3800, batch_cost: 0.7872, loss: 18.0598, loss_ori: 2.9414, loss_kd: 6.2941 loss_box: 1.7486 loss_obj: 0.3983 loss_cls: 0.7945 ETA: 01:06:10
+Step: 340/3800, batch_cost: 0.2131, loss: 15.9034, loss_ori: 2.9934, loss_kd: 3.9298 loss_box: 1.7731 loss_obj: 0.3759 loss_cls: 0.8443 ETA: 01:04:50
+Epoch: 18/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.2892, R: 0.2476, MAP@5: 0.2431, MAP@50: 0.1239
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7621, R: 0.6826, MAP@5: 0.7128, MAP@50: 0.4156
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4749, R: 0.2316, MAP@5: 0.2323, MAP@50: 0.1364
+Step: 350/3800, batch_cost: 0.4871, loss: 16.6854, loss_ori: 3.1531, loss_kd: 4.0729 loss_box: 1.8769 loss_obj: 0.3918 loss_cls: 0.8844 ETA: 01:05:15
+Step: 360/3800, batch_cost: 0.9303, loss: 15.9143, loss_ori: 3.1343, loss_kd: 3.3771 loss_box: 1.8129 loss_obj: 0.4214 loss_cls: 0.9000 ETA: 01:04:13
+Epoch: 19/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.2951, R: 0.2152, MAP@5: 0.2384, MAP@50: 0.1208
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7540, R: 0.6928, MAP@5: 0.7121, MAP@50: 0.4211
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3126, R: 0.2070, MAP@5: 0.2290, MAP@50: 0.1234
+Step: 370/3800, batch_cost: 0.2136, loss: 14.8462, loss_ori: 2.8361, loss_kd: 3.5019 loss_box: 1.6860 loss_obj: 0.2829 loss_cls: 0.8671 ETA: 01:04:44
+Step: 380/3800, batch_cost: 0.4129, loss: 15.6385, loss_ori: 2.9022, loss_kd: 4.0299 loss_box: 1.6949 loss_obj: 0.3086 loss_cls: 0.8986 ETA: 01:03:34
+Epoch: 20/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3133, R: 0.2547, MAP@5: 0.2242, MAP@50: 0.1165
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7503, R: 0.6921, MAP@5: 0.7016, MAP@50: 0.4170
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3383, R: 0.1737, MAP@5: 0.2304, MAP@50: 0.1219
+Step: 390/3800, batch_cost: 0.7912, loss: 15.4205, loss_ori: 2.8687, loss_kd: 3.9458 loss_box: 1.6850 loss_obj: 0.3734 loss_cls: 0.8103 ETA: 01:03:59
+Epoch: 21/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4016, R: 0.2845, MAP@5: 0.2580, MAP@50: 0.1413
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7593, R: 0.7000, MAP@5: 0.7194, MAP@50: 0.4263
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3472, R: 0.2247, MAP@5: 0.2519, MAP@50: 0.1322
+Step: 400/3800, batch_cost: 10.4074, loss: 14.0037, loss_ori: 3.0803, loss_kd: 1.6823 loss_box: 2.0147 loss_obj: 0.2560 loss_cls: 0.8096 ETA: 01:04:17
+Step: 410/3800, batch_cost: 0.4838, loss: 14.9359, loss_ori: 2.9517, loss_kd: 3.1292 loss_box: 1.7654 loss_obj: 0.3535 loss_cls: 0.8328 ETA: 01:03:13
+Epoch: 22/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:03
+Preds: 293, Labels: 270, P: 0.3383, R: 0.2593, MAP@5: 0.2526, MAP@50: 0.1352
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7431, R: 0.6988, MAP@5: 0.7155, MAP@50: 0.4236
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3301, R: 0.2223, MAP@5: 0.2368, MAP@50: 0.1246
+Step: 420/3800, batch_cost: 0.7921, loss: 20.5627, loss_ori: 3.5722, loss_kd: 6.2740 loss_box: 1.7640 loss_obj: 0.4523 loss_cls: 1.3559 ETA: 01:03:53
+Step: 430/3800, batch_cost: 0.2243, loss: 15.9775, loss_ori: 3.1012, loss_kd: 3.5726 loss_box: 1.7622 loss_obj: 0.4067 loss_cls: 0.9323 ETA: 01:02:50
+Epoch: 23/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3203, R: 0.2055, MAP@5: 0.2474, MAP@50: 0.1339
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7365, R: 0.6933, MAP@5: 0.7083, MAP@50: 0.4179
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3307, R: 0.2022, MAP@5: 0.2317, MAP@50: 0.1364
+Step: 440/3800, batch_cost: 0.4770, loss: 17.8950, loss_ori: 2.8601, loss_kd: 6.4548 loss_box: 1.7259 loss_obj: 0.2788 loss_cls: 0.8554 ETA: 01:03:08
+Step: 450/3800, batch_cost: 0.7905, loss: 17.4225, loss_ori: 3.3469, loss_kd: 4.0349 loss_box: 1.8511 loss_obj: 0.4352 loss_cls: 1.0606 ETA: 01:02:12
+Epoch: 24/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4121, R: 0.1817, MAP@5: 0.2754, MAP@50: 0.1450
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7167, R: 0.7059, MAP@5: 0.7036, MAP@50: 0.4162
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4420, R: 0.1550, MAP@5: 0.2155, MAP@50: 0.1283
+Step: 460/3800, batch_cost: 0.2145, loss: 13.8773, loss_ori: 3.1209, loss_kd: 1.3939 loss_box: 1.7861 loss_obj: 0.4440 loss_cls: 0.8908 ETA: 01:02:26
+Step: 470/3800, batch_cost: 0.4853, loss: 14.2091, loss_ori: 3.1093, loss_kd: 1.7719 loss_box: 1.8071 loss_obj: 0.3871 loss_cls: 0.9151 ETA: 01:01:31
+Epoch: 25/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4125, R: 0.2626, MAP@5: 0.2922, MAP@50: 0.1451
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7314, R: 0.7170, MAP@5: 0.7130, MAP@50: 0.4207
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2659, R: 0.1942, MAP@5: 0.2275, MAP@50: 0.1324
+Step: 480/3800, batch_cost: 0.7882, loss: 12.9203, loss_ori: 2.7132, loss_kd: 2.0673 loss_box: 1.6353 loss_obj: 0.3127 loss_cls: 0.7653 ETA: 01:01:49
+Step: 490/3800, batch_cost: 0.2134, loss: 13.9857, loss_ori: 2.9022, loss_kd: 2.3770 loss_box: 1.7289 loss_obj: 0.3549 loss_cls: 0.8185 ETA: 01:00:54
+Epoch: 26/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4341, R: 0.3313, MAP@5: 0.3096, MAP@50: 0.1604
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7302, R: 0.7111, MAP@5: 0.7053, MAP@50: 0.4197
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2747, R: 0.2166, MAP@5: 0.2432, MAP@50: 0.1393
+Step: 500/3800, batch_cost: 0.4869, loss: 15.0168, loss_ori: 2.9023, loss_kd: 3.4075 loss_box: 1.7785 loss_obj: 0.4005 loss_cls: 0.7233 ETA: 01:01:09
+Step: 510/3800, batch_cost: 0.7898, loss: 14.7350, loss_ori: 3.0249, loss_kd: 2.6353 loss_box: 1.7817 loss_obj: 0.4056 loss_cls: 0.8376 ETA: 01:00:20
+Epoch: 27/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3910, R: 0.2425, MAP@5: 0.2997, MAP@50: 0.1599
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7260, R: 0.6967, MAP@5: 0.7011, MAP@50: 0.4146
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2809, R: 0.1933, MAP@5: 0.2233, MAP@50: 0.1288
+Step: 520/3800, batch_cost: 0.2134, loss: 13.8724, loss_ori: 3.0546, loss_kd: 1.6541 loss_box: 1.7963 loss_obj: 0.3721 loss_cls: 0.8862 ETA: 01:00:32
+Step: 530/3800, batch_cost: 0.4854, loss: 16.8459, loss_ori: 2.9103, loss_kd: 5.2048 loss_box: 1.7331 loss_obj: 0.3269 loss_cls: 0.8503 ETA: 00:59:44
+Epoch: 28/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3756, R: 0.3047, MAP@5: 0.3079, MAP@50: 0.1648
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7499, R: 0.6967, MAP@5: 0.7217, MAP@50: 0.4280
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3046, R: 0.2172, MAP@5: 0.2308, MAP@50: 0.1317
+Step: 540/3800, batch_cost: 0.7880, loss: 13.4972, loss_ori: 2.6724, loss_kd: 2.8077 loss_box: 1.5622 loss_obj: 0.3404 loss_cls: 0.7698 ETA: 00:59:59
+Step: 550/3800, batch_cost: 0.2147, loss: 14.9152, loss_ori: 2.8815, loss_kd: 3.3894 loss_box: 1.6912 loss_obj: 0.3688 loss_cls: 0.8215 ETA: 00:59:10
+Epoch: 29/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3705, R: 0.3354, MAP@5: 0.3112, MAP@50: 0.1640
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7705, R: 0.6777, MAP@5: 0.7223, MAP@50: 0.4305
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2545, R: 0.2067, MAP@5: 0.2341, MAP@50: 0.1314
+Step: 560/3800, batch_cost: 0.5405, loss: 17.3415, loss_ori: 2.9209, loss_kd: 5.6578 loss_box: 1.6834 loss_obj: 0.3967 loss_cls: 0.8408 ETA: 00:59:26
+Step: 570/3800, batch_cost: 0.6071, loss: 15.8836, loss_ori: 2.9384, loss_kd: 4.1300 loss_box: 1.6806 loss_obj: 0.3695 loss_cls: 0.8883 ETA: 00:58:43
+Epoch: 30/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3154, R: 0.3217, MAP@5: 0.3151, MAP@50: 0.1690
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7650, R: 0.6938, MAP@5: 0.7296, MAP@50: 0.4388
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3301, R: 0.2370, MAP@5: 0.2478, MAP@50: 0.1329
+Step: 580/3800, batch_cost: 0.2151, loss: 20.6566, loss_ori: 2.9466, loss_kd: 8.8704 loss_box: 1.7748 loss_obj: 0.3657 loss_cls: 0.8061 ETA: 00:58:54
+Epoch: 31/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3592, R: 0.3337, MAP@5: 0.3077, MAP@50: 0.1677
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7430, R: 0.7166, MAP@5: 0.7293, MAP@50: 0.4376
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3358, R: 0.2315, MAP@5: 0.2441, MAP@50: 0.1319
+Step: 590/3800, batch_cost: 10.4934, loss: 10.8773, loss_ori: 2.5544, loss_kd: 0.6596 loss_box: 1.3989 loss_obj: 0.5262 loss_cls: 0.6293 ETA: 00:59:05
+Step: 600/3800, batch_cost: 0.7877, loss: 13.6713, loss_ori: 3.0626, loss_kd: 1.4211 loss_box: 1.8209 loss_obj: 0.3702 loss_cls: 0.8715 ETA: 00:58:23
+Epoch: 32/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3157, R: 0.3045, MAP@5: 0.3089, MAP@50: 0.1671
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7519, R: 0.6981, MAP@5: 0.7265, MAP@50: 0.4352
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2959, R: 0.2653, MAP@5: 0.2517, MAP@50: 0.1476
+Step: 610/3800, batch_cost: 0.2126, loss: 14.5166, loss_ori: 3.3764, loss_kd: 1.0110 loss_box: 1.8775 loss_obj: 0.5873 loss_cls: 0.9116 ETA: 00:58:31
+Step: 620/3800, batch_cost: 0.4857, loss: 14.7554, loss_ori: 3.0671, loss_kd: 2.4872 loss_box: 1.8051 loss_obj: 0.4001 loss_cls: 0.8618 ETA: 00:57:49
+Epoch: 33/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3088, R: 0.3075, MAP@5: 0.2989, MAP@50: 0.1669
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7534, R: 0.6870, MAP@5: 0.7215, MAP@50: 0.4289
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2792, R: 0.2285, MAP@5: 0.2514, MAP@50: 0.1458
+Step: 630/3800, batch_cost: 0.7859, loss: 12.9188, loss_ori: 3.0258, loss_kd: 0.8155 loss_box: 1.9548 loss_obj: 0.2855 loss_cls: 0.7855 ETA: 00:58:00
+Step: 640/3800, batch_cost: 0.2137, loss: 14.0486, loss_ori: 2.9518, loss_kd: 2.2414 loss_box: 1.8099 loss_obj: 0.3813 loss_cls: 0.7606 ETA: 00:57:18
+Epoch: 34/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3506, R: 0.3546, MAP@5: 0.3112, MAP@50: 0.1744
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7576, R: 0.6908, MAP@5: 0.7226, MAP@50: 0.4285
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2663, R: 0.2248, MAP@5: 0.2431, MAP@50: 0.1441
+Step: 650/3800, batch_cost: 0.4880, loss: 13.1610, loss_ori: 3.0789, loss_kd: 0.8453 loss_box: 1.6514 loss_obj: 0.3659 loss_cls: 1.0617 ETA: 00:57:27
+Step: 660/3800, batch_cost: 0.7892, loss: 14.6895, loss_ori: 2.8656, loss_kd: 3.2273 loss_box: 1.6178 loss_obj: 0.2917 loss_cls: 0.9561 ETA: 00:56:49
+Epoch: 35/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3541, R: 0.3858, MAP@5: 0.3292, MAP@50: 0.1849
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:08
+Preds: 1114, Labels: 1697, P: 0.7545, R: 0.6933, MAP@5: 0.7194, MAP@50: 0.4294
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2615, R: 0.2494, MAP@5: 0.2459, MAP@50: 0.1406
+Step: 670/3800, batch_cost: 0.2156, loss: 14.5546, loss_ori: 3.1363, loss_kd: 2.0095 loss_box: 1.8258 loss_obj: 0.4164 loss_cls: 0.8942 ETA: 00:57:00
+Step: 680/3800, batch_cost: 0.4876, loss: 15.5559, loss_ori: 3.1569, loss_kd: 2.9284 loss_box: 1.8557 loss_obj: 0.4203 loss_cls: 0.8810 ETA: 00:56:22
+Epoch: 36/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3726, R: 0.3365, MAP@5: 0.3380, MAP@50: 0.1852
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7224, R: 0.7028, MAP@5: 0.7064, MAP@50: 0.4195
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2886, R: 0.2367, MAP@5: 0.2303, MAP@50: 0.1266
+Step: 690/3800, batch_cost: 0.8513, loss: 14.4906, loss_ori: 2.7483, loss_kd: 3.4974 loss_box: 1.6491 loss_obj: 0.3647 loss_cls: 0.7345 ETA: 00:56:33
+Step: 700/3800, batch_cost: 0.2231, loss: 15.8625, loss_ori: 2.9786, loss_kd: 3.9480 loss_box: 1.7560 loss_obj: 0.3844 loss_cls: 0.8383 ETA: 00:55:56
+Epoch: 37/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.3258, R: 0.3019, MAP@5: 0.2993, MAP@50: 0.1713
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7094, R: 0.7056, MAP@5: 0.7024, MAP@50: 0.4194
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2386, R: 0.1739, MAP@5: 0.2067, MAP@50: 0.1190
+Step: 710/3800, batch_cost: 0.4880, loss: 15.3273, loss_ori: 3.1474, loss_kd: 2.7379 loss_box: 1.8394 loss_obj: 0.4110 loss_cls: 0.8969 ETA: 00:56:03
+Step: 720/3800, batch_cost: 0.7895, loss: 17.0821, loss_ori: 3.1076, loss_kd: 4.6516 loss_box: 1.8010 loss_obj: 0.3950 loss_cls: 0.9116 ETA: 00:55:28
+Epoch: 38/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3728, R: 0.2937, MAP@5: 0.2990, MAP@50: 0.1665
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7384, R: 0.6790, MAP@5: 0.7010, MAP@50: 0.4183
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2632, R: 0.1871, MAP@5: 0.2186, MAP@50: 0.1249
+Step: 730/3800, batch_cost: 0.2150, loss: 13.7778, loss_ori: 3.0288, loss_kd: 1.6627 loss_box: 1.7911 loss_obj: 0.4133 loss_cls: 0.8244 ETA: 00:55:35
+Step: 740/3800, batch_cost: 0.4873, loss: 13.5956, loss_ori: 2.9438, loss_kd: 1.8203 loss_box: 1.7162 loss_obj: 0.3593 loss_cls: 0.8684 ETA: 00:54:59
+Epoch: 39/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3873, R: 0.3110, MAP@5: 0.3198, MAP@50: 0.1752
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7505, R: 0.6724, MAP@5: 0.6986, MAP@50: 0.4199
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2685, R: 0.2049, MAP@5: 0.2240, MAP@50: 0.1302
+Step: 750/3800, batch_cost: 0.7911, loss: 14.0603, loss_ori: 2.8784, loss_kd: 2.5469 loss_box: 1.6895 loss_obj: 0.3891 loss_cls: 0.7998 ETA: 00:55:07
+Step: 760/3800, batch_cost: 0.1401, loss: 13.3053, loss_ori: 2.7740, loss_kd: 2.2093 loss_box: 1.6526 loss_obj: 0.3649 loss_cls: 0.7564 ETA: 00:54:31
+Epoch: 40/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4274, R: 0.3032, MAP@5: 0.3299, MAP@50: 0.1856
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7536, R: 0.6801, MAP@5: 0.7020, MAP@50: 0.4241
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3133, R: 0.2067, MAP@5: 0.2352, MAP@50: 0.1363
+Step: 770/3800, batch_cost: 0.4869, loss: 14.0268, loss_ori: 2.8802, loss_kd: 2.5060 loss_box: 1.7498 loss_obj: 0.3466 loss_cls: 0.7837 ETA: 00:54:38
+Epoch: 41/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4049, R: 0.3323, MAP@5: 0.3370, MAP@50: 0.1908
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7698, R: 0.6655, MAP@5: 0.7081, MAP@50: 0.4326
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5446, R: 0.1956, MAP@5: 0.2474, MAP@50: 0.1444
+Step: 780/3800, batch_cost: 11.0854, loss: 16.5832, loss_ori: 3.7719, loss_kd: 1.4957 loss_box: 2.0746 loss_obj: 0.7583 loss_cls: 0.9390 ETA: 00:54:45
+Step: 790/3800, batch_cost: 0.2153, loss: 16.5914, loss_ori: 3.0220, loss_kd: 4.5036 loss_box: 1.7680 loss_obj: 0.4409 loss_cls: 0.8130 ETA: 00:54:11
+Epoch: 42/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4156, R: 0.3380, MAP@5: 0.3450, MAP@50: 0.1963
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7206, R: 0.7022, MAP@5: 0.7116, MAP@50: 0.4328
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3056, R: 0.2465, MAP@5: 0.2540, MAP@50: 0.1437
+Step: 800/3800, batch_cost: 0.4868, loss: 14.6077, loss_ori: 3.4004, loss_kd: 1.0062 loss_box: 1.8285 loss_obj: 0.5416 loss_cls: 1.0303 ETA: 00:54:16
+Step: 810/3800, batch_cost: 0.8275, loss: 13.9749, loss_ori: 2.8437, loss_kd: 2.6003 loss_box: 1.6981 loss_obj: 0.3545 loss_cls: 0.7911 ETA: 00:53:45
+Epoch: 43/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3915, R: 0.3212, MAP@5: 0.3154, MAP@50: 0.1764
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7151, R: 0.6999, MAP@5: 0.7058, MAP@50: 0.4271
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2769, R: 0.2711, MAP@5: 0.2602, MAP@50: 0.1420
+Step: 820/3800, batch_cost: 0.2143, loss: 16.2649, loss_ori: 3.0301, loss_kd: 4.1446 loss_box: 1.7989 loss_obj: 0.3650 loss_cls: 0.8662 ETA: 00:53:49
+Step: 830/3800, batch_cost: 0.4876, loss: 15.1605, loss_ori: 3.0277, loss_kd: 3.0498 loss_box: 1.8178 loss_obj: 0.3641 loss_cls: 0.8458 ETA: 00:53:17
+Epoch: 44/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3794, R: 0.3179, MAP@5: 0.3236, MAP@50: 0.1773
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7172, R: 0.6967, MAP@5: 0.7051, MAP@50: 0.4254
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2722, R: 0.2214, MAP@5: 0.2512, MAP@50: 0.1359
+Step: 840/3800, batch_cost: 0.7901, loss: 14.8814, loss_ori: 3.2715, loss_kd: 1.7953 loss_box: 1.8185 loss_obj: 0.5508 loss_cls: 0.9022 ETA: 00:53:23
+Step: 850/3800, batch_cost: 0.2159, loss: 14.5302, loss_ori: 3.1916, loss_kd: 1.7638 loss_box: 1.8037 loss_obj: 0.4885 loss_cls: 0.8994 ETA: 00:52:51
+Epoch: 45/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3879, R: 0.3339, MAP@5: 0.3612, MAP@50: 0.2037
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7153, R: 0.7059, MAP@5: 0.7063, MAP@50: 0.4318
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3048, R: 0.2199, MAP@5: 0.2513, MAP@50: 0.1403
+Step: 860/3800, batch_cost: 0.4870, loss: 13.5238, loss_ori: 2.7917, loss_kd: 2.3572 loss_box: 1.6893 loss_obj: 0.3634 loss_cls: 0.7390 ETA: 00:52:55
+Step: 870/3800, batch_cost: 0.8288, loss: 14.9348, loss_ori: 2.8153, loss_kd: 3.6737 loss_box: 1.7092 loss_obj: 0.3658 loss_cls: 0.7402 ETA: 00:52:25
+Epoch: 46/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4530, R: 0.4250, MAP@5: 0.4028, MAP@50: 0.2276
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7094, R: 0.7063, MAP@5: 0.7070, MAP@50: 0.4336
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2968, R: 0.2289, MAP@5: 0.2411, MAP@50: 0.1396
+Step: 880/3800, batch_cost: 0.2153, loss: 15.7492, loss_ori: 2.7318, loss_kd: 4.8221 loss_box: 1.6715 loss_obj: 0.3323 loss_cls: 0.7280 ETA: 00:52:28
+Step: 890/3800, batch_cost: 0.4875, loss: 13.7129, loss_ori: 2.7408, loss_kd: 2.7497 loss_box: 1.6705 loss_obj: 0.3874 loss_cls: 0.6829 ETA: 00:51:59
+Epoch: 47/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4505, R: 0.4204, MAP@5: 0.4034, MAP@50: 0.2284
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7171, R: 0.7004, MAP@5: 0.7082, MAP@50: 0.4343
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3260, R: 0.2275, MAP@5: 0.2414, MAP@50: 0.1372
+Step: 900/3800, batch_cost: 0.7898, loss: 15.5102, loss_ori: 2.7207, loss_kd: 4.6272 loss_box: 1.6232 loss_obj: 0.3952 loss_cls: 0.7023 ETA: 00:52:03
+Step: 910/3800, batch_cost: 0.2136, loss: 14.1589, loss_ori: 2.7741, loss_kd: 3.0627 loss_box: 1.6249 loss_obj: 0.3814 loss_cls: 0.7677 ETA: 00:51:33
+Epoch: 48/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3878, R: 0.3699, MAP@5: 0.3858, MAP@50: 0.2167
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7040, R: 0.7253, MAP@5: 0.7182, MAP@50: 0.4350
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3516, R: 0.2403, MAP@5: 0.2612, MAP@50: 0.1443
+Step: 920/3800, batch_cost: 0.4867, loss: 13.9800, loss_ori: 2.6464, loss_kd: 3.3944 loss_box: 1.6652 loss_obj: 0.2804 loss_cls: 0.7007 ETA: 00:51:36
+Step: 930/3800, batch_cost: 1.1635, loss: 14.0954, loss_ori: 2.7295, loss_kd: 3.1773 loss_box: 1.6899 loss_obj: 0.3265 loss_cls: 0.7131 ETA: 00:51:10
+Epoch: 49/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:04
+Preds: 293, Labels: 270, P: 0.3788, R: 0.3975, MAP@5: 0.3838, MAP@50: 0.2202
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7282, R: 0.6943, MAP@5: 0.7218, MAP@50: 0.4330
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3848, R: 0.2461, MAP@5: 0.2715, MAP@50: 0.1471
+Step: 940/3800, batch_cost: 0.2144, loss: 14.0781, loss_ori: 2.8173, loss_kd: 2.8088 loss_box: 1.6876 loss_obj: 0.3616 loss_cls: 0.7681 ETA: 00:51:21
+Step: 950/3800, batch_cost: 0.4030, loss: 15.2639, loss_ori: 2.8215, loss_kd: 3.9779 loss_box: 1.6770 loss_obj: 0.3833 loss_cls: 0.7612 ETA: 00:50:53
+Epoch: 50/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4424, R: 0.4685, MAP@5: 0.3824, MAP@50: 0.2162
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7207, R: 0.6951, MAP@5: 0.7137, MAP@50: 0.4310
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3157, R: 0.2469, MAP@5: 0.2608, MAP@50: 0.1362
+Step: 960/3800, batch_cost: 0.7900, loss: 12.6539, loss_ori: 2.8656, loss_kd: 1.1916 loss_box: 1.7141 loss_obj: 0.4024 loss_cls: 0.7491 ETA: 00:50:56
+Epoch: 51/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3948, R: 0.3832, MAP@5: 0.3691, MAP@50: 0.2087
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7097, R: 0.6871, MAP@5: 0.7076, MAP@50: 0.4286
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3151, R: 0.2632, MAP@5: 0.2703, MAP@50: 0.1448
+Step: 970/3800, batch_cost: 10.4855, loss: 11.9052, loss_ori: 2.4504, loss_kd: 2.1036 loss_box: 1.5330 loss_obj: 0.3779 loss_cls: 0.5395 ETA: 00:50:57
+Step: 980/3800, batch_cost: 0.4864, loss: 13.2240, loss_ori: 2.9287, loss_kd: 1.5093 loss_box: 1.7547 loss_obj: 0.4434 loss_cls: 0.7305 ETA: 00:50:30
+Epoch: 52/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5729, R: 0.3189, MAP@5: 0.3345, MAP@50: 0.1910
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7205, R: 0.6671, MAP@5: 0.6980, MAP@50: 0.4171
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4848, R: 0.2495, MAP@5: 0.2593, MAP@50: 0.1438
+Step: 990/3800, batch_cost: 0.7789, loss: 11.9211, loss_ori: 1.7114, loss_kd: 5.0754 loss_box: 1.1134 loss_obj: 0.2287 loss_cls: 0.3693 ETA: 00:50:32
+Step: 1000/3800, batch_cost: 0.2144, loss: 15.9777, loss_ori: 2.5418, loss_kd: 5.8105 loss_box: 1.5530 loss_obj: 0.3281 loss_cls: 0.6608 ETA: 00:50:04
+Epoch: 53/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.3530, R: 0.3385, MAP@5: 0.3544, MAP@50: 0.2001
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7261, R: 0.6725, MAP@5: 0.7064, MAP@50: 0.4265
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4903, R: 0.2538, MAP@5: 0.2640, MAP@50: 0.1377
+Step: 1010/3800, batch_cost: 0.4738, loss: 12.2873, loss_ori: 2.8119, loss_kd: 1.0397 loss_box: 1.7858 loss_obj: 0.3180 loss_cls: 0.7080 ETA: 00:50:05
+Step: 1020/3800, batch_cost: 0.7926, loss: 13.3932, loss_ori: 2.7408, loss_kd: 2.4298 loss_box: 1.6397 loss_obj: 0.3314 loss_cls: 0.7697 ETA: 00:49:40
+Epoch: 54/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3565, R: 0.3432, MAP@5: 0.3365, MAP@50: 0.1936
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7404, R: 0.6680, MAP@5: 0.7112, MAP@50: 0.4334
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2925, R: 0.2276, MAP@5: 0.2474, MAP@50: 0.1205
+Step: 1030/3800, batch_cost: 0.2148, loss: 13.4991, loss_ori: 2.9457, loss_kd: 1.7163 loss_box: 1.7511 loss_obj: 0.4483 loss_cls: 0.7463 ETA: 00:49:40
+Step: 1040/3800, batch_cost: 0.4869, loss: 13.4427, loss_ori: 2.9460, loss_kd: 1.6585 loss_box: 1.7456 loss_obj: 0.4095 loss_cls: 0.7910 ETA: 00:49:14
+Epoch: 55/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3474, R: 0.3522, MAP@5: 0.3203, MAP@50: 0.1861
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7280, R: 0.6748, MAP@5: 0.7089, MAP@50: 0.4297
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2860, R: 0.2414, MAP@5: 0.2366, MAP@50: 0.1217
+Step: 1050/3800, batch_cost: 0.7915, loss: 13.7660, loss_ori: 2.9753, loss_kd: 1.8648 loss_box: 1.7730 loss_obj: 0.4022 loss_cls: 0.8001 ETA: 00:49:15
+Step: 1060/3800, batch_cost: 0.2303, loss: 12.6631, loss_ori: 2.7578, loss_kd: 1.6317 loss_box: 1.6899 loss_obj: 0.3332 loss_cls: 0.7348 ETA: 00:48:49
+Epoch: 56/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3316, R: 0.3578, MAP@5: 0.3182, MAP@50: 0.1858
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7137, R: 0.6898, MAP@5: 0.7084, MAP@50: 0.4254
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2925, R: 0.2278, MAP@5: 0.2437, MAP@50: 0.1267
+Step: 1070/3800, batch_cost: 0.4862, loss: 14.0674, loss_ori: 2.6387, loss_kd: 3.5127 loss_box: 1.5197 loss_obj: 0.3832 loss_cls: 0.7358 ETA: 00:48:49
+Step: 1080/3800, batch_cost: 0.7664, loss: 14.3459, loss_ori: 2.8192, loss_kd: 3.0693 loss_box: 1.6501 loss_obj: 0.4066 loss_cls: 0.7624 ETA: 00:48:25
+Epoch: 57/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3719, R: 0.4824, MAP@5: 0.3467, MAP@50: 0.2096
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7009, R: 0.6948, MAP@5: 0.7099, MAP@50: 0.4263
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3282, R: 0.2409, MAP@5: 0.2453, MAP@50: 0.1272
+Step: 1090/3800, batch_cost: 0.2143, loss: 15.8904, loss_ori: 2.5542, loss_kd: 5.6738 loss_box: 1.5803 loss_obj: 0.3295 loss_cls: 0.6444 ETA: 00:48:24
+Step: 1100/3800, batch_cost: 0.4874, loss: 14.1258, loss_ori: 2.7062, loss_kd: 3.3010 loss_box: 1.6485 loss_obj: 0.3505 loss_cls: 0.7072 ETA: 00:47:59
+Epoch: 58/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4033, R: 0.4449, MAP@5: 0.3834, MAP@50: 0.2285
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7313, R: 0.6774, MAP@5: 0.7101, MAP@50: 0.4275
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3230, R: 0.2330, MAP@5: 0.2390, MAP@50: 0.1274
+Step: 1110/3800, batch_cost: 0.7888, loss: 16.2915, loss_ori: 2.7915, loss_kd: 5.1253 loss_box: 1.7233 loss_obj: 0.3453 loss_cls: 0.7229 ETA: 00:48:00
+Step: 1120/3800, batch_cost: 0.2145, loss: 14.8851, loss_ori: 2.9340, loss_kd: 3.1492 loss_box: 1.7873 loss_obj: 0.3892 loss_cls: 0.7575 ETA: 00:47:35
+Epoch: 59/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4553, R: 0.5039, MAP@5: 0.3960, MAP@50: 0.2301
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7207, R: 0.6906, MAP@5: 0.7064, MAP@50: 0.4291
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3469, R: 0.2341, MAP@5: 0.2532, MAP@50: 0.1389
+Step: 1130/3800, batch_cost: 0.4875, loss: 16.3248, loss_ori: 2.8258, loss_kd: 5.0215 loss_box: 1.7035 loss_obj: 0.4091 loss_cls: 0.7132 ETA: 00:47:34
+Step: 1140/3800, batch_cost: 0.6120, loss: 14.9487, loss_ori: 2.7660, loss_kd: 3.8848 loss_box: 1.6637 loss_obj: 0.4087 loss_cls: 0.6935 ETA: 00:47:11
+Epoch: 60/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4628, R: 0.5592, MAP@5: 0.4017, MAP@50: 0.2324
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7083, R: 0.6950, MAP@5: 0.7070, MAP@50: 0.4285
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3491, R: 0.2282, MAP@5: 0.2484, MAP@50: 0.1359
+Step: 1150/3800, batch_cost: 0.2149, loss: 14.5334, loss_ori: 2.8475, loss_kd: 3.1434 loss_box: 1.6964 loss_obj: 0.4161 loss_cls: 0.7350 ETA: 00:47:10
+Epoch: 61/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4882, R: 0.4241, MAP@5: 0.4240, MAP@50: 0.2414
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7118, R: 0.6844, MAP@5: 0.7072, MAP@50: 0.4292
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2937, R: 0.2047, MAP@5: 0.2446, MAP@50: 0.1293
+Step: 1160/3800, batch_cost: 10.7406, loss: 10.6306, loss_ori: 2.3419, loss_kd: 1.2632 loss_box: 1.5305 loss_obj: 0.2183 loss_cls: 0.5931 ETA: 00:47:09
+Step: 1170/3800, batch_cost: 0.7900, loss: 12.6206, loss_ori: 2.7339, loss_kd: 1.6850 loss_box: 1.6853 loss_obj: 0.3220 loss_cls: 0.7266 ETA: 00:46:46
+Epoch: 62/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4819, R: 0.4611, MAP@5: 0.4260, MAP@50: 0.2450
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7074, R: 0.7003, MAP@5: 0.7065, MAP@50: 0.4287
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3290, R: 0.2381, MAP@5: 0.2517, MAP@50: 0.1335
+Step: 1180/3800, batch_cost: 0.2141, loss: 13.4939, loss_ori: 2.7686, loss_kd: 2.4193 loss_box: 1.6623 loss_obj: 0.3239 loss_cls: 0.7824 ETA: 00:46:45
+Step: 1190/3800, batch_cost: 0.4859, loss: 14.4252, loss_ori: 2.7090, loss_kd: 3.5893 loss_box: 1.7077 loss_obj: 0.3298 loss_cls: 0.6715 ETA: 00:46:21
+Epoch: 63/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6071, R: 0.5081, MAP@5: 0.5396, MAP@50: 0.3289
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7000, R: 0.6975, MAP@5: 0.7091, MAP@50: 0.4292
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5187, R: 0.2247, MAP@5: 0.2603, MAP@50: 0.1395
+Step: 1200/3800, batch_cost: 0.8284, loss: 11.6943, loss_ori: 2.3895, loss_kd: 2.1363 loss_box: 1.5166 loss_obj: 0.2245 loss_cls: 0.6485 ETA: 00:46:21
+Step: 1210/3800, batch_cost: 0.2512, loss: 13.5085, loss_ori: 2.7326, loss_kd: 2.5781 loss_box: 1.7006 loss_obj: 0.3204 loss_cls: 0.7117 ETA: 00:45:58
+Epoch: 64/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6140, R: 0.4793, MAP@5: 0.5441, MAP@50: 0.3311
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:11
+Preds: 1114, Labels: 1697, P: 0.7006, R: 0.7007, MAP@5: 0.7160, MAP@50: 0.4338
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5323, R: 0.2158, MAP@5: 0.2523, MAP@50: 0.1365
+Step: 1220/3800, batch_cost: 0.4869, loss: 12.2903, loss_ori: 2.7970, loss_kd: 1.1024 loss_box: 1.6955 loss_obj: 0.3348 loss_cls: 0.7666 ETA: 00:46:06
+Step: 1230/3800, batch_cost: 0.7885, loss: 12.3655, loss_ori: 2.6833, loss_kd: 1.6321 loss_box: 1.5923 loss_obj: 0.3427 loss_cls: 0.7484 ETA: 00:45:44
+Epoch: 65/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5423, R: 0.4343, MAP@5: 0.4568, MAP@50: 0.2659
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6988, R: 0.7023, MAP@5: 0.7185, MAP@50: 0.4385
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3361, R: 0.2363, MAP@5: 0.2583, MAP@50: 0.1420
+Step: 1240/3800, batch_cost: 0.2149, loss: 11.6283, loss_ori: 2.6453, loss_kd: 1.0470 loss_box: 1.6256 loss_obj: 0.3015 loss_cls: 0.7182 ETA: 00:45:41
+Step: 1250/3800, batch_cost: 0.4880, loss: 12.7860, loss_ori: 2.7219, loss_kd: 1.8983 loss_box: 1.6578 loss_obj: 0.3582 loss_cls: 0.7059 ETA: 00:45:19
+Epoch: 66/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4453, R: 0.4452, MAP@5: 0.4526, MAP@50: 0.2656
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7026, R: 0.7212, MAP@5: 0.7229, MAP@50: 0.4327
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3242, R: 0.2465, MAP@5: 0.2703, MAP@50: 0.1443
+Step: 1260/3800, batch_cost: 0.8264, loss: 12.3705, loss_ori: 2.6527, loss_kd: 1.7596 loss_box: 1.6849 loss_obj: 0.2831 loss_cls: 0.6848 ETA: 00:45:18
+Step: 1270/3800, batch_cost: 0.2142, loss: 12.4193, loss_ori: 2.6580, loss_kd: 1.7872 loss_box: 1.6742 loss_obj: 0.3068 loss_cls: 0.6771 ETA: 00:44:55
+Epoch: 67/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4155, R: 0.4952, MAP@5: 0.4323, MAP@50: 0.2459
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7029, R: 0.7150, MAP@5: 0.7214, MAP@50: 0.4358
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2919, R: 0.2332, MAP@5: 0.2550, MAP@50: 0.1355
+Step: 1280/3800, batch_cost: 0.4866, loss: 14.2382, loss_ori: 2.9317, loss_kd: 2.5115 loss_box: 1.7844 loss_obj: 0.3946 loss_cls: 0.7526 ETA: 00:44:53
+Step: 1290/3800, batch_cost: 0.7911, loss: 14.3841, loss_ori: 2.8861, loss_kd: 2.8396 loss_box: 1.7545 loss_obj: 0.3818 loss_cls: 0.7499 ETA: 00:44:32
+Epoch: 68/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4669, R: 0.4374, MAP@5: 0.5081, MAP@50: 0.3052
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7004, R: 0.7072, MAP@5: 0.7127, MAP@50: 0.4299
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3175, R: 0.2204, MAP@5: 0.2585, MAP@50: 0.1349
+Step: 1300/3800, batch_cost: 0.2156, loss: 13.0974, loss_ori: 2.7350, loss_kd: 2.1573 loss_box: 1.6488 loss_obj: 0.3572 loss_cls: 0.7290 ETA: 00:44:29
+Step: 1310/3800, batch_cost: 0.4854, loss: 13.1479, loss_ori: 2.6290, loss_kd: 2.6321 loss_box: 1.6617 loss_obj: 0.3225 loss_cls: 0.6448 ETA: 00:44:08
+Epoch: 69/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4499, R: 0.4413, MAP@5: 0.4406, MAP@50: 0.2695
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6922, R: 0.7134, MAP@5: 0.7083, MAP@50: 0.4233
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3392, R: 0.2370, MAP@5: 0.2555, MAP@50: 0.1400
+Step: 1320/3800, batch_cost: 0.8262, loss: 12.7227, loss_ori: 2.6499, loss_kd: 2.1229 loss_box: 1.6374 loss_obj: 0.3570 loss_cls: 0.6555 ETA: 00:44:06
+Step: 1330/3800, batch_cost: 0.1399, loss: 12.7327, loss_ori: 2.6757, loss_kd: 2.0300 loss_box: 1.6506 loss_obj: 0.3550 loss_cls: 0.6701 ETA: 00:43:44
+Epoch: 70/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4162, R: 0.4514, MAP@5: 0.4227, MAP@50: 0.2476
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7090, R: 0.6938, MAP@5: 0.7144, MAP@50: 0.4261
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4110, R: 0.2358, MAP@5: 0.2606, MAP@50: 0.1424
+Step: 1340/3800, batch_cost: 0.4872, loss: 12.1406, loss_ori: 2.5868, loss_kd: 1.7934 loss_box: 1.6120 loss_obj: 0.3218 loss_cls: 0.6530 ETA: 00:43:42
+Epoch: 71/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4314, R: 0.4713, MAP@5: 0.4327, MAP@50: 0.2508
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6993, R: 0.7016, MAP@5: 0.7118, MAP@50: 0.4272
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3182, R: 0.2208, MAP@5: 0.2608, MAP@50: 0.1453
+Step: 1350/3800, batch_cost: 11.1275, loss: 13.4432, loss_ori: 2.6868, loss_kd: 2.6961 loss_box: 1.6467 loss_obj: 0.2987 loss_cls: 0.7414 ETA: 00:43:40
+Step: 1360/3800, batch_cost: 0.2145, loss: 13.7240, loss_ori: 2.5773, loss_kd: 3.4146 loss_box: 1.5898 loss_obj: 0.3434 loss_cls: 0.6442 ETA: 00:43:19
+Epoch: 72/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5211, R: 0.5387, MAP@5: 0.4967, MAP@50: 0.2917
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:08
+Preds: 1114, Labels: 1697, P: 0.6851, R: 0.7237, MAP@5: 0.7170, MAP@50: 0.4272
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3580, R: 0.2199, MAP@5: 0.2593, MAP@50: 0.1436
+Step: 1370/3800, batch_cost: 0.4860, loss: 14.3722, loss_ori: 3.2149, loss_kd: 1.5128 loss_box: 1.9206 loss_obj: 0.3981 loss_cls: 0.8961 ETA: 00:43:20
+Step: 1380/3800, batch_cost: 0.7919, loss: 14.0429, loss_ori: 2.6633, loss_kd: 3.3897 loss_box: 1.6476 loss_obj: 0.3515 loss_cls: 0.6642 ETA: 00:43:00
+Epoch: 73/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4000, R: 0.4647, MAP@5: 0.4259, MAP@50: 0.2501
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7049, R: 0.7211, MAP@5: 0.7189, MAP@50: 0.4328
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4140, R: 0.2400, MAP@5: 0.2773, MAP@50: 0.1506
+Step: 1390/3800, batch_cost: 0.2134, loss: 12.7076, loss_ori: 2.7216, loss_kd: 1.8211 loss_box: 1.5631 loss_obj: 0.4747 loss_cls: 0.6839 ETA: 00:42:56
+Step: 1400/3800, batch_cost: 0.4886, loss: 13.5608, loss_ori: 2.9391, loss_kd: 1.8044 loss_box: 1.7555 loss_obj: 0.3992 loss_cls: 0.7844 ETA: 00:42:36
+Epoch: 74/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4231, R: 0.5680, MAP@5: 0.4238, MAP@50: 0.2451
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7172, R: 0.7090, MAP@5: 0.7127, MAP@50: 0.4299
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3544, R: 0.2588, MAP@5: 0.2629, MAP@50: 0.1519
+Step: 1410/3800, batch_cost: 0.7898, loss: 11.3952, loss_ori: 2.3112, loss_kd: 2.1505 loss_box: 1.5154 loss_obj: 0.2540 loss_cls: 0.5418 ETA: 00:42:33
+Step: 1420/3800, batch_cost: 0.2246, loss: 12.8438, loss_ori: 2.6753, loss_kd: 2.1428 loss_box: 1.6413 loss_obj: 0.3664 loss_cls: 0.6676 ETA: 00:42:13
+Epoch: 75/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4660, R: 0.6053, MAP@5: 0.4576, MAP@50: 0.2719
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7058, R: 0.7119, MAP@5: 0.7118, MAP@50: 0.4287
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3690, R: 0.2763, MAP@5: 0.2681, MAP@50: 0.1511
+Step: 1430/3800, batch_cost: 0.4869, loss: 11.5792, loss_ori: 2.4147, loss_kd: 1.9205 loss_box: 1.4689 loss_obj: 0.3940 loss_cls: 0.5518 ETA: 00:42:10
+Step: 1440/3800, batch_cost: 0.7921, loss: 12.9295, loss_ori: 2.5889, loss_kd: 2.5741 loss_box: 1.6015 loss_obj: 0.3637 loss_cls: 0.6237 ETA: 00:41:50
+Epoch: 76/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4957, R: 0.5864, MAP@5: 0.5516, MAP@50: 0.3534
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7157, R: 0.7140, MAP@5: 0.7190, MAP@50: 0.4316
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3755, R: 0.2800, MAP@5: 0.2628, MAP@50: 0.1492
+Step: 1450/3800, batch_cost: 0.2153, loss: 19.5264, loss_ori: 2.4750, loss_kd: 9.6266 loss_box: 1.5552 loss_obj: 0.3196 loss_cls: 0.6001 ETA: 00:41:46
+Step: 1460/3800, batch_cost: 0.4871, loss: 15.5649, loss_ori: 2.6363, loss_kd: 5.0197 loss_box: 1.6265 loss_obj: 0.3676 loss_cls: 0.6422 ETA: 00:41:26
+Epoch: 77/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5777, R: 0.5031, MAP@5: 0.5016, MAP@50: 0.3204
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7214, R: 0.6982, MAP@5: 0.7177, MAP@50: 0.4310
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3563, R: 0.2449, MAP@5: 0.2589, MAP@50: 0.1430
+Step: 1470/3800, batch_cost: 0.7925, loss: 11.5941, loss_ori: 2.5539, loss_kd: 1.3786 loss_box: 1.5310 loss_obj: 0.3470 loss_cls: 0.6758 ETA: 00:41:23
+Step: 1480/3800, batch_cost: 0.2157, loss: 12.4153, loss_ori: 2.7016, loss_kd: 1.6090 loss_box: 1.6418 loss_obj: 0.3495 loss_cls: 0.7103 ETA: 00:41:03
+Epoch: 78/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5994, R: 0.5103, MAP@5: 0.5244, MAP@50: 0.3422
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7228, R: 0.6700, MAP@5: 0.7084, MAP@50: 0.4245
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5579, R: 0.2357, MAP@5: 0.2582, MAP@50: 0.1426
+Step: 1490/3800, batch_cost: 0.4870, loss: 14.3472, loss_ori: 2.7983, loss_kd: 3.1539 loss_box: 1.7550 loss_obj: 0.3545 loss_cls: 0.6889 ETA: 00:41:00
+Step: 1500/3800, batch_cost: 0.7930, loss: 13.6144, loss_ori: 2.6121, loss_kd: 3.1658 loss_box: 1.6462 loss_obj: 0.3275 loss_cls: 0.6384 ETA: 00:40:41
+Epoch: 79/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5480, R: 0.5293, MAP@5: 0.4689, MAP@50: 0.2959
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7261, R: 0.6643, MAP@5: 0.7043, MAP@50: 0.4198
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5272, R: 0.2225, MAP@5: 0.2532, MAP@50: 0.1408
+Step: 1510/3800, batch_cost: 0.2153, loss: 11.3949, loss_ori: 2.4804, loss_kd: 1.4734 loss_box: 1.5689 loss_obj: 0.3125 loss_cls: 0.5990 ETA: 00:40:37
+Step: 1520/3800, batch_cost: 0.4152, loss: 12.2287, loss_ori: 2.6956, loss_kd: 1.4464 loss_box: 1.6360 loss_obj: 0.3720 loss_cls: 0.6876 ETA: 00:40:17
+Epoch: 80/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5222, R: 0.5289, MAP@5: 0.4757, MAP@50: 0.3061
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7102, R: 0.6731, MAP@5: 0.7008, MAP@50: 0.4227
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5136, R: 0.2145, MAP@5: 0.2437, MAP@50: 0.1356
+Step: 1530/3800, batch_cost: 0.7924, loss: 12.4964, loss_ori: 2.6731, loss_kd: 1.8040 loss_box: 1.6749 loss_obj: 0.2981 loss_cls: 0.7001 ETA: 00:40:14
+Epoch: 81/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4976, R: 0.5352, MAP@5: 0.4985, MAP@50: 0.3240
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6944, R: 0.6939, MAP@5: 0.7017, MAP@50: 0.4263
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5285, R: 0.2777, MAP@5: 0.2649, MAP@50: 0.1473
+Step: 1540/3800, batch_cost: 10.6622, loss: 15.0174, loss_ori: 2.8593, loss_kd: 3.5801 loss_box: 1.6739 loss_obj: 0.4144 loss_cls: 0.7710 ETA: 00:40:10
+Step: 1550/3800, batch_cost: 0.4848, loss: 13.9149, loss_ori: 2.5711, loss_kd: 3.6306 loss_box: 1.6557 loss_obj: 0.3136 loss_cls: 0.6018 ETA: 00:39:51
+Epoch: 82/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5172, R: 0.5370, MAP@5: 0.4892, MAP@50: 0.3170
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6887, R: 0.6750, MAP@5: 0.6991, MAP@50: 0.4240
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5103, R: 0.2429, MAP@5: 0.2682, MAP@50: 0.1408
+Step: 1560/3800, batch_cost: 0.7872, loss: 16.3832, loss_ori: 2.8046, loss_kd: 5.1646 loss_box: 1.8035 loss_obj: 0.2684 loss_cls: 0.7327 ETA: 00:39:47
+Step: 1570/3800, batch_cost: 0.2148, loss: 13.1628, loss_ori: 2.6383, loss_kd: 2.6095 loss_box: 1.6132 loss_obj: 0.3457 loss_cls: 0.6794 ETA: 00:39:28
+Epoch: 83/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5304, R: 0.4421, MAP@5: 0.5062, MAP@50: 0.3213
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:08
+Preds: 1114, Labels: 1697, P: 0.7133, R: 0.6851, MAP@5: 0.7064, MAP@50: 0.4257
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5033, R: 0.2420, MAP@5: 0.2585, MAP@50: 0.1348
+Step: 1580/3800, batch_cost: 0.4854, loss: 13.5248, loss_ori: 2.8844, loss_kd: 1.9874 loss_box: 1.7770 loss_obj: 0.3487 loss_cls: 0.7587 ETA: 00:39:26
+Step: 1590/3800, batch_cost: 0.7891, loss: 12.0907, loss_ori: 2.6583, loss_kd: 1.4575 loss_box: 1.6394 loss_obj: 0.3538 loss_cls: 0.6650 ETA: 00:39:08
+Epoch: 84/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4894, R: 0.4506, MAP@5: 0.4747, MAP@50: 0.2854
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7028, R: 0.6827, MAP@5: 0.7076, MAP@50: 0.4304
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3313, R: 0.2599, MAP@5: 0.2556, MAP@50: 0.1328
+Step: 1600/3800, batch_cost: 0.2149, loss: 18.1912, loss_ori: 2.3026, loss_kd: 8.9808 loss_box: 1.5274 loss_obj: 0.2783 loss_cls: 0.4970 ETA: 00:39:03
+Step: 1610/3800, batch_cost: 0.4873, loss: 13.7715, loss_ori: 2.5494, loss_kd: 3.5739 loss_box: 1.5830 loss_obj: 0.3191 loss_cls: 0.6473 ETA: 00:38:45
+Epoch: 85/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4195, R: 0.3619, MAP@5: 0.4328, MAP@50: 0.2568
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7151, R: 0.6777, MAP@5: 0.7116, MAP@50: 0.4337
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3072, R: 0.2519, MAP@5: 0.2585, MAP@50: 0.1382
+Step: 1620/3800, batch_cost: 0.7899, loss: 11.2897, loss_ori: 2.5560, loss_kd: 1.0657 loss_box: 1.6329 loss_obj: 0.3431 loss_cls: 0.5800 ETA: 00:38:41
+Step: 1630/3800, batch_cost: 0.2145, loss: 11.6834, loss_ori: 2.6212, loss_kd: 1.1985 loss_box: 1.6417 loss_obj: 0.3204 loss_cls: 0.6591 ETA: 00:38:22
+Epoch: 86/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4191, R: 0.4057, MAP@5: 0.4347, MAP@50: 0.2625
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7064, R: 0.6965, MAP@5: 0.7140, MAP@50: 0.4290
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3120, R: 0.2618, MAP@5: 0.2604, MAP@50: 0.1387
+Step: 1640/3800, batch_cost: 0.4815, loss: 14.8634, loss_ori: 2.9439, loss_kd: 3.0876 loss_box: 1.8566 loss_obj: 0.3629 loss_cls: 0.7245 ETA: 00:38:17
+Step: 1650/3800, batch_cost: 0.7896, loss: 14.2035, loss_ori: 2.6900, loss_kd: 3.4435 loss_box: 1.6800 loss_obj: 0.3428 loss_cls: 0.6672 ETA: 00:38:00
+Epoch: 87/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.3883, R: 0.4031, MAP@5: 0.4109, MAP@50: 0.2494
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7062, R: 0.6766, MAP@5: 0.7078, MAP@50: 0.4285
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.2800, R: 0.2458, MAP@5: 0.2525, MAP@50: 0.1341
+Step: 1660/3800, batch_cost: 0.2135, loss: 12.9662, loss_ori: 2.7362, loss_kd: 2.0215 loss_box: 1.6609 loss_obj: 0.3718 loss_cls: 0.7034 ETA: 00:37:55
+Step: 1670/3800, batch_cost: 0.4890, loss: 12.7870, loss_ori: 2.6916, loss_kd: 2.0205 loss_box: 1.6507 loss_obj: 0.3566 loss_cls: 0.6844 ETA: 00:37:37
+Epoch: 88/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4347, R: 0.6313, MAP@5: 0.4308, MAP@50: 0.2679
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7131, R: 0.6815, MAP@5: 0.7111, MAP@50: 0.4329
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3291, R: 0.2387, MAP@5: 0.2469, MAP@50: 0.1349
+Step: 1680/3800, batch_cost: 0.7897, loss: 11.7234, loss_ori: 2.4067, loss_kd: 2.0968 loss_box: 1.4812 loss_obj: 0.3508 loss_cls: 0.5747 ETA: 00:37:32
+Step: 1690/3800, batch_cost: 0.2142, loss: 12.4229, loss_ori: 2.6709, loss_kd: 1.7392 loss_box: 1.6237 loss_obj: 0.3942 loss_cls: 0.6530 ETA: 00:37:14
+Epoch: 89/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4401, R: 0.6789, MAP@5: 0.4403, MAP@50: 0.2766
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6942, R: 0.7076, MAP@5: 0.7116, MAP@50: 0.4337
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3530, R: 0.2390, MAP@5: 0.2426, MAP@50: 0.1366
+Step: 1700/3800, batch_cost: 0.4874, loss: 12.6711, loss_ori: 2.8326, loss_kd: 1.3406 loss_box: 1.7750 loss_obj: 0.3587 loss_cls: 0.6989 ETA: 00:37:09
+Step: 1710/3800, batch_cost: 0.6122, loss: 12.9769, loss_ori: 2.5871, loss_kd: 2.6283 loss_box: 1.6003 loss_obj: 0.3476 loss_cls: 0.6393 ETA: 00:36:51
+Epoch: 90/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5165, R: 0.5798, MAP@5: 0.5553, MAP@50: 0.3624
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6976, R: 0.7031, MAP@5: 0.7073, MAP@50: 0.4327
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5166, R: 0.2565, MAP@5: 0.2624, MAP@50: 0.1394
+Step: 1720/3800, batch_cost: 0.2153, loss: 12.1397, loss_ori: 2.7018, loss_kd: 1.3326 loss_box: 1.6416 loss_obj: 0.2549 loss_cls: 0.8053 ETA: 00:36:46
+Epoch: 91/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5627, R: 0.5513, MAP@5: 0.5718, MAP@50: 0.3699
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6883, R: 0.7005, MAP@5: 0.7010, MAP@50: 0.4304
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3378, R: 0.2781, MAP@5: 0.2689, MAP@50: 0.1436
+Step: 1730/3800, batch_cost: 10.6669, loss: 11.5726, loss_ori: 2.5482, loss_kd: 1.3798 loss_box: 1.6862 loss_obj: 0.3436 loss_cls: 0.5184 ETA: 00:36:41
+Step: 1740/3800, batch_cost: 0.7895, loss: 13.1193, loss_ori: 2.6039, loss_kd: 2.7039 loss_box: 1.6578 loss_obj: 0.3323 loss_cls: 0.6138 ETA: 00:36:24
+Epoch: 92/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5485, R: 0.6043, MAP@5: 0.5154, MAP@50: 0.3243
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7084, R: 0.6901, MAP@5: 0.7064, MAP@50: 0.4332
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5343, R: 0.2618, MAP@5: 0.2745, MAP@50: 0.1414
+Step: 1750/3800, batch_cost: 0.2164, loss: 15.6964, loss_ori: 2.4502, loss_kd: 5.8957 loss_box: 1.5428 loss_obj: 0.2873 loss_cls: 0.6201 ETA: 00:36:18
+Step: 1760/3800, batch_cost: 0.4912, loss: 13.1405, loss_ori: 2.6535, loss_kd: 2.5264 loss_box: 1.6243 loss_obj: 0.3401 loss_cls: 0.6891 ETA: 00:36:01
+Epoch: 93/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5023, R: 0.6133, MAP@5: 0.4819, MAP@50: 0.2877
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7206, R: 0.7024, MAP@5: 0.7120, MAP@50: 0.4365
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5915, R: 0.2439, MAP@5: 0.2763, MAP@50: 0.1411
+Step: 1770/3800, batch_cost: 0.7898, loss: 10.5842, loss_ori: 2.3742, loss_kd: 1.0872 loss_box: 1.4496 loss_obj: 0.3217 loss_cls: 0.6029 ETA: 00:35:56
+Step: 1780/3800, batch_cost: 0.2156, loss: 11.9546, loss_ori: 2.4911, loss_kd: 1.9901 loss_box: 1.5148 loss_obj: 0.3244 loss_cls: 0.6519 ETA: 00:35:39
+Epoch: 94/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5219, R: 0.5440, MAP@5: 0.4803, MAP@50: 0.2882
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7328, R: 0.6938, MAP@5: 0.7124, MAP@50: 0.4349
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3863, R: 0.2370, MAP@5: 0.2701, MAP@50: 0.1348
+Step: 1790/3800, batch_cost: 0.4877, loss: 12.4591, loss_ori: 2.7257, loss_kd: 1.5564 loss_box: 1.6766 loss_obj: 0.3081 loss_cls: 0.7410 ETA: 00:35:33
+Step: 1800/3800, batch_cost: 0.7926, loss: 12.5974, loss_ori: 2.7808, loss_kd: 1.4741 loss_box: 1.7059 loss_obj: 0.3709 loss_cls: 0.7041 ETA: 00:35:17
+Epoch: 95/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4618, R: 0.4797, MAP@5: 0.4797, MAP@50: 0.2868
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7264, R: 0.6899, MAP@5: 0.7059, MAP@50: 0.4306
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3802, R: 0.2517, MAP@5: 0.2738, MAP@50: 0.1386
+Step: 1810/3800, batch_cost: 0.2125, loss: 11.7142, loss_ori: 2.5614, loss_kd: 1.4685 loss_box: 1.6136 loss_obj: 0.3299 loss_cls: 0.6179 ETA: 00:35:11
+Step: 1820/3800, batch_cost: 0.4881, loss: 12.6554, loss_ori: 2.7641, loss_kd: 1.5990 loss_box: 1.6456 loss_obj: 0.4313 loss_cls: 0.6872 ETA: 00:34:54
+Epoch: 96/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4885, R: 0.5473, MAP@5: 0.4712, MAP@50: 0.2799
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7210, R: 0.6936, MAP@5: 0.7090, MAP@50: 0.4302
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3519, R: 0.2650, MAP@5: 0.2798, MAP@50: 0.1428
+Step: 1830/3800, batch_cost: 0.8320, loss: 14.3480, loss_ori: 2.8815, loss_kd: 2.8218 loss_box: 1.7032 loss_obj: 0.4047 loss_cls: 0.7736 ETA: 00:34:49
+Step: 1840/3800, batch_cost: 0.2153, loss: 13.2200, loss_ori: 2.7499, loss_kd: 2.2203 loss_box: 1.6700 loss_obj: 0.3491 loss_cls: 0.7308 ETA: 00:34:32
+Epoch: 97/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5497, R: 0.6051, MAP@5: 0.4949, MAP@50: 0.2996
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7147, R: 0.6921, MAP@5: 0.7075, MAP@50: 0.4272
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5004, R: 0.2606, MAP@5: 0.2779, MAP@50: 0.1422
+Step: 1850/3800, batch_cost: 0.4879, loss: 13.4255, loss_ori: 2.9463, loss_kd: 1.6402 loss_box: 1.7019 loss_obj: 0.3580 loss_cls: 0.8865 ETA: 00:34:26
+Step: 1860/3800, batch_cost: 0.7909, loss: 12.4774, loss_ori: 2.6665, loss_kd: 1.8115 loss_box: 1.6059 loss_obj: 0.3393 loss_cls: 0.7213 ETA: 00:34:10
+Epoch: 98/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5841, R: 0.6054, MAP@5: 0.5289, MAP@50: 0.3270
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:08
+Preds: 1114, Labels: 1697, P: 0.7067, R: 0.6944, MAP@5: 0.7068, MAP@50: 0.4236
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5249, R: 0.2725, MAP@5: 0.2850, MAP@50: 0.1455
+Step: 1870/3800, batch_cost: 0.2140, loss: 13.5273, loss_ori: 2.7666, loss_kd: 2.4610 loss_box: 1.7121 loss_obj: 0.3689 loss_cls: 0.6856 ETA: 00:34:05
+Step: 1880/3800, batch_cost: 0.4860, loss: 12.8843, loss_ori: 2.6591, loss_kd: 2.2481 loss_box: 1.6449 loss_obj: 0.3367 loss_cls: 0.6775 ETA: 00:33:49
+Epoch: 99/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4939, R: 0.5008, MAP@5: 0.4703, MAP@50: 0.2930
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7158, R: 0.6976, MAP@5: 0.7150, MAP@50: 0.4306
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3311, R: 0.2618, MAP@5: 0.2804, MAP@50: 0.1492
+Step: 1890/3800, batch_cost: 0.7917, loss: 12.6391, loss_ori: 2.4813, loss_kd: 2.7138 loss_box: 1.5499 loss_obj: 0.3281 loss_cls: 0.6034 ETA: 00:33:43
+Step: 1900/3800, batch_cost: 0.1408, loss: 11.5047, loss_ori: 2.3992, loss_kd: 1.9079 loss_box: 1.4860 loss_obj: 0.3253 loss_cls: 0.5879 ETA: 00:33:27
+Epoch: 100/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4995, R: 0.5769, MAP@5: 0.4783, MAP@50: 0.2937
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7146, R: 0.6999, MAP@5: 0.7139, MAP@50: 0.4298
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5220, R: 0.2608, MAP@5: 0.2874, MAP@50: 0.1505
+Step: 1910/3800, batch_cost: 0.4871, loss: 12.5852, loss_ori: 2.7335, loss_kd: 1.6513 loss_box: 1.6541 loss_obj: 0.3909 loss_cls: 0.6886 ETA: 00:33:21
+Epoch: 101/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5256, R: 0.5707, MAP@5: 0.5044, MAP@50: 0.3152
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7190, R: 0.7081, MAP@5: 0.7135, MAP@50: 0.4342
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5452, R: 0.2859, MAP@5: 0.2872, MAP@50: 0.1417
+Step: 1920/3800, batch_cost: 11.1655, loss: 13.0988, loss_ori: 2.8351, loss_kd: 1.7585 loss_box: 1.7192 loss_obj: 0.3351 loss_cls: 0.7808 ETA: 00:33:15
+Step: 1930/3800, batch_cost: 0.2154, loss: 12.4099, loss_ori: 2.5079, loss_kd: 2.3784 loss_box: 1.5475 loss_obj: 0.3471 loss_cls: 0.6133 ETA: 00:32:59
+Epoch: 102/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5401, R: 0.5507, MAP@5: 0.5316, MAP@50: 0.3375
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7226, R: 0.6966, MAP@5: 0.7142, MAP@50: 0.4331
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5453, R: 0.2775, MAP@5: 0.2789, MAP@50: 0.1393
+Step: 1940/3800, batch_cost: 0.4852, loss: 10.1086, loss_ori: 2.2914, loss_kd: 0.9431 loss_box: 1.4446 loss_obj: 0.2975 loss_cls: 0.5493 ETA: 00:32:53
+Step: 1950/3800, batch_cost: 0.7922, loss: 11.2646, loss_ori: 2.5727, loss_kd: 0.9737 loss_box: 1.6232 loss_obj: 0.3367 loss_cls: 0.6129 ETA: 00:32:37
+Epoch: 103/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5219, R: 0.6218, MAP@5: 0.5235, MAP@50: 0.3261
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7128, R: 0.6954, MAP@5: 0.7124, MAP@50: 0.4257
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3560, R: 0.2750, MAP@5: 0.2838, MAP@50: 0.1426
+Step: 1960/3800, batch_cost: 0.2132, loss: 13.7137, loss_ori: 2.4575, loss_kd: 3.8836 loss_box: 1.4875 loss_obj: 0.3381 loss_cls: 0.6320 ETA: 00:32:30
+Step: 1970/3800, batch_cost: 0.4861, loss: 12.5121, loss_ori: 2.7279, loss_kd: 1.6004 loss_box: 1.6789 loss_obj: 0.3731 loss_cls: 0.6759 ETA: 00:32:14
+Epoch: 104/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5059, R: 0.6433, MAP@5: 0.5194, MAP@50: 0.3156
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7359, R: 0.6777, MAP@5: 0.7131, MAP@50: 0.4279
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3687, R: 0.2961, MAP@5: 0.2749, MAP@50: 0.1353
+Step: 1980/3800, batch_cost: 0.7919, loss: 14.0274, loss_ori: 2.9296, loss_kd: 2.3089 loss_box: 1.7508 loss_obj: 0.4279 loss_cls: 0.7509 ETA: 00:32:08
+Step: 1990/3800, batch_cost: 0.2255, loss: 14.3417, loss_ori: 2.6600, loss_kd: 3.7016 loss_box: 1.6309 loss_obj: 0.3798 loss_cls: 0.6494 ETA: 00:31:52
+Epoch: 105/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4949, R: 0.5053, MAP@5: 0.5058, MAP@50: 0.3038
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7105, R: 0.7061, MAP@5: 0.7119, MAP@50: 0.4280
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5576, R: 0.2707, MAP@5: 0.2766, MAP@50: 0.1381
+Step: 2000/3800, batch_cost: 0.4857, loss: 11.5196, loss_ori: 2.4807, loss_kd: 1.5969 loss_box: 1.5299 loss_obj: 0.3480 loss_cls: 0.6027 ETA: 00:31:46
+Step: 2010/3800, batch_cost: 0.7924, loss: 12.3408, loss_ori: 2.6711, loss_kd: 1.6564 loss_box: 1.6213 loss_obj: 0.3740 loss_cls: 0.6758 ETA: 00:31:31
+Epoch: 106/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5109, R: 0.5145, MAP@5: 0.5363, MAP@50: 0.3289
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7083, R: 0.7104, MAP@5: 0.7131, MAP@50: 0.4304
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3281, R: 0.2601, MAP@5: 0.2735, MAP@50: 0.1399
+Step: 2020/3800, batch_cost: 0.2151, loss: 12.6295, loss_ori: 2.7080, loss_kd: 1.7974 loss_box: 1.6648 loss_obj: 0.3744 loss_cls: 0.6688 ETA: 00:31:24
+Step: 2030/3800, batch_cost: 0.4879, loss: 13.9751, loss_ori: 2.6175, loss_kd: 3.5050 loss_box: 1.6070 loss_obj: 0.3580 loss_cls: 0.6525 ETA: 00:31:08
+Epoch: 107/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5294, R: 0.5238, MAP@5: 0.5206, MAP@50: 0.3186
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7217, R: 0.7215, MAP@5: 0.7156, MAP@50: 0.4334
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3125, R: 0.2649, MAP@5: 0.2810, MAP@50: 0.1390
+Step: 2040/3800, batch_cost: 0.7924, loss: 12.3896, loss_ori: 2.6199, loss_kd: 1.9099 loss_box: 1.5520 loss_obj: 0.3880 loss_cls: 0.6799 ETA: 00:31:02
+Step: 2050/3800, batch_cost: 0.2149, loss: 13.7064, loss_ori: 2.6590, loss_kd: 3.0703 loss_box: 1.6127 loss_obj: 0.3641 loss_cls: 0.6822 ETA: 00:30:46
+Epoch: 108/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4990, R: 0.5420, MAP@5: 0.5304, MAP@50: 0.3374
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7331, R: 0.6955, MAP@5: 0.7187, MAP@50: 0.4335
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3159, R: 0.2794, MAP@5: 0.2881, MAP@50: 0.1407
+Step: 2060/3800, batch_cost: 0.4846, loss: 13.4198, loss_ori: 2.8908, loss_kd: 1.8564 loss_box: 1.7686 loss_obj: 0.3592 loss_cls: 0.7630 ETA: 00:30:40
+Step: 2070/3800, batch_cost: 0.7901, loss: 14.9435, loss_ori: 2.7513, loss_kd: 3.9383 loss_box: 1.7141 loss_obj: 0.3355 loss_cls: 0.7017 ETA: 00:30:25
+Epoch: 109/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4988, R: 0.5982, MAP@5: 0.5069, MAP@50: 0.3120
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7251, R: 0.6961, MAP@5: 0.7129, MAP@50: 0.4346
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3618, R: 0.2806, MAP@5: 0.2953, MAP@50: 0.1453
+Step: 2080/3800, batch_cost: 0.2144, loss: 11.9358, loss_ori: 2.6808, loss_kd: 1.2125 loss_box: 1.6505 loss_obj: 0.3116 loss_cls: 0.7187 ETA: 00:30:18
+Step: 2090/3800, batch_cost: 0.4155, loss: 11.7341, loss_ori: 2.5917, loss_kd: 1.3674 loss_box: 1.5707 loss_obj: 0.3482 loss_cls: 0.6728 ETA: 00:30:03
+Epoch: 110/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5141, R: 0.6086, MAP@5: 0.5105, MAP@50: 0.3183
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7119, R: 0.6983, MAP@5: 0.7109, MAP@50: 0.4348
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3599, R: 0.2702, MAP@5: 0.2900, MAP@50: 0.1435
+Step: 2100/3800, batch_cost: 0.7905, loss: 12.8095, loss_ori: 2.7298, loss_kd: 1.8903 loss_box: 1.6720 loss_obj: 0.3665 loss_cls: 0.6913 ETA: 00:29:56
+Epoch: 111/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5082, R: 0.6105, MAP@5: 0.5018, MAP@50: 0.3176
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7317, R: 0.6838, MAP@5: 0.7101, MAP@50: 0.4293
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3997, R: 0.2528, MAP@5: 0.2788, MAP@50: 0.1447
+Step: 2110/3800, batch_cost: 10.6337, loss: 12.5722, loss_ori: 2.7766, loss_kd: 1.4657 loss_box: 1.7810 loss_obj: 0.1760 loss_cls: 0.8197 ETA: 00:29:49
+Step: 2120/3800, batch_cost: 0.4864, loss: 11.9368, loss_ori: 2.6372, loss_kd: 1.3879 loss_box: 1.6510 loss_obj: 0.3650 loss_cls: 0.6212 ETA: 00:29:34
+Epoch: 112/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5099, R: 0.6450, MAP@5: 0.5095, MAP@50: 0.3219
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7376, R: 0.6765, MAP@5: 0.7117, MAP@50: 0.4303
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3803, R: 0.2617, MAP@5: 0.2731, MAP@50: 0.1430
+Step: 2130/3800, batch_cost: 0.7888, loss: 11.1434, loss_ori: 2.5178, loss_kd: 1.0723 loss_box: 1.5819 loss_obj: 0.3655 loss_cls: 0.5703 ETA: 00:29:27
+Step: 2140/3800, batch_cost: 0.2157, loss: 11.6655, loss_ori: 2.4847, loss_kd: 1.7266 loss_box: 1.5468 loss_obj: 0.3385 loss_cls: 0.5993 ETA: 00:29:12
+Epoch: 113/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5140, R: 0.6284, MAP@5: 0.5161, MAP@50: 0.3217
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7259, R: 0.6831, MAP@5: 0.7134, MAP@50: 0.4311
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3507, R: 0.2498, MAP@5: 0.2758, MAP@50: 0.1360
+Step: 2150/3800, batch_cost: 0.4856, loss: 13.8441, loss_ori: 2.8929, loss_kd: 2.2723 loss_box: 1.7451 loss_obj: 0.3943 loss_cls: 0.7535 ETA: 00:29:05
+Step: 2160/3800, batch_cost: 0.7907, loss: 13.6169, loss_ori: 2.6032, loss_kd: 3.2039 loss_box: 1.5764 loss_obj: 0.3955 loss_cls: 0.6313 ETA: 00:28:50
+Epoch: 114/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5160, R: 0.6088, MAP@5: 0.4927, MAP@50: 0.3103
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:09
+Preds: 1114, Labels: 1697, P: 0.7514, R: 0.6631, MAP@5: 0.7129, MAP@50: 0.4301
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3542, R: 0.2463, MAP@5: 0.2664, MAP@50: 0.1348
+Step: 2170/3800, batch_cost: 0.2576, loss: 13.8890, loss_ori: 2.9655, loss_kd: 2.0271 loss_box: 1.7891 loss_obj: 0.4362 loss_cls: 0.7401 ETA: 00:28:44
+Step: 2180/3800, batch_cost: 0.4865, loss: 13.6009, loss_ori: 2.9083, loss_kd: 1.9677 loss_box: 1.7777 loss_obj: 0.4230 loss_cls: 0.7076 ETA: 00:28:30
+Epoch: 115/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5231, R: 0.6302, MAP@5: 0.4948, MAP@50: 0.3120
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7191, R: 0.6884, MAP@5: 0.7121, MAP@50: 0.4289
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3636, R: 0.2533, MAP@5: 0.2623, MAP@50: 0.1355
+Step: 2190/3800, batch_cost: 0.7880, loss: 13.1587, loss_ori: 2.9241, loss_kd: 1.4624 loss_box: 1.6767 loss_obj: 0.4976 loss_cls: 0.7498 ETA: 00:28:23
+Step: 2200/3800, batch_cost: 0.2256, loss: 13.4050, loss_ori: 2.6838, loss_kd: 2.6697 loss_box: 1.6006 loss_obj: 0.4197 loss_cls: 0.6635 ETA: 00:28:08
+Epoch: 116/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5291, R: 0.6096, MAP@5: 0.5374, MAP@50: 0.3455
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7182, R: 0.6780, MAP@5: 0.7123, MAP@50: 0.4271
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3746, R: 0.2654, MAP@5: 0.2797, MAP@50: 0.1453
+Step: 2210/3800, batch_cost: 0.4877, loss: 11.0179, loss_ori: 2.4856, loss_kd: 1.0753 loss_box: 1.5734 loss_obj: 0.3109 loss_cls: 0.6014 ETA: 00:28:00
+Step: 2220/3800, batch_cost: 0.7915, loss: 11.9306, loss_ori: 2.4158, loss_kd: 2.2673 loss_box: 1.5337 loss_obj: 0.2958 loss_cls: 0.5862 ETA: 00:27:46
+Epoch: 117/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6468, R: 0.5842, MAP@5: 0.6257, MAP@50: 0.4231
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.6969, R: 0.6952, MAP@5: 0.7097, MAP@50: 0.4281
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5606, R: 0.2675, MAP@5: 0.2823, MAP@50: 0.1408
+Step: 2230/3800, batch_cost: 0.2159, loss: 12.2308, loss_ori: 2.6868, loss_kd: 1.4834 loss_box: 1.6932 loss_obj: 0.3517 loss_cls: 0.6419 ETA: 00:27:39
+Step: 2240/3800, batch_cost: 0.4878, loss: 12.1343, loss_ori: 2.7739, loss_kd: 1.0385 loss_box: 1.6983 loss_obj: 0.3872 loss_cls: 0.6884 ETA: 00:27:24
+Epoch: 118/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6544, R: 0.5571, MAP@5: 0.6342, MAP@50: 0.4270
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7079, R: 0.6955, MAP@5: 0.7123, MAP@50: 0.4318
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5417, R: 0.2626, MAP@5: 0.2798, MAP@50: 0.1360
+Step: 2250/3800, batch_cost: 0.7895, loss: 13.0997, loss_ori: 2.8806, loss_kd: 1.5773 loss_box: 1.7075 loss_obj: 0.3787 loss_cls: 0.7944 ETA: 00:27:17
+Step: 2260/3800, batch_cost: 0.2156, loss: 12.8122, loss_ori: 2.6077, loss_kd: 2.3812 loss_box: 1.5903 loss_obj: 0.3578 loss_cls: 0.6597 ETA: 00:27:02
+Epoch: 119/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6663, R: 0.5684, MAP@5: 0.6233, MAP@50: 0.4174
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7069, R: 0.7077, MAP@5: 0.7206, MAP@50: 0.4355
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5497, R: 0.2742, MAP@5: 0.2835, MAP@50: 0.1368
+Step: 2270/3800, batch_cost: 0.4870, loss: 12.4025, loss_ori: 2.5873, loss_kd: 2.0535 loss_box: 1.5629 loss_obj: 0.3534 loss_cls: 0.6710 ETA: 00:26:55
+Step: 2280/3800, batch_cost: 0.6104, loss: 11.9957, loss_ori: 2.6239, loss_kd: 1.5000 loss_box: 1.5886 loss_obj: 0.3614 loss_cls: 0.6740 ETA: 00:26:41
+Epoch: 120/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5745, R: 0.6100, MAP@5: 0.5814, MAP@50: 0.3759
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7170, R: 0.7150, MAP@5: 0.7252, MAP@50: 0.4379
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3304, R: 0.2696, MAP@5: 0.2693, MAP@50: 0.1414
+Step: 2290/3800, batch_cost: 0.2152, loss: 12.8037, loss_ori: 2.7616, loss_kd: 1.7572 loss_box: 1.6692 loss_obj: 0.3346 loss_cls: 0.7579 ETA: 00:26:33
+Epoch: 121/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5042, R: 0.6897, MAP@5: 0.4867, MAP@50: 0.2997
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7216, R: 0.7026, MAP@5: 0.7224, MAP@50: 0.4359
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3734, R: 0.2376, MAP@5: 0.2668, MAP@50: 0.1416
+Step: 2300/3800, batch_cost: 10.7169, loss: 12.8954, loss_ori: 2.8941, loss_kd: 1.3191 loss_box: 1.7829 loss_obj: 0.3153 loss_cls: 0.7959 ETA: 00:26:26
+Step: 2310/3800, batch_cost: 0.7902, loss: 13.9984, loss_ori: 2.6303, loss_kd: 3.4771 loss_box: 1.6388 loss_obj: 0.3347 loss_cls: 0.6568 ETA: 00:26:12
+Epoch: 122/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4793, R: 0.6740, MAP@5: 0.4931, MAP@50: 0.3100
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7222, R: 0.7119, MAP@5: 0.7223, MAP@50: 0.4343
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3603, R: 0.2448, MAP@5: 0.2640, MAP@50: 0.1421
+Step: 2320/3800, batch_cost: 0.2154, loss: 8.9261, loss_ori: 2.1066, loss_kd: 0.4997 loss_box: 1.4256 loss_obj: 0.2388 loss_cls: 0.4422 ETA: 00:26:04
+Step: 2330/3800, batch_cost: 0.4876, loss: 12.1844, loss_ori: 2.4955, loss_kd: 2.2023 loss_box: 1.5704 loss_obj: 0.2974 loss_cls: 0.6277 ETA: 00:25:50
+Epoch: 123/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5371, R: 0.6472, MAP@5: 0.5410, MAP@50: 0.3467
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7026, R: 0.7121, MAP@5: 0.7211, MAP@50: 0.4347
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5516, R: 0.2423, MAP@5: 0.2734, MAP@50: 0.1426
+Step: 2340/3800, batch_cost: 0.7895, loss: 12.7058, loss_ori: 2.4592, loss_kd: 2.8691 loss_box: 1.5494 loss_obj: 0.3070 loss_cls: 0.6028 ETA: 00:25:42
+Step: 2350/3800, batch_cost: 0.2145, loss: 11.4739, loss_ori: 2.4430, loss_kd: 1.7018 loss_box: 1.5092 loss_obj: 0.3175 loss_cls: 0.6163 ETA: 00:25:28
+Epoch: 124/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5926, R: 0.5805, MAP@5: 0.6590, MAP@50: 0.4361
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7068, R: 0.6840, MAP@5: 0.7123, MAP@50: 0.4282
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3466, R: 0.2721, MAP@5: 0.2822, MAP@50: 0.1512
+Step: 2360/3800, batch_cost: 0.4878, loss: 11.6753, loss_ori: 2.6421, loss_kd: 1.1068 loss_box: 1.6628 loss_obj: 0.3459 loss_cls: 0.6335 ETA: 00:25:20
+Step: 2370/3800, batch_cost: 0.7934, loss: 11.4292, loss_ori: 2.5190, loss_kd: 1.3530 loss_box: 1.5829 loss_obj: 0.3117 loss_cls: 0.6244 ETA: 00:25:06
+Epoch: 125/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6059, R: 0.5682, MAP@5: 0.6626, MAP@50: 0.4388
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7077, R: 0.6678, MAP@5: 0.7075, MAP@50: 0.4215
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3252, R: 0.2430, MAP@5: 0.2863, MAP@50: 0.1477
+Step: 2380/3800, batch_cost: 0.2142, loss: 11.3718, loss_ori: 2.6344, loss_kd: 0.8343 loss_box: 1.6029 loss_obj: 0.3346 loss_cls: 0.6968 ETA: 00:24:58
+Step: 2390/3800, batch_cost: 0.4878, loss: 16.6968, loss_ori: 2.5607, loss_kd: 6.4540 loss_box: 1.5978 loss_obj: 0.3222 loss_cls: 0.6406 ETA: 00:24:44
+Epoch: 126/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4845, R: 0.5727, MAP@5: 0.5149, MAP@50: 0.3047
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7349, R: 0.6808, MAP@5: 0.7130, MAP@50: 0.4267
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3329, R: 0.2779, MAP@5: 0.2729, MAP@50: 0.1465
+Step: 2400/3800, batch_cost: 0.7905, loss: 13.5005, loss_ori: 2.6741, loss_kd: 2.8042 loss_box: 1.6711 loss_obj: 0.3738 loss_cls: 0.6292 ETA: 00:24:37
+Step: 2410/3800, batch_cost: 0.2152, loss: 12.6285, loss_ori: 2.7414, loss_kd: 1.6629 loss_box: 1.6587 loss_obj: 0.3937 loss_cls: 0.6889 ETA: 00:24:23
+Epoch: 127/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4859, R: 0.5904, MAP@5: 0.5100, MAP@50: 0.3109
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7586, R: 0.6737, MAP@5: 0.7188, MAP@50: 0.4347
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3029, R: 0.2511, MAP@5: 0.2644, MAP@50: 0.1408
+Step: 2420/3800, batch_cost: 0.4879, loss: 12.2752, loss_ori: 2.5809, loss_kd: 1.9516 loss_box: 1.6022 loss_obj: 0.3397 loss_cls: 0.6389 ETA: 00:24:15
+Step: 2430/3800, batch_cost: 0.7912, loss: 11.7705, loss_ori: 2.4825, loss_kd: 1.8405 loss_box: 1.5548 loss_obj: 0.3313 loss_cls: 0.5963 ETA: 00:24:01
+Epoch: 128/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5205, R: 0.6663, MAP@5: 0.5259, MAP@50: 0.3299
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7525, R: 0.6850, MAP@5: 0.7236, MAP@50: 0.4381
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3122, R: 0.2567, MAP@5: 0.2702, MAP@50: 0.1422
+Step: 2440/3800, batch_cost: 0.2157, loss: 12.5794, loss_ori: 2.7825, loss_kd: 1.4493 loss_box: 1.7134 loss_obj: 0.3536 loss_cls: 0.7154 ETA: 00:23:53
+Step: 2450/3800, batch_cost: 0.4785, loss: 12.4946, loss_ori: 2.6026, loss_kd: 2.0841 loss_box: 1.6058 loss_obj: 0.3421 loss_cls: 0.6548 ETA: 00:23:40
+Epoch: 129/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5306, R: 0.6646, MAP@5: 0.6146, MAP@50: 0.4022
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7214, R: 0.6921, MAP@5: 0.7180, MAP@50: 0.4350
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3754, R: 0.2779, MAP@5: 0.2801, MAP@50: 0.1371
+Step: 2460/3800, batch_cost: 0.7907, loss: 11.5006, loss_ori: 2.5600, loss_kd: 1.2606 loss_box: 1.6150 loss_obj: 0.3250 loss_cls: 0.6201 ETA: 00:23:32
+Step: 2470/3800, batch_cost: 0.1431, loss: 12.3312, loss_ori: 2.7002, loss_kd: 1.5303 loss_box: 1.6666 loss_obj: 0.3464 loss_cls: 0.6872 ETA: 00:23:18
+Epoch: 130/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6241, R: 0.5738, MAP@5: 0.6660, MAP@50: 0.4495
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7172, R: 0.6979, MAP@5: 0.7126, MAP@50: 0.4333
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3825, R: 0.2881, MAP@5: 0.2819, MAP@50: 0.1347
+Step: 2480/3800, batch_cost: 0.4882, loss: 13.0483, loss_ori: 2.6662, loss_kd: 2.3834 loss_box: 1.6384 loss_obj: 0.3639 loss_cls: 0.6639 ETA: 00:23:10
+Epoch: 131/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6497, R: 0.5913, MAP@5: 0.6526, MAP@50: 0.4431
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7216, R: 0.6811, MAP@5: 0.7098, MAP@50: 0.4333
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5829, R: 0.2723, MAP@5: 0.2815, MAP@50: 0.1344
+Step: 2490/3800, batch_cost: 11.0561, loss: 11.6550, loss_ori: 2.8015, loss_kd: 0.4488 loss_box: 1.6229 loss_obj: 0.4176 loss_cls: 0.7611 ETA: 00:23:02
+Step: 2500/3800, batch_cost: 0.2144, loss: 11.9562, loss_ori: 2.5489, loss_kd: 1.7606 loss_box: 1.5637 loss_obj: 0.3403 loss_cls: 0.6450 ETA: 00:22:49
+Epoch: 132/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6474, R: 0.5941, MAP@5: 0.6477, MAP@50: 0.4343
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7125, R: 0.6972, MAP@5: 0.7119, MAP@50: 0.4314
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5676, R: 0.2647, MAP@5: 0.2832, MAP@50: 0.1397
+Step: 2510/3800, batch_cost: 0.4705, loss: 10.1623, loss_ori: 2.2726, loss_kd: 1.0721 loss_box: 1.4842 loss_obj: 0.1861 loss_cls: 0.6023 ETA: 00:22:40
+Step: 2520/3800, batch_cost: 0.7911, loss: 12.1188, loss_ori: 2.6664, loss_kd: 1.4531 loss_box: 1.6218 loss_obj: 0.3552 loss_cls: 0.6895 ETA: 00:22:27
+Epoch: 133/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6208, R: 0.5833, MAP@5: 0.6655, MAP@50: 0.4482
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7191, R: 0.7048, MAP@5: 0.7201, MAP@50: 0.4374
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.6213, R: 0.2882, MAP@5: 0.2890, MAP@50: 0.1410
+Step: 2530/3800, batch_cost: 0.2131, loss: 9.5765, loss_ori: 2.0596, loss_kd: 1.3382 loss_box: 1.3042 loss_obj: 0.3215 loss_cls: 0.4339 ETA: 00:22:19
+Step: 2540/3800, batch_cost: 0.4874, loss: 11.0141, loss_ori: 2.3829, loss_kd: 1.4824 loss_box: 1.4996 loss_obj: 0.3075 loss_cls: 0.5758 ETA: 00:22:05
+Epoch: 134/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5565, R: 0.6419, MAP@5: 0.6159, MAP@50: 0.4070
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7344, R: 0.6908, MAP@5: 0.7200, MAP@50: 0.4368
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4194, R: 0.2708, MAP@5: 0.2920, MAP@50: 0.1379
+Step: 2550/3800, batch_cost: 0.7885, loss: 10.9350, loss_ori: 2.4030, loss_kd: 1.3228 loss_box: 1.5361 loss_obj: 0.3171 loss_cls: 0.5499 ETA: 00:21:57
+Step: 2560/3800, batch_cost: 0.2193, loss: 12.7736, loss_ori: 2.5820, loss_kd: 2.4456 loss_box: 1.5797 loss_obj: 0.3794 loss_cls: 0.6229 ETA: 00:21:44
+Epoch: 135/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5844, R: 0.6276, MAP@5: 0.5475, MAP@50: 0.3542
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7315, R: 0.7003, MAP@5: 0.7233, MAP@50: 0.4361
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3821, R: 0.2685, MAP@5: 0.2781, MAP@50: 0.1450
+Step: 2570/3800, batch_cost: 0.4869, loss: 12.0450, loss_ori: 2.4197, loss_kd: 2.3662 loss_box: 1.5222 loss_obj: 0.2972 loss_cls: 0.6003 ETA: 00:21:36
+Step: 2580/3800, batch_cost: 0.7926, loss: 13.6649, loss_ori: 2.6635, loss_kd: 3.0107 loss_box: 1.6391 loss_obj: 0.3249 loss_cls: 0.6996 ETA: 00:21:23
+Epoch: 136/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5477, R: 0.6532, MAP@5: 0.5283, MAP@50: 0.3351
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7432, R: 0.6829, MAP@5: 0.7207, MAP@50: 0.4353
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3785, R: 0.2623, MAP@5: 0.2755, MAP@50: 0.1440
+Step: 2590/3800, batch_cost: 0.2153, loss: 12.0459, loss_ori: 2.4983, loss_kd: 2.0526 loss_box: 1.5319 loss_obj: 0.3346 loss_cls: 0.6318 ETA: 00:21:14
+Step: 2600/3800, batch_cost: 0.4877, loss: 12.1604, loss_ori: 2.6382, loss_kd: 1.6076 loss_box: 1.6209 loss_obj: 0.3476 loss_cls: 0.6697 ETA: 00:21:01
+Epoch: 137/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5541, R: 0.6536, MAP@5: 0.5232, MAP@50: 0.3289
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7349, R: 0.6843, MAP@5: 0.7190, MAP@50: 0.4360
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4174, R: 0.2673, MAP@5: 0.2801, MAP@50: 0.1434
+Step: 2610/3800, batch_cost: 0.7916, loss: 12.0649, loss_ori: 2.8557, loss_kd: 0.6422 loss_box: 1.7305 loss_obj: 0.4023 loss_cls: 0.7229 ETA: 00:20:53
+Step: 2620/3800, batch_cost: 0.2134, loss: 11.8659, loss_ori: 2.6781, loss_kd: 1.1535 loss_box: 1.6328 loss_obj: 0.3557 loss_cls: 0.6896 ETA: 00:20:40
+Epoch: 138/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5262, R: 0.6688, MAP@5: 0.5466, MAP@50: 0.3493
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7416, R: 0.6839, MAP@5: 0.7205, MAP@50: 0.4354
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4026, R: 0.2723, MAP@5: 0.2749, MAP@50: 0.1392
+Step: 2630/3800, batch_cost: 0.4761, loss: 12.6820, loss_ori: 2.4427, loss_kd: 2.9111 loss_box: 1.5008 loss_obj: 0.2933 loss_cls: 0.6486 ETA: 00:20:31
+Step: 2640/3800, batch_cost: 0.7916, loss: 12.5183, loss_ori: 2.5750, loss_kd: 2.2182 loss_box: 1.5817 loss_obj: 0.3301 loss_cls: 0.6632 ETA: 00:20:18
+Epoch: 139/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5084, R: 0.5803, MAP@5: 0.5817, MAP@50: 0.3779
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7243, R: 0.6937, MAP@5: 0.7134, MAP@50: 0.4327
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3866, R: 0.2590, MAP@5: 0.2808, MAP@50: 0.1378
+Step: 2650/3800, batch_cost: 0.2137, loss: 11.7602, loss_ori: 2.3899, loss_kd: 2.2006 loss_box: 1.5310 loss_obj: 0.2814 loss_cls: 0.5776 ETA: 00:20:10
+Step: 2660/3800, batch_cost: 0.4155, loss: 11.0207, loss_ori: 2.2105, loss_kd: 2.1786 loss_box: 1.4079 loss_obj: 0.2816 loss_cls: 0.5211 ETA: 00:19:57
+Epoch: 140/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4879, R: 0.5815, MAP@5: 0.5771, MAP@50: 0.3724
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7145, R: 0.7006, MAP@5: 0.7142, MAP@50: 0.4312
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3880, R: 0.2590, MAP@5: 0.2831, MAP@50: 0.1422
+Step: 2670/3800, batch_cost: 0.7915, loss: 11.1497, loss_ori: 2.5657, loss_kd: 0.8870 loss_box: 1.6216 loss_obj: 0.3444 loss_cls: 0.5996 ETA: 00:19:48
+Epoch: 141/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.4999, R: 0.5546, MAP@5: 0.5719, MAP@50: 0.3703
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7144, R: 0.6945, MAP@5: 0.7114, MAP@50: 0.4284
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3758, R: 0.2647, MAP@5: 0.2880, MAP@50: 0.1486
+Step: 2680/3800, batch_cost: 10.7070, loss: 13.0188, loss_ori: 2.7208, loss_kd: 2.1356 loss_box: 1.8050 loss_obj: 0.3609 loss_cls: 0.5549 ETA: 00:19:40
+Step: 2690/3800, batch_cost: 0.4846, loss: 10.6938, loss_ori: 2.2228, loss_kd: 1.8028 loss_box: 1.4292 loss_obj: 0.2855 loss_cls: 0.5081 ETA: 00:19:27
+Epoch: 142/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4984, R: 0.5445, MAP@5: 0.5739, MAP@50: 0.3713
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7134, R: 0.6871, MAP@5: 0.7066, MAP@50: 0.4255
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.6012, R: 0.2969, MAP@5: 0.2930, MAP@50: 0.1473
+Step: 2700/3800, batch_cost: 0.7859, loss: 19.7266, loss_ori: 2.2666, loss_kd: 10.6602 loss_box: 1.5543 loss_obj: 0.2301 loss_cls: 0.4822 ETA: 00:19:18
+Step: 2710/3800, batch_cost: 0.2187, loss: 13.1391, loss_ori: 2.6263, loss_kd: 2.6341 loss_box: 1.6553 loss_obj: 0.3183 loss_cls: 0.6526 ETA: 00:19:05
+Epoch: 143/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5081, R: 0.5329, MAP@5: 0.5766, MAP@50: 0.3718
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7070, R: 0.6905, MAP@5: 0.7091, MAP@50: 0.4285
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5865, R: 0.2825, MAP@5: 0.2941, MAP@50: 0.1414
+Step: 2720/3800, batch_cost: 0.4866, loss: 11.4310, loss_ori: 2.6999, loss_kd: 0.6313 loss_box: 1.6851 loss_obj: 0.4460 loss_cls: 0.5688 ETA: 00:18:57
+Step: 2730/3800, batch_cost: 0.7922, loss: 11.8747, loss_ori: 2.7120, loss_kd: 1.0266 loss_box: 1.6847 loss_obj: 0.3721 loss_cls: 0.6552 ETA: 00:18:44
+Epoch: 144/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5341, R: 0.5930, MAP@5: 0.5897, MAP@50: 0.3832
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7104, R: 0.6968, MAP@5: 0.7133, MAP@50: 0.4312
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3759, R: 0.2665, MAP@5: 0.2942, MAP@50: 0.1451
+Step: 2740/3800, batch_cost: 0.2159, loss: 12.1628, loss_ori: 2.6183, loss_kd: 1.6895 loss_box: 1.6271 loss_obj: 0.3711 loss_cls: 0.6201 ETA: 00:18:35
+Step: 2750/3800, batch_cost: 0.4872, loss: 12.1144, loss_ori: 2.5871, loss_kd: 1.7659 loss_box: 1.6034 loss_obj: 0.3393 loss_cls: 0.6444 ETA: 00:18:23
+Epoch: 145/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5441, R: 0.5452, MAP@5: 0.5996, MAP@50: 0.3929
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7038, R: 0.6968, MAP@5: 0.7152, MAP@50: 0.4340
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5817, R: 0.2639, MAP@5: 0.2877, MAP@50: 0.1466
+Step: 2760/3800, batch_cost: 0.7885, loss: 11.6579, loss_ori: 2.3777, loss_kd: 2.1469 loss_box: 1.5322 loss_obj: 0.2540 loss_cls: 0.5916 ETA: 00:18:14
+Step: 2770/3800, batch_cost: 0.2139, loss: 11.6815, loss_ori: 2.4922, loss_kd: 1.7128 loss_box: 1.5749 loss_obj: 0.2963 loss_cls: 0.6210 ETA: 00:18:01
+Epoch: 146/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5250, R: 0.6435, MAP@5: 0.5870, MAP@50: 0.3850
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7173, R: 0.6882, MAP@5: 0.7164, MAP@50: 0.4355
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3635, R: 0.2723, MAP@5: 0.2775, MAP@50: 0.1438
+Step: 2780/3800, batch_cost: 0.4870, loss: 12.5153, loss_ori: 2.3467, loss_kd: 3.1286 loss_box: 1.4401 loss_obj: 0.2657 loss_cls: 0.6409 ETA: 00:17:52
+Step: 2790/3800, batch_cost: 0.7915, loss: 14.7407, loss_ori: 2.3336, loss_kd: 5.4064 loss_box: 1.4627 loss_obj: 0.2843 loss_cls: 0.5866 ETA: 00:17:40
+Epoch: 147/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5089, R: 0.5534, MAP@5: 0.5701, MAP@50: 0.3731
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7211, R: 0.6816, MAP@5: 0.7192, MAP@50: 0.4379
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3369, R: 0.2618, MAP@5: 0.2723, MAP@50: 0.1380
+Step: 2800/3800, batch_cost: 0.2144, loss: 12.2642, loss_ori: 2.6159, loss_kd: 1.8004 loss_box: 1.6441 loss_obj: 0.3363 loss_cls: 0.6355 ETA: 00:17:31
+Step: 2810/3800, batch_cost: 0.4868, loss: 11.7558, loss_ori: 2.4415, loss_kd: 1.9897 loss_box: 1.5292 loss_obj: 0.3122 loss_cls: 0.6001 ETA: 00:17:18
+Epoch: 148/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5044, R: 0.5429, MAP@5: 0.5560, MAP@50: 0.3555
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7129, R: 0.6805, MAP@5: 0.7164, MAP@50: 0.4375
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3648, R: 0.2612, MAP@5: 0.2542, MAP@50: 0.1310
+Step: 2820/3800, batch_cost: 0.7901, loss: 10.7198, loss_ori: 2.4029, loss_kd: 1.1082 loss_box: 1.4863 loss_obj: 0.3242 loss_cls: 0.5925 ETA: 00:17:10
+Step: 2830/3800, batch_cost: 0.2150, loss: 11.0482, loss_ori: 2.5360, loss_kd: 0.9041 loss_box: 1.5740 loss_obj: 0.3273 loss_cls: 0.6347 ETA: 00:16:57
+Epoch: 149/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.4943, R: 0.5423, MAP@5: 0.5519, MAP@50: 0.3554
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7111, R: 0.6856, MAP@5: 0.7148, MAP@50: 0.4341
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3642, R: 0.2581, MAP@5: 0.2592, MAP@50: 0.1420
+Step: 2840/3800, batch_cost: 0.4852, loss: 11.5088, loss_ori: 2.6911, loss_kd: 0.7445 loss_box: 1.6932 loss_obj: 0.3494 loss_cls: 0.6484 ETA: 00:16:48
+Step: 2850/3800, batch_cost: 0.6116, loss: 13.1344, loss_ori: 2.4525, loss_kd: 3.3242 loss_box: 1.5251 loss_obj: 0.3397 loss_cls: 0.5877 ETA: 00:16:36
+Epoch: 150/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5019, R: 0.5422, MAP@5: 0.5650, MAP@50: 0.3645
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7095, R: 0.7028, MAP@5: 0.7158, MAP@50: 0.4318
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3602, R: 0.2565, MAP@5: 0.2592, MAP@50: 0.1444
+Step: 2860/3800, batch_cost: 0.2151, loss: 10.9614, loss_ori: 2.5255, loss_kd: 0.8595 loss_box: 1.5791 loss_obj: 0.2996 loss_cls: 0.6467 ETA: 00:16:27
+Epoch: 151/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5224, R: 0.5632, MAP@5: 0.5769, MAP@50: 0.3713
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7158, R: 0.6971, MAP@5: 0.7146, MAP@50: 0.4329
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3496, R: 0.2618, MAP@5: 0.2561, MAP@50: 0.1384
+Step: 2870/3800, batch_cost: 10.7651, loss: 12.1122, loss_ori: 2.2225, loss_kd: 3.2221 loss_box: 1.4685 loss_obj: 0.2708 loss_cls: 0.4832 ETA: 00:16:18
+Step: 2880/3800, batch_cost: 0.7912, loss: 11.3545, loss_ori: 2.4203, loss_kd: 1.6733 loss_box: 1.5235 loss_obj: 0.3140 loss_cls: 0.5829 ETA: 00:16:06
+Epoch: 152/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5639, R: 0.6549, MAP@5: 0.5934, MAP@50: 0.3817
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7094, R: 0.7062, MAP@5: 0.7172, MAP@50: 0.4347
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3577, R: 0.2744, MAP@5: 0.2583, MAP@50: 0.1364
+Step: 2890/3800, batch_cost: 0.2139, loss: 19.7653, loss_ori: 2.3571, loss_kd: 10.3368 loss_box: 1.4806 loss_obj: 0.4292 loss_cls: 0.4473 ETA: 00:15:57
+Step: 2900/3800, batch_cost: 0.4766, loss: 13.7662, loss_ori: 2.5371, loss_kd: 3.6179 loss_box: 1.5680 loss_obj: 0.3433 loss_cls: 0.6257 ETA: 00:15:44
+Epoch: 153/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5857, R: 0.6241, MAP@5: 0.6052, MAP@50: 0.3897
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7141, R: 0.6935, MAP@5: 0.7177, MAP@50: 0.4345
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5802, R: 0.2708, MAP@5: 0.2823, MAP@50: 0.1421
+Step: 2910/3800, batch_cost: 0.7887, loss: 12.8800, loss_ori: 2.9595, loss_kd: 1.0420 loss_box: 1.7218 loss_obj: 0.5416 loss_cls: 0.6961 ETA: 00:15:35
+Step: 2920/3800, batch_cost: 0.2139, loss: 12.2096, loss_ori: 2.5752, loss_kd: 1.9089 loss_box: 1.6082 loss_obj: 0.3428 loss_cls: 0.6242 ETA: 00:15:23
+Epoch: 154/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6482, R: 0.6043, MAP@5: 0.6230, MAP@50: 0.4000
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7223, R: 0.6897, MAP@5: 0.7179, MAP@50: 0.4338
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5870, R: 0.2676, MAP@5: 0.2835, MAP@50: 0.1461
+Step: 2930/3800, batch_cost: 0.4867, loss: 11.8633, loss_ori: 2.1559, loss_kd: 3.2397 loss_box: 1.3525 loss_obj: 0.2704 loss_cls: 0.5331 ETA: 00:15:14
+Step: 2940/3800, batch_cost: 0.7915, loss: 12.0870, loss_ori: 2.5403, loss_kd: 1.9259 loss_box: 1.5833 loss_obj: 0.3216 loss_cls: 0.6353 ETA: 00:15:02
+Epoch: 155/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6461, R: 0.5835, MAP@5: 0.6307, MAP@50: 0.4089
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7465, R: 0.6708, MAP@5: 0.7197, MAP@50: 0.4342
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5866, R: 0.2562, MAP@5: 0.2807, MAP@50: 0.1441
+Step: 2950/3800, batch_cost: 0.2237, loss: 9.5671, loss_ori: 2.2499, loss_kd: 0.5675 loss_box: 1.4028 loss_obj: 0.2668 loss_cls: 0.5803 ETA: 00:14:53
+Step: 2960/3800, batch_cost: 0.4827, loss: 10.8282, loss_ori: 2.5073, loss_kd: 0.7989 loss_box: 1.5430 loss_obj: 0.3512 loss_cls: 0.6132 ETA: 00:14:41
+Epoch: 156/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5906, R: 0.5207, MAP@5: 0.6124, MAP@50: 0.3981
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7429, R: 0.6658, MAP@5: 0.7187, MAP@50: 0.4354
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5561, R: 0.2530, MAP@5: 0.2678, MAP@50: 0.1425
+Step: 2970/3800, batch_cost: 0.7929, loss: 11.7053, loss_ori: 2.5426, loss_kd: 1.5351 loss_box: 1.6188 loss_obj: 0.3305 loss_cls: 0.5933 ETA: 00:14:31
+Step: 2980/3800, batch_cost: 0.2154, loss: 11.7046, loss_ori: 2.6709, loss_kd: 1.0210 loss_box: 1.6461 loss_obj: 0.3712 loss_cls: 0.6536 ETA: 00:14:19
+Epoch: 157/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5739, R: 0.5417, MAP@5: 0.6043, MAP@50: 0.3883
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7267, R: 0.6709, MAP@5: 0.7195, MAP@50: 0.4367
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5832, R: 0.2596, MAP@5: 0.2689, MAP@50: 0.1479
+Step: 2990/3800, batch_cost: 0.4858, loss: 10.9387, loss_ori: 2.5119, loss_kd: 0.8909 loss_box: 1.5734 loss_obj: 0.3450 loss_cls: 0.5936 ETA: 00:14:10
+Step: 3000/3800, batch_cost: 0.7920, loss: 11.6014, loss_ori: 2.6951, loss_kd: 0.8210 loss_box: 1.6784 loss_obj: 0.3559 loss_cls: 0.6608 ETA: 00:13:58
+Epoch: 158/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5072, R: 0.5709, MAP@5: 0.5937, MAP@50: 0.3840
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7317, R: 0.6741, MAP@5: 0.7205, MAP@50: 0.4360
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.5664, R: 0.2670, MAP@5: 0.2692, MAP@50: 0.1443
+Step: 3010/3800, batch_cost: 0.2145, loss: 10.8627, loss_ori: 2.5368, loss_kd: 0.7156 loss_box: 1.5792 loss_obj: 0.3249 loss_cls: 0.6327 ETA: 00:13:49
+Step: 3020/3800, batch_cost: 0.4879, loss: 11.6930, loss_ori: 2.3282, loss_kd: 2.3801 loss_box: 1.4759 loss_obj: 0.2861 loss_cls: 0.5662 ETA: 00:13:37
+Epoch: 159/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5264, R: 0.6831, MAP@5: 0.6015, MAP@50: 0.3876
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7339, R: 0.6780, MAP@5: 0.7205, MAP@50: 0.4355
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3763, R: 0.2670, MAP@5: 0.2739, MAP@50: 0.1424
+Step: 3030/3800, batch_cost: 0.7915, loss: 11.3342, loss_ori: 2.6010, loss_kd: 0.9304 loss_box: 1.6047 loss_obj: 0.3417 loss_cls: 0.6546 ETA: 00:13:28
+Step: 3040/3800, batch_cost: 0.1413, loss: 12.2724, loss_ori: 2.6469, loss_kd: 1.6849 loss_box: 1.6219 loss_obj: 0.3238 loss_cls: 0.7011 ETA: 00:13:16
+Epoch: 160/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5162, R: 0.6678, MAP@5: 0.6005, MAP@50: 0.3890
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7430, R: 0.6646, MAP@5: 0.7190, MAP@50: 0.4355
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3856, R: 0.2683, MAP@5: 0.2741, MAP@50: 0.1457
+Step: 3050/3800, batch_cost: 0.4837, loss: 12.6366, loss_ori: 2.7307, loss_kd: 1.7140 loss_box: 1.6691 loss_obj: 0.3880 loss_cls: 0.6735 ETA: 00:13:06
+Epoch: 161/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5020, R: 0.6016, MAP@5: 0.5920, MAP@50: 0.3871
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7503, R: 0.6620, MAP@5: 0.7159, MAP@50: 0.4335
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3877, R: 0.2623, MAP@5: 0.2729, MAP@50: 0.1424
+Step: 3060/3800, batch_cost: 11.0530, loss: 12.4465, loss_ori: 2.4784, loss_kd: 2.5328 loss_box: 1.6094 loss_obj: 0.3470 loss_cls: 0.5220 ETA: 00:12:57
+Step: 3070/3800, batch_cost: 0.2128, loss: 11.5590, loss_ori: 2.4987, loss_kd: 1.5641 loss_box: 1.5460 loss_obj: 0.3564 loss_cls: 0.5963 ETA: 00:12:45
+Epoch: 162/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5391, R: 0.6758, MAP@5: 0.5987, MAP@50: 0.4025
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7507, R: 0.6600, MAP@5: 0.7140, MAP@50: 0.4322
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3831, R: 0.2656, MAP@5: 0.2685, MAP@50: 0.1441
+Step: 3080/3800, batch_cost: 0.4769, loss: 13.2406, loss_ori: 2.4451, loss_kd: 3.4601 loss_box: 1.5156 loss_obj: 0.2778 loss_cls: 0.6518 ETA: 00:12:36
+Step: 3090/3800, batch_cost: 0.7898, loss: 10.6554, loss_ori: 2.3659, loss_kd: 1.1918 loss_box: 1.4789 loss_obj: 0.3158 loss_cls: 0.5711 ETA: 00:12:24
+Epoch: 163/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5476, R: 0.6593, MAP@5: 0.6040, MAP@50: 0.4023
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7434, R: 0.6633, MAP@5: 0.7153, MAP@50: 0.4336
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3958, R: 0.2648, MAP@5: 0.2711, MAP@50: 0.1369
+Step: 3100/3800, batch_cost: 0.2129, loss: 12.6979, loss_ori: 2.7523, loss_kd: 1.6887 loss_box: 1.6534 loss_obj: 0.4533 loss_cls: 0.6455 ETA: 00:12:15
+Step: 3110/3800, batch_cost: 0.4866, loss: 11.8453, loss_ori: 2.3742, loss_kd: 2.3486 loss_box: 1.5084 loss_obj: 0.3290 loss_cls: 0.5368 ETA: 00:12:03
+Epoch: 164/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5437, R: 0.6196, MAP@5: 0.6115, MAP@50: 0.3984
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7411, R: 0.6642, MAP@5: 0.7157, MAP@50: 0.4365
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3926, R: 0.2571, MAP@5: 0.2663, MAP@50: 0.1372
+Step: 3120/3800, batch_cost: 0.7884, loss: 20.9731, loss_ori: 2.4483, loss_kd: 11.1798 loss_box: 1.5072 loss_obj: 0.3157 loss_cls: 0.6255 ETA: 00:11:53
+Step: 3130/3800, batch_cost: 0.2147, loss: 13.5999, loss_ori: 2.3036, loss_kd: 4.3856 loss_box: 1.4691 loss_obj: 0.3170 loss_cls: 0.5175 ETA: 00:11:42
+Epoch: 165/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5153, R: 0.5315, MAP@5: 0.5975, MAP@50: 0.3907
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7429, R: 0.6684, MAP@5: 0.7168, MAP@50: 0.4381
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3933, R: 0.2577, MAP@5: 0.2690, MAP@50: 0.1397
+Step: 3140/3800, batch_cost: 0.4854, loss: 11.2352, loss_ori: 2.5581, loss_kd: 1.0028 loss_box: 1.6012 loss_obj: 0.3279 loss_cls: 0.6290 ETA: 00:11:32
+Step: 3150/3800, batch_cost: 0.8297, loss: 12.0038, loss_ori: 2.6376, loss_kd: 1.4535 loss_box: 1.6438 loss_obj: 0.3318 loss_cls: 0.6619 ETA: 00:11:21
+Epoch: 166/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5131, R: 0.5507, MAP@5: 0.6020, MAP@50: 0.3949
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7500, R: 0.6648, MAP@5: 0.7178, MAP@50: 0.4357
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3953, R: 0.2623, MAP@5: 0.2663, MAP@50: 0.1386
+Step: 3160/3800, batch_cost: 0.2149, loss: 11.6476, loss_ori: 2.7820, loss_kd: 0.5195 loss_box: 1.7317 loss_obj: 0.3763 loss_cls: 0.6740 ETA: 00:11:11
+Step: 3170/3800, batch_cost: 0.4855, loss: 10.7507, loss_ori: 2.4836, loss_kd: 0.8162 loss_box: 1.5608 loss_obj: 0.3249 loss_cls: 0.5979 ETA: 00:10:59
+Epoch: 167/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5037, R: 0.5626, MAP@5: 0.6052, MAP@50: 0.3966
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7269, R: 0.6806, MAP@5: 0.7188, MAP@50: 0.4368
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3884, R: 0.2610, MAP@5: 0.2687, MAP@50: 0.1377
+Step: 3180/3800, batch_cost: 0.7898, loss: 10.3439, loss_ori: 2.4131, loss_kd: 0.6914 loss_box: 1.4747 loss_obj: 0.3685 loss_cls: 0.5699 ETA: 00:10:50
+Step: 3190/3800, batch_cost: 0.2217, loss: 10.9906, loss_ori: 2.4672, loss_kd: 1.1217 loss_box: 1.5351 loss_obj: 0.3351 loss_cls: 0.5970 ETA: 00:10:38
+Epoch: 168/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5216, R: 0.5785, MAP@5: 0.6023, MAP@50: 0.3989
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7329, R: 0.6801, MAP@5: 0.7204, MAP@50: 0.4381
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3928, R: 0.2703, MAP@5: 0.2771, MAP@50: 0.1439
+Step: 3200/3800, batch_cost: 0.4866, loss: 11.0379, loss_ori: 2.2595, loss_kd: 1.9999 loss_box: 1.4130 loss_obj: 0.2909 loss_cls: 0.5556 ETA: 00:10:29
+Step: 3210/3800, batch_cost: 0.8261, loss: 11.0314, loss_ori: 2.3932, loss_kd: 1.4584 loss_box: 1.4640 loss_obj: 0.3393 loss_cls: 0.5900 ETA: 00:10:17
+Epoch: 169/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5203, R: 0.5578, MAP@5: 0.6148, MAP@50: 0.4074
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7189, R: 0.7054, MAP@5: 0.7240, MAP@50: 0.4396
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3831, R: 0.2618, MAP@5: 0.2747, MAP@50: 0.1432
+Step: 3220/3800, batch_cost: 0.2159, loss: 9.8719, loss_ori: 2.2778, loss_kd: 0.7605 loss_box: 1.4749 loss_obj: 0.2829 loss_cls: 0.5200 ETA: 00:10:07
+Step: 3230/3800, batch_cost: 0.4166, loss: 10.5079, loss_ori: 2.4649, loss_kd: 0.6484 loss_box: 1.5657 loss_obj: 0.3221 loss_cls: 0.5770 ETA: 00:09:56
+Epoch: 170/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5139, R: 0.5536, MAP@5: 0.6113, MAP@50: 0.4036
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7200, R: 0.7049, MAP@5: 0.7269, MAP@50: 0.4423
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3705, R: 0.2696, MAP@5: 0.2720, MAP@50: 0.1401
+Step: 3240/3800, batch_cost: 0.7914, loss: 11.4956, loss_ori: 2.6019, loss_kd: 1.0878 loss_box: 1.6569 loss_obj: 0.3096 loss_cls: 0.6354 ETA: 00:09:46
+Epoch: 171/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5633, R: 0.6559, MAP@5: 0.6163, MAP@50: 0.4271
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7380, R: 0.6867, MAP@5: 0.7250, MAP@50: 0.4420
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3930, R: 0.2686, MAP@5: 0.2756, MAP@50: 0.1498
+Step: 3250/3800, batch_cost: 10.6590, loss: 9.7277, loss_ori: 2.1371, loss_kd: 1.1792 loss_box: 1.3533 loss_obj: 0.2083 loss_cls: 0.5755 ETA: 00:09:37
+Step: 3260/3800, batch_cost: 0.4851, loss: 11.0001, loss_ori: 2.5658, loss_kd: 0.7369 loss_box: 1.5741 loss_obj: 0.3537 loss_cls: 0.6380 ETA: 00:09:25
+Epoch: 172/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6164, R: 0.6391, MAP@5: 0.6576, MAP@50: 0.4613
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7415, R: 0.6748, MAP@5: 0.7220, MAP@50: 0.4388
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3841, R: 0.2629, MAP@5: 0.2775, MAP@50: 0.1492
+Step: 3270/3800, batch_cost: 0.7869, loss: 9.4018, loss_ori: 2.1603, loss_kd: 0.7608 loss_box: 1.3757 loss_obj: 0.2552 loss_cls: 0.5293 ETA: 00:09:16
+Step: 3280/3800, batch_cost: 0.2153, loss: 12.1413, loss_ori: 2.7744, loss_kd: 1.0436 loss_box: 1.6639 loss_obj: 0.4051 loss_cls: 0.7055 ETA: 00:09:04
+Epoch: 173/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5511, R: 0.6927, MAP@5: 0.6253, MAP@50: 0.4343
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7270, R: 0.6933, MAP@5: 0.7227, MAP@50: 0.4379
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3857, R: 0.2722, MAP@5: 0.2793, MAP@50: 0.1508
+Step: 3290/3800, batch_cost: 0.4851, loss: 15.3111, loss_ori: 2.6627, loss_kd: 4.6603 loss_box: 1.6699 loss_obj: 0.3086 loss_cls: 0.6843 ETA: 00:08:54
+Step: 3300/3800, batch_cost: 0.7903, loss: 13.0983, loss_ori: 2.6292, loss_kd: 2.5815 loss_box: 1.6323 loss_obj: 0.3335 loss_cls: 0.6634 ETA: 00:08:43
+Epoch: 174/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5596, R: 0.6887, MAP@5: 0.6223, MAP@50: 0.4264
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7303, R: 0.6879, MAP@5: 0.7230, MAP@50: 0.4395
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3806, R: 0.2643, MAP@5: 0.2668, MAP@50: 0.1452
+Step: 3310/3800, batch_cost: 0.2155, loss: 13.3033, loss_ori: 2.3333, loss_kd: 3.9699 loss_box: 1.4482 loss_obj: 0.2895 loss_cls: 0.5956 ETA: 00:08:33
+Step: 3320/3800, batch_cost: 0.4871, loss: 12.6636, loss_ori: 2.6578, loss_kd: 2.0323 loss_box: 1.6328 loss_obj: 0.3533 loss_cls: 0.6718 ETA: 00:08:22
+Epoch: 175/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5691, R: 0.6773, MAP@5: 0.6180, MAP@50: 0.4100
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7546, R: 0.6770, MAP@5: 0.7246, MAP@50: 0.4411
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3980, R: 0.2560, MAP@5: 0.2649, MAP@50: 0.1449
+Step: 3330/3800, batch_cost: 0.7911, loss: 11.6796, loss_ori: 2.6229, loss_kd: 1.1879 loss_box: 1.6562 loss_obj: 0.3194 loss_cls: 0.6474 ETA: 00:08:12
+Step: 3340/3800, batch_cost: 0.2151, loss: 11.7444, loss_ori: 2.6266, loss_kd: 1.2379 loss_box: 1.6402 loss_obj: 0.3390 loss_cls: 0.6474 ETA: 00:08:01
+Epoch: 176/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5345, R: 0.5703, MAP@5: 0.6116, MAP@50: 0.4055
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7498, R: 0.6849, MAP@5: 0.7251, MAP@50: 0.4420
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4182, R: 0.2607, MAP@5: 0.2696, MAP@50: 0.1466
+Step: 3350/3800, batch_cost: 0.4839, loss: 10.5895, loss_ori: 2.4939, loss_kd: 0.6139 loss_box: 1.5655 loss_obj: 0.3032 loss_cls: 0.6252 ETA: 00:07:51
+Step: 3360/3800, batch_cost: 0.7913, loss: 12.2607, loss_ori: 2.5046, loss_kd: 2.2423 loss_box: 1.5892 loss_obj: 0.3028 loss_cls: 0.6126 ETA: 00:07:40
+Epoch: 177/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5818, R: 0.6868, MAP@5: 0.6230, MAP@50: 0.4125
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7328, R: 0.6976, MAP@5: 0.7237, MAP@50: 0.4421
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4076, R: 0.2700, MAP@5: 0.2773, MAP@50: 0.1473
+Step: 3370/3800, batch_cost: 0.2155, loss: 10.6496, loss_ori: 2.4774, loss_kd: 0.7401 loss_box: 1.5657 loss_obj: 0.3216 loss_cls: 0.5901 ETA: 00:07:30
+Step: 3380/3800, batch_cost: 0.4860, loss: 11.2836, loss_ori: 2.4853, loss_kd: 1.3423 loss_box: 1.5517 loss_obj: 0.3433 loss_cls: 0.5904 ETA: 00:07:19
+Epoch: 178/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5798, R: 0.6867, MAP@5: 0.6224, MAP@50: 0.4130
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7386, R: 0.6900, MAP@5: 0.7261, MAP@50: 0.4418
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4265, R: 0.2725, MAP@5: 0.2727, MAP@50: 0.1483
+Step: 3390/3800, batch_cost: 0.7906, loss: 10.8352, loss_ori: 2.5856, loss_kd: 0.4929 loss_box: 1.6043 loss_obj: 0.3126 loss_cls: 0.6686 ETA: 00:07:09
+Step: 3400/3800, batch_cost: 0.2220, loss: 11.1428, loss_ori: 2.6418, loss_kd: 0.5755 loss_box: 1.6235 loss_obj: 0.3563 loss_cls: 0.6619 ETA: 00:06:58
+Epoch: 179/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5651, R: 0.6792, MAP@5: 0.6280, MAP@50: 0.4114
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7313, R: 0.7024, MAP@5: 0.7271, MAP@50: 0.4411
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3785, R: 0.2508, MAP@5: 0.2667, MAP@50: 0.1454
+Step: 3410/3800, batch_cost: 0.4868, loss: 11.3586, loss_ori: 2.6183, loss_kd: 0.8856 loss_box: 1.6375 loss_obj: 0.2922 loss_cls: 0.6886 ETA: 00:06:48
+Step: 3420/3800, batch_cost: 0.6127, loss: 10.8635, loss_ori: 2.5077, loss_kd: 0.8328 loss_box: 1.5557 loss_obj: 0.2981 loss_cls: 0.6538 ETA: 00:06:37
+Epoch: 180/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5595, R: 0.6748, MAP@5: 0.6321, MAP@50: 0.4250
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7328, R: 0.6980, MAP@5: 0.7238, MAP@50: 0.4398
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3714, R: 0.2580, MAP@5: 0.2648, MAP@50: 0.1438
+Step: 3430/3800, batch_cost: 0.2147, loss: 11.8197, loss_ori: 2.5566, loss_kd: 1.5932 loss_box: 1.5798 loss_obj: 0.3278 loss_cls: 0.6490 ETA: 00:06:27
+Epoch: 181/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5593, R: 0.6821, MAP@5: 0.6319, MAP@50: 0.4255
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7311, R: 0.6979, MAP@5: 0.7223, MAP@50: 0.4399
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3726, R: 0.2566, MAP@5: 0.2669, MAP@50: 0.1441
+Step: 3440/3800, batch_cost: 10.7855, loss: 10.0593, loss_ori: 2.4308, loss_kd: 0.3360 loss_box: 1.5320 loss_obj: 0.3285 loss_cls: 0.5703 ETA: 00:06:17
+Step: 3450/3800, batch_cost: 0.7917, loss: 11.5051, loss_ori: 2.5546, loss_kd: 1.2867 loss_box: 1.6266 loss_obj: 0.2881 loss_cls: 0.6399 ETA: 00:06:06
+Epoch: 182/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5587, R: 0.6893, MAP@5: 0.6416, MAP@50: 0.4337
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7245, R: 0.6986, MAP@5: 0.7215, MAP@50: 0.4396
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4024, R: 0.2763, MAP@5: 0.2757, MAP@50: 0.1476
+Step: 3460/3800, batch_cost: 0.2148, loss: 14.3150, loss_ori: 2.8155, loss_kd: 3.0531 loss_box: 1.7660 loss_obj: 0.4245 loss_cls: 0.6250 ETA: 00:05:56
+Step: 3470/3800, batch_cost: 0.4879, loss: 14.5759, loss_ori: 2.5056, loss_kd: 4.5537 loss_box: 1.5313 loss_obj: 0.3888 loss_cls: 0.5855 ETA: 00:05:45
+Epoch: 183/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5650, R: 0.6837, MAP@5: 0.6330, MAP@50: 0.4423
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7196, R: 0.7039, MAP@5: 0.7237, MAP@50: 0.4409
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3963, R: 0.2735, MAP@5: 0.2758, MAP@50: 0.1476
+Step: 3480/3800, batch_cost: 0.7898, loss: 10.7411, loss_ori: 2.2456, loss_kd: 1.7585 loss_box: 1.4923 loss_obj: 0.2481 loss_cls: 0.5052 ETA: 00:05:35
+Step: 3490/3800, batch_cost: 0.2206, loss: 11.8633, loss_ori: 2.6879, loss_kd: 1.1116 loss_box: 1.6919 loss_obj: 0.3266 loss_cls: 0.6694 ETA: 00:05:24
+Epoch: 184/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5451, R: 0.6610, MAP@5: 0.6275, MAP@50: 0.4369
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7250, R: 0.7030, MAP@5: 0.7245, MAP@50: 0.4399
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3908, R: 0.2710, MAP@5: 0.2764, MAP@50: 0.1481
+Step: 3500/3800, batch_cost: 0.4866, loss: 10.7055, loss_ori: 2.5138, loss_kd: 0.6504 loss_box: 1.5766 loss_obj: 0.3204 loss_cls: 0.6168 ETA: 00:05:14
+Step: 3510/3800, batch_cost: 0.7890, loss: 11.8563, loss_ori: 2.4755, loss_kd: 1.9542 loss_box: 1.5937 loss_obj: 0.2886 loss_cls: 0.5932 ETA: 00:05:03
+Epoch: 185/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5476, R: 0.6493, MAP@5: 0.6317, MAP@50: 0.4409
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7220, R: 0.6953, MAP@5: 0.7239, MAP@50: 0.4391
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3896, R: 0.2691, MAP@5: 0.2769, MAP@50: 0.1450
+Step: 3520/3800, batch_cost: 0.2149, loss: 12.8050, loss_ori: 2.7270, loss_kd: 1.8971 loss_box: 1.6986 loss_obj: 0.3467 loss_cls: 0.6816 ETA: 00:04:53
+Step: 3530/3800, batch_cost: 0.4871, loss: 12.4905, loss_ori: 2.5797, loss_kd: 2.1716 loss_box: 1.6169 loss_obj: 0.3501 loss_cls: 0.6127 ETA: 00:04:42
+Epoch: 186/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5464, R: 0.6513, MAP@5: 0.6339, MAP@50: 0.4309
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7260, R: 0.6930, MAP@5: 0.7239, MAP@50: 0.4395
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3885, R: 0.2702, MAP@5: 0.2711, MAP@50: 0.1404
+Step: 3540/3800, batch_cost: 0.7924, loss: 10.8807, loss_ori: 2.2940, loss_kd: 1.7046 loss_box: 1.4529 loss_obj: 0.2965 loss_cls: 0.5447 ETA: 00:04:32
+Step: 3550/3800, batch_cost: 0.2149, loss: 11.4423, loss_ori: 2.5151, loss_kd: 1.3821 loss_box: 1.5909 loss_obj: 0.3165 loss_cls: 0.6076 ETA: 00:04:21
+Epoch: 187/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5564, R: 0.6385, MAP@5: 0.6349, MAP@50: 0.4294
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7706, R: 0.6571, MAP@5: 0.7238, MAP@50: 0.4393
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3853, R: 0.2707, MAP@5: 0.2681, MAP@50: 0.1414
+Step: 3560/3800, batch_cost: 0.4862, loss: 11.0059, loss_ori: 2.5785, loss_kd: 0.6919 loss_box: 1.5990 loss_obj: 0.3742 loss_cls: 0.6053 ETA: 00:04:11
+Step: 3570/3800, batch_cost: 0.7916, loss: 11.0664, loss_ori: 2.5304, loss_kd: 0.9449 loss_box: 1.5718 loss_obj: 0.3638 loss_cls: 0.5948 ETA: 00:04:00
+Epoch: 188/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5622, R: 0.6441, MAP@5: 0.6340, MAP@50: 0.4296
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7675, R: 0.6605, MAP@5: 0.7241, MAP@50: 0.4375
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3716, R: 0.2663, MAP@5: 0.2743, MAP@50: 0.1455
+Step: 3580/3800, batch_cost: 0.2185, loss: 10.9603, loss_ori: 2.6101, loss_kd: 0.5199 loss_box: 1.6337 loss_obj: 0.3163 loss_cls: 0.6600 ETA: 00:03:50
+Step: 3590/3800, batch_cost: 0.4873, loss: 11.2152, loss_ori: 2.6055, loss_kd: 0.7932 loss_box: 1.6250 loss_obj: 0.3364 loss_cls: 0.6441 ETA: 00:03:39
+Epoch: 189/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5700, R: 0.6469, MAP@5: 0.6343, MAP@50: 0.4373
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7509, R: 0.6698, MAP@5: 0.7235, MAP@50: 0.4365
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3559, R: 0.2739, MAP@5: 0.2738, MAP@50: 0.1410
+Step: 3600/3800, batch_cost: 0.7927, loss: 10.9067, loss_ori: 2.4209, loss_kd: 1.2230 loss_box: 1.4765 loss_obj: 0.3087 loss_cls: 0.6357 ETA: 00:03:29
+Step: 3610/3800, batch_cost: 0.1415, loss: 11.2536, loss_ori: 2.5072, loss_kd: 1.2249 loss_box: 1.5133 loss_obj: 0.3393 loss_cls: 0.6546 ETA: 00:03:18
+Epoch: 190/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5721, R: 0.6554, MAP@5: 0.6437, MAP@50: 0.4453
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7501, R: 0.6717, MAP@5: 0.7234, MAP@50: 0.4362
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3865, R: 0.2874, MAP@5: 0.2893, MAP@50: 0.1457
+Step: 3620/3800, batch_cost: 0.4840, loss: 11.1427, loss_ori: 2.4805, loss_kd: 1.2208 loss_box: 1.5679 loss_obj: 0.3136 loss_cls: 0.5990 ETA: 00:03:08
+Epoch: 191/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5900, R: 0.6576, MAP@5: 0.6642, MAP@50: 0.4612
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7340, R: 0.6772, MAP@5: 0.7235, MAP@50: 0.4379
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4104, R: 0.3059, MAP@5: 0.2934, MAP@50: 0.1463
+Step: 3630/3800, batch_cost: 11.1037, loss: 13.2213, loss_ori: 2.6561, loss_kd: 2.5968 loss_box: 1.7293 loss_obj: 0.3356 loss_cls: 0.5912 ETA: 00:02:58
+Step: 3640/3800, batch_cost: 0.2214, loss: 11.9906, loss_ori: 2.5544, loss_kd: 1.7728 loss_box: 1.6115 loss_obj: 0.3151 loss_cls: 0.6278 ETA: 00:02:47
+Epoch: 192/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6701, R: 0.6220, MAP@5: 0.6968, MAP@50: 0.4921
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7179, R: 0.6946, MAP@5: 0.7252, MAP@50: 0.4386
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4126, R: 0.3043, MAP@5: 0.2965, MAP@50: 0.1469
+Step: 3650/3800, batch_cost: 0.4869, loss: 14.0734, loss_ori: 2.8117, loss_kd: 2.8266 loss_box: 1.7498 loss_obj: 0.3184 loss_cls: 0.7436 ETA: 00:02:37
+Step: 3660/3800, batch_cost: 0.7930, loss: 11.7923, loss_ori: 2.3611, loss_kd: 2.3478 loss_box: 1.4850 loss_obj: 0.2960 loss_cls: 0.5802 ETA: 00:02:26
+Epoch: 193/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6660, R: 0.6314, MAP@5: 0.7007, MAP@50: 0.4775
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7150, R: 0.6955, MAP@5: 0.7247, MAP@50: 0.4402
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4136, R: 0.3065, MAP@5: 0.2916, MAP@50: 0.1484
+Step: 3670/3800, batch_cost: 0.2132, loss: 9.3234, loss_ori: 2.1680, loss_kd: 0.6513 loss_box: 1.4287 loss_obj: 0.2771 loss_cls: 0.4622 ETA: 00:02:16
+Step: 3680/3800, batch_cost: 0.4878, loss: 13.8915, loss_ori: 2.1855, loss_kd: 5.1494 loss_box: 1.3697 loss_obj: 0.2916 loss_cls: 0.5242 ETA: 00:02:05
+Epoch: 194/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.6026, R: 0.6280, MAP@5: 0.6985, MAP@50: 0.4759
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7233, R: 0.6913, MAP@5: 0.7253, MAP@50: 0.4418
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.4054, R: 0.2953, MAP@5: 0.2919, MAP@50: 0.1475
+Step: 3690/3800, batch_cost: 0.7905, loss: 11.0556, loss_ori: 2.5853, loss_kd: 0.7144 loss_box: 1.6306 loss_obj: 0.3232 loss_cls: 0.6315 ETA: 00:01:55
+Step: 3700/3800, batch_cost: 0.2156, loss: 13.3318, loss_ori: 2.7260, loss_kd: 2.4280 loss_box: 1.7383 loss_obj: 0.3308 loss_cls: 0.6568 ETA: 00:01:44
+Epoch: 195/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.6037, R: 0.6155, MAP@5: 0.7006, MAP@50: 0.4766
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7297, R: 0.6828, MAP@5: 0.7263, MAP@50: 0.4420
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3985, R: 0.2825, MAP@5: 0.2890, MAP@50: 0.1461
+Step: 3710/3800, batch_cost: 0.4878, loss: 10.2926, loss_ori: 2.3224, loss_kd: 1.0031 loss_box: 1.4784 loss_obj: 0.3118 loss_cls: 0.5322 ETA: 00:01:34
+Step: 3720/3800, batch_cost: 0.8287, loss: 10.9080, loss_ori: 2.4220, loss_kd: 1.2201 loss_box: 1.5487 loss_obj: 0.2993 loss_cls: 0.5740 ETA: 00:01:23
+Epoch: 196/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5767, R: 0.6570, MAP@5: 0.6521, MAP@50: 0.4344
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7183, R: 0.6956, MAP@5: 0.7288, MAP@50: 0.4434
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3914, R: 0.2686, MAP@5: 0.2739, MAP@50: 0.1414
+Step: 3730/3800, batch_cost: 0.2030, loss: 11.1749, loss_ori: 2.3517, loss_kd: 1.7679 loss_box: 1.4411 loss_obj: 0.3045 loss_cls: 0.6062 ETA: 00:01:13
+Step: 3740/3800, batch_cost: 0.4871, loss: 11.4730, loss_ori: 2.2718, loss_kd: 2.3856 loss_box: 1.4303 loss_obj: 0.3145 loss_cls: 0.5271 ETA: 00:01:02
+Epoch: 197/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5392, R: 0.6992, MAP@5: 0.6364, MAP@50: 0.4250
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7231, R: 0.6903, MAP@5: 0.7275, MAP@50: 0.4410
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3750, R: 0.2651, MAP@5: 0.2795, MAP@50: 0.1456
+Step: 3750/3800, batch_cost: 0.7913, loss: 13.2650, loss_ori: 2.9270, loss_kd: 1.5571 loss_box: 1.7172 loss_obj: 0.4204 loss_cls: 0.7894 ETA: 00:00:52
+Step: 3760/3800, batch_cost: 0.2145, loss: 12.9888, loss_ori: 2.7318, loss_kd: 2.0614 loss_box: 1.6765 loss_obj: 0.3709 loss_cls: 0.6844 ETA: 00:00:41
+Epoch: 198/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5404, R: 0.7001, MAP@5: 0.6421, MAP@50: 0.4270
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7186, R: 0.6900, MAP@5: 0.7266, MAP@50: 0.4386
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3775, R: 0.2652, MAP@5: 0.2731, MAP@50: 0.1450
+Step: 3770/3800, batch_cost: 0.4873, loss: 11.2630, loss_ori: 2.5534, loss_kd: 1.0494 loss_box: 1.6024 loss_obj: 0.3076 loss_cls: 0.6434 ETA: 00:00:31
+Step: 3780/3800, batch_cost: 0.8275, loss: 11.2213, loss_ori: 2.5551, loss_kd: 1.0009 loss_box: 1.5887 loss_obj: 0.3375 loss_cls: 0.6289 ETA: 00:00:20
+Epoch: 199/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:02
+Preds: 293, Labels: 270, P: 0.5477, R: 0.6725, MAP@5: 0.6436, MAP@50: 0.4284
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7508, R: 0.6624, MAP@5: 0.7261, MAP@50: 0.4383
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3866, R: 0.2635, MAP@5: 0.2759, MAP@50: 0.1436
+Step: 3790/3800, batch_cost: 0.2150, loss: 10.6153, loss_ori: 2.5296, loss_kd: 0.4967 loss_box: 1.5569 loss_obj: 0.3406 loss_cls: 0.6322 ETA: 00:00:10
+Step: 3800/3800, batch_cost: 0.4155, loss: 11.2314, loss_ori: 2.5777, loss_kd: 0.9205 loss_box: 1.5836 loss_obj: 0.3598 loss_cls: 0.6343 ETA: 00:00:00
+Epoch: 200/200
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_train.txt
+Cost Time 00:00:01
+Preds: 293, Labels: 270, P: 0.5476, R: 0.6385, MAP@5: 0.6489, MAP@50: 0.4325
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid_total.txt
+Cost Time 00:00:07
+Preds: 1114, Labels: 1697, P: 0.7556, R: 0.6626, MAP@5: 0.7257, MAP@50: 0.4387
+dataset_path: /data4/times-ai-cloud/model/train/shimopian_test6/continual_valid.txt
+Cost Time 00:00:00
+Preds: 58, Labels: 89, P: 0.3895, R: 0.2611, MAP@5: 0.2896, MAP@50: 0.1473
+
+200 epochs completed in 1.105 hours.
+Optimizer stripped from /data4/times-ai-cloud/model/train/shimopian_test6/student_model12/weights/last.pt, 14.4MB from 199 epoch
+Optimizer stripped from /data4/times-ai-cloud/model/train/shimopian_test6/student_model12/weights/best.pt, 14.4MB from 0 epoch
+
+Validating /data4/times-ai-cloud/model/train/shimopian_test6/student_model12/weights/best.pt...
+Fusing layers... 
+YOLOv5s summary: 213 layers, 7037095 parameters, 0 gradients, 15.8 GFLOPs
+                 all       1114       1697      0.841      0.706      0.737      0.458
+Training Finished

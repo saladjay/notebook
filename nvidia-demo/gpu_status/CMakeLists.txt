@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(two_stream LANGUAGES CXX C CUDA)
+project(gpu_status LANGUAGES CXX C CUDA)
 
 add_definitions(-std=c++17)
 add_definitions(-DAPI_EXPORTS)
@@ -30,10 +30,10 @@ link_directories(C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/lib/x6
 include_directories(C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/include)
 
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Ofast -g -D_MWAITXINTRIN_H_INCLUDED -DNOMINMAX")
-add_executable(two_stream_lib ${CU_FILES} ${HEADERS} )
-target_compile_options(two_stream_lib PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>)
-set_target_properties(two_stream_lib PROPERTIES CUDA_ARCHITECTURES "86")
-target_link_libraries(two_stream_lib cudart)
+add_executable(gpu_status ${CU_FILES} ${HEADERS} ${SOURCES})
+target_compile_options(gpu_status PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>)
+set_target_properties(gpu_status PROPERTIES CUDA_ARCHITECTURES "86")
+target_link_libraries(gpu_status cudart)
 
 # add_executable(two_stream ${SOURCES} ${HEADERS})
 # target_link_libraries(two_stream two_stream_lib)

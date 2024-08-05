@@ -1,3 +1,5 @@
+
+
 # Torch
 
 ## Linux
@@ -34,6 +36,20 @@ git submodule update --init --recursive --jobs 0
 ```
 
 执行git submodule update --init --recursive --jobs 0 巨慢无比。可以通过搭梯子或者修改git source来解决
+
+git的代理的设置和取消
+
+```
+git config --global http.proxy 127.0.0.1:7890 
+git config --global https.proxy 127.0.0.1:7890
+```
+
+```
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
+
 
 ### 修改内容
 
@@ -195,7 +211,7 @@ python setup.py install
 
 ```bat
 D:
-cd github\pytorch
+cd D:\github\pytorch
 set "CMAKE_INCLUDE_PATH=%cd%\mkl\include"
 set "LIB=%cd%\mkl\lib;%LIB%"
 set "MAGMA_HOME=%cd%\magma"

@@ -43,7 +43,10 @@ __global__ void cudaSetValue2_device_copy(int32_t* values, int32_t* values2, siz
 	for (size_t count{ 0 }; count < 1; count++) {
 		for (size_t idx{ 0 }; idx < jobs; ++idx) {
 			if (values[idx] == 1)
+            {
 				values2[idx] = 2;
+                values[idx] = 1;
+            }
 		}
 	}
 }
@@ -288,16 +291,9 @@ int main(){
 			cudaStreamSynchronize(stream2);
 			++inference_count;
 
-			//cudaMemcpy(host_values, device_values, sizeof(int32_t)*jobs, cudaMemcpyDeviceToHost);
-			//check = true;
-			//for (size_t idx{ 0 }; idx < jobs; ++idx) {
-			//	check &= host_values[idx] == 3;
-			//}
-			//std::cout << __LINE__ << " " <<  check << std::endl;
-
-			//if (auto cuda_ret = cudaEventCreate(&event2); cuda_ret != cudaError::cudaSuccess) {
-			//	std::cout << "event2 create failed" << std::endl;
-			//}
+			if (auto cuda_ret = cudaEventCreate(&event2); cuda_ret != cudaError::cudaSuccess) {
+				std::cout << "event2 create failed" << std::endl;
+			}
 		}
 	} };
 	t1.detach();
@@ -310,6 +306,7 @@ int main(){
 	}
 	std::cout << __LINE__ << std::endl;
 	std::cout << check << std::endl;
+	std::this_thread::sleep_for(std::chrono::seconds(10));
 	std::cout << "finish" << std::endl;
     return 0;
 }

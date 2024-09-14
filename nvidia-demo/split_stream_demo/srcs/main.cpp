@@ -1,5 +1,5 @@
 #include "../includes/base_class.h" 
-
+#include "../includes/gpu_status.h"
 __global__ void kernel_function(int* data) {
     printf("Hello from kernel function \n");
     int value = data[0];
@@ -7,6 +7,8 @@ __global__ void kernel_function(int* data) {
         printf("Hello from kernel function\n");
     }
 }
+
+
 
 int main() {
 
@@ -28,5 +30,8 @@ int main() {
     times_host[0] = 20;
     cudaMemcpy(times_host, times, sizeof(int), cudaMemcpyDeviceToHost);
     std::cout << "times_host[0] = " << times_host[0] << std::endl;
+
+    int result = get_gpu_status(0);
+    std::cout << "GPU status: " << result << std::endl;
     return 0;
 }

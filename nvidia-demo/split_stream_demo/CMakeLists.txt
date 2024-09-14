@@ -34,7 +34,7 @@ add_executable(split_stream_demo ${CU_FILES} ${HEADERS} ${SOURCES})
 target_link_directories(split_stream_demo PUBLIC "includes")
 target_compile_options(split_stream_demo PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:-std=c++17>)
 set_target_properties(split_stream_demo PROPERTIES CUDA_ARCHITECTURES "86")
-target_link_libraries(split_stream_demo cudart)
+target_link_libraries(split_stream_demo cudart nvml)
 
 # add_executable(two_stream ${SOURCES} ${HEADERS})
 # target_link_libraries(two_stream two_stream_lib)

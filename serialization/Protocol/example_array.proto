@@ -1,0 +1,6 @@
+syntax = "proto3";
+
+message ExampleArray {
+    string name = 1;
+    repeated float values = 2;    
+}

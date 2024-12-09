@@ -6,15 +6,29 @@ class weightsWriter:
         self.filename = filename
 
     def write(self):
+        buffer = io.BytesIO()
+        
+        buffer.write(struct.pack('i', 20)) # 写入数组长度
+        for nb_weights in range(1,21):
+            name_len =  9 if nb_weights < 10 else 12
+            buffer.write(struct.pack('i', name_len)) # 写入每个数组名字的长度
+            if name_len == 9:
+                name = f'12345678{nb_weights}'
+                print(name, len(name), name_len)
+                buffer.write(struct.pack(f'{name_len}s', name.encode('utf-8'))) # 写入每个数组元素的长度
+            else:
+                name = f'1234567890{nb_weights}'
+                print(name, len(name), name_len)
+                buffer.write(struct.pack(f'{name_len}s', name.encode('utf-8'))) # 写入每个数组元素的长度
+            buffer.write(struct.pack('i', nb_weights)) # 写入每个数组元素的长度
+            for n in range(1,nb_weights+1):
+                buffer.write(struct.pack('d', 0.0001 * n))
+            from pathlib import Path
+            pas = Path(f"weights/{nb_weights}.bin")
+            pas.
         # 写入二进制文件
         with open(self.filename, 'wb') as file:
-            file.write(struct.pack('i', 20)) # 写入数组长度
-            for nb_weights in range(1,21):
-                file.write(struct.pack('i', 2 if nb_weights < 10 else 3)) # 写入每个数组名字的长度
-                file.write(struct.pack(f'{2 if nb_weights < 10 else 3}s', f's{nb_weights}'.encode('utf-8'))) # 写入每个数组元素的长度
-                file.write(struct.pack('i', nb_weights)) # 写入每个数组元素的长度
-                for n in range(1,nb_weights+1):
-                    file.write(struct.pack('d', 0.0001 * n))
+            file.write(buffer.getvalue())
 
 a = "ab"
 try:

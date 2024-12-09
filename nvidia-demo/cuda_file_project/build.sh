@@ -1,0 +1,1 @@
+nvcc -cudart=shared -rdc=true kernel1.cu kernel2.cu main1.cu -o demo

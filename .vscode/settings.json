@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.py": "python",
         "algorithm": "cpp",
         "array": "cpp",
         "atomic": "cpp",
@@ -84,6 +85,9 @@
         "xlocbuf": "cpp",
         "xlocmes": "cpp",
         "__nullptr": "cpp",
-        "__config": "cpp"
+        "__config": "cpp",
+        "typeindex": "cpp",
+        "__bit_reference": "cpp",
+        "regex": "cpp"
     }
 }

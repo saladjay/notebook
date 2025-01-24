@@ -333,6 +333,7 @@ void run()
     }
     else
     {
+        // std::string engineString = "test";
         IBuilder             *builder = createInferBuilder(gLogger);
         INetworkDefinition   *network = builder->createNetworkV2(0);
         IOptimizationProfile *profile = builder->createOptimizationProfile();
@@ -341,16 +342,16 @@ void run()
         ITensor *inputTensor = network->addInput(inputTensorName, DataType::kFLOAT, Dims32 {3, {-1, -1, -1}});
         std::cout<<"abcde"<<std::endl;
         profile->setDimensions(inputTensor->getName(), OptProfileSelector::kMIN, Dims32 {3, {1, 1, 1}});
-        std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
+        // std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
         profile->setDimensions(inputTensor->getName(), OptProfileSelector::kOPT, Dims32 {3, {3, 4, 5}});
-        std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
+        // std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
         profile->setDimensions(inputTensor->getName(), OptProfileSelector::kMAX, Dims32 {3, {6, 8, 10}});
-        std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
+        // std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
         config->addOptimizationProfile(profile);
 
         IIdentityLayer *identityLayer = network->addIdentity(*inputTensor);
         network->markOutput(*identityLayer->getOutput(0));
-        std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
+        // std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
         IHostMemory *engineString = builder->buildSerializedNetwork(*network, *config);
         std::cout << __FILE__ << ":" << __LINE__ << " engineString=" << engineString << std::endl;
         if (engineString == nullptr || engineString->size() == 0)

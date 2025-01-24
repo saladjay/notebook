@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-project(split_stream_demo LANGUAGES CXX C CUDA)
+project(tensorrt_new_api LANGUAGES CXX C CUDA)
 
 add_definitions(-std=c++17)
 add_definitions(-DAPI_EXPORTS)

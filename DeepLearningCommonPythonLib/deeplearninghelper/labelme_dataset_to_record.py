@@ -30,7 +30,6 @@ def labelme_dataset_to_record(json_dir, image_dir, output_file):
         if Path(image_file).stem in json_to_image_map and Path(image_file).suffix in ['.jpg', '.png', '.jpeg']:
             json_to_image_map[Path(image_file).stem][1] = os.path.join(str(image_dir), image_file)
 
-
     datasets = []
     for key, value in json_to_image_map.items():
         if value[1] is None:
@@ -94,7 +93,6 @@ def update_image_path(dataset_json_path, dataset_image_dir):
             if Path(file).suffix in ['.jpg', '.png', '.jpeg']:
                 image_name_to_path_map[file] = os.path.join(root, file)
 
-
     dataset = json.load(open(dataset_json_path, 'r'))
 
     for idx in range(len(dataset)):
@@ -109,7 +107,7 @@ def update_image_path(dataset_json_path, dataset_image_dir):
         
 
 if __name__ == '__main__':
-    json_dir = r'D:\works\projects\DefectGenerate\big_shimo\val\jsons'
-    image_dir = r'D:\works\projects\DefectGenerate\big_shimo\val\images'
-    output_file = r'D:\works\projects\DefectGenerate\big_shimo\dataset.json'
+    json_dir = r'D:\temp\anydoor2\jsons'
+    image_dir = r'D:\temp\anydoor2\images'
+    output_file = r'D:\temp\anydoor2\dataset.json'
     labelme_dataset_to_record(json_dir, image_dir, output_file)

@@ -7,3 +7,6 @@
 [submodule "TBB/oneTBB"]
 	path = TBB/oneTBB
 	url = https://github.com/oneapi-src/oneTBB.git
+[submodule "TBB/oneDPL"]
+	path = TBB/oneDPL
+	url = https://github.com/uxlfoundation/oneDPL.git

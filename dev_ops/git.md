@@ -14,3 +14,18 @@ git config --global --unset https.proxy
 
 ```
 
+### submodules
+
+```
+# add submodule
+git submodule add <repository_url> <path>
+
+# update submodule
+git submodule update --init --recursive
+
+# remove submodule
+git rm --cached <path>
+rm -rf .git/modules/<path>
+```
+
+

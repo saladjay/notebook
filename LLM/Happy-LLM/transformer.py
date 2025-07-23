@@ -35,4 +35,30 @@ class ModelArgs:
 class MultiHeadAttention(nn.Module):
     def __init__(self, args: ModelArgs, is_causal=False):
         super(MultiHeadAttention, self).__init__()
+        model_parallel_size = 1
+        self.n_local_heads = args.n_heads // model_parallel_size
+        self.head_dim = args.dim // args.n_heads
+
+        # wq, wk, wv 参数矩阵，每个参数矩阵 n_embd x n_embd
+        # 这里通过三个组合矩阵来代替了n个参数矩阵的组合，其逻辑在于矩阵内积再拼接
+        # 其实等同拼接矩阵再内积
+        
+        self.wq = nn.Linear(args.dim, args.n_heads * self.head_dim, bias=False)
+        self.wk = nn.Linear(args.dim, args.n_heads * self.head_dim, bias=False)
+        self.wv = nn.Linear(args.dim, args.n_heads * self.head_dim, bias=False)
+        
+        self.wo = nn.Linear(args.n_heads * self.head_dim, args.dim, bias=False)
+
+        self.attn_dropout = nn.Dropout(args.dropout)
+
+        self.resid_dropout = nn.Dropout(args.dropout)
+
+        if is_causal:
+            mask = torch.full((1, 1, args.max_seq_len, args.max_seq_len), float('-inf'))
+            mask = torch.triu(mask, diagonal=1)
+            # 注册为模型的缓冲区
+            self.register_buffer('mask', mask)
+
+    def forward(self, q: torch.Tensor, k: torch.Tensor, v: torch.Tensor):
+        bsz, seqlen, _ = q.size()
         

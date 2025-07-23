@@ -10,3 +10,6 @@
 [submodule "TBB/oneDPL"]
 	path = TBB/oneDPL
 	url = https://github.com/uxlfoundation/oneDPL.git
+[submodule "TBB/example"]
+	path = TBB/example
+	url = https://github.com/Apress/pro-TBB

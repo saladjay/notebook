@@ -20,7 +20,6 @@ def attention(q, k, v, drop_out=None, mask=None):
         mask = mask.triu(diagonal=1)
         scores = scores + mask[:, :scores.size(1), :scores.size(2)]
 
-
     p_atten = torch.softmax(scores, dim=-1)
     if drop_out is not None:
         p_atten = drop_out(p_atten)

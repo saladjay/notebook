@@ -1,0 +1,84 @@
+Qwen是阿里巴巴的大模型，dashscope里面有Qwen自家的模型，也有部署DeepSeek开源的模型；
+
+DeepSeek是另一家公司的，
+企业级的入门AI大模型是 DeepSeek-distilled-32B
+
+7B 个人使用，快速的模型
+问数： 可以在本地安装个MySQL，然后创建一些表，来进行问数
+
+业务实现，通过AI工具来实现业务价值
+
+
+以后做项目，关键是跑通
+1、通过大模型API（阿里云百联上的Key），可以更快的跑通
+2、跑通之后，可以切换到本地的模型接口
+
+===
+Qwen有很多模型，我用的比较多的是 qwen-turbo
+如果是多模态（视觉），用的比较多的是 qwen-vl
+
+===
+业务价值导向
+2023年4、5、6月一日门票、二日门票的销量如何？帮我按照周进行统计
+www.wucai.com 方便大家了解AI助手（未来自己可以搭建的）
+
+方法：Agent，RAG知识库，问数，MCP协议，Function call
+ChatBI
+
+===
+很多大模型（基于Transformers），是可以调用function call
+
+function call，这里是第三方的服务，即我们提供的函数
+
+大模型本质量是一个offline的model，它的知识推理是通过大脑来完成的。如果要获取时间、天气，需要第三方的服务，即function call
+
+dashscope 是阿里云百联平台上的，有些model需要开通，开通后 可以通过该key使用
+
+system_prompt: 如果遇到XXXX的情况，可以使用XXX工具
+user_prompt： 如果遇到XXXX的情况，可以使用XXX工具
+给它更多的示例
+
+JSON格式：
+key: value
+{
+"客户名称": "x1",
+"产品型号": "x2",
+"key1": "value1",
+"key2": "value2",
+}
+
+temperature=0.7, 
+越高 => 越有创意，比如设置为 0.9
+越低 => 越稳定，比如设置为 0.1
+
+1）跑通代码 => 能用AI大模型解决示例任务
+2）能改成自己类似的任务
+
+这是一个表格图片，帮我提取里面的内容，输出JSON格式
+
+这个代码，能否做其他任务？
+Excel中有1000行，能否通过调用API 批量完成舆情正负识别？
+
+你是一名舆情分析师，帮我判断产品口碑的正负向，回复请用一个词语：正向 或者 负向
+===
+这款音效特别好 给你意想不到的音质。
+
+在命令行下运行：
+pip install dashscope -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+https://dashscope.console.aliyun.com/apiKey
+https://bailian.console.aliyun.com/
+
+需要对年龄进行分组，统计不同年龄层的欺诈比例
+帮我统计不同年龄层的欺诈比例
+帮我分析数据表的字段含义
+
+https://chatglm.cn/main/alltoolsdetail?lang=zh
+
+ChatGPT, 
+4o 通用模型
+o1, o3-mini：推理模型
+
+
+github.com/cystanford/model_API

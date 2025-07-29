@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>香港疫情可视化大屏</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+<body>
+    <h2>疫情数据概览</h2>
+    <div id="overview_panel" style="margin-bottom: 30px; font-size: 18px;"></div>
+    <h2>每日新增与累计确诊</h2>
+    <div id="line_chart" style="width: 1000px; height: 400px;"></div>
+    <h2>各区域累计确诊分布</h2>
+    <div id="pie_chart" style="width: 1000px; height: 400px;"></div>
+    <h2>病例增长率变化趋势</h2>
+    <div id="growth_chart" style="width: 1000px; height: 400px;"></div>
+    <script>
+        // 疫情数据概览
+        Promise.all([
+            fetch('/api/overview').then(res=>res.json()),
+            fetch('/api/region').then(res=>res.json())
+        ]).then(([overview, region]) => {
+            let totalAdd = overview.reduce((sum, d) => sum + d['新增确诊'], 0);
+            let totalConfirmed = overview.length > 0 ? overview[overview.length-1]['累计确诊'] : 0;
+            let regionCount = region.length;
+            document.getElementById('overview_panel').innerHTML =
+                `累计确诊：<b style='color:#d62728'>${totalConfirmed}</b> &nbsp; | &nbsp; ` +
+                `总新增：<b style='color:#1f77b4'>${totalAdd}</b> &nbsp; | &nbsp; ` +
+                `区域数：<b>${regionCount}</b>`;
+        });
+        // 双y轴折线图
+        fetch('/api/overview').then(res=>res.json()).then(data=>{
+            let dates = data.map(d=>d['日期']);
+            let add = data.map(d=>d['新增确诊']);
+            let total = data.map(d=>d['累计确诊']);
+            let chart = echarts.init(document.getElementById('line_chart'));
+            chart.setOption({
+                tooltip: { trigger: 'axis' },
+                legend: { data: ['新增确诊', '累计确诊'] },
+                xAxis: { type: 'category', data: dates },
+                yAxis: [
+                    { type: 'value', name: '新增确诊', position: 'left' },
+                    { type: 'value', name: '累计确诊', position: 'right' }
+                ],
+                series: [
+                    { name: '新增确诊', type: 'line', yAxisIndex: 0, data: add },
+                    { name: '累计确诊', type: 'line', yAxisIndex: 1, data: total }
+                ]
+            });
+        });
+        // 区域分布饼图
+        fetch('/api/region').then(res=>res.json()).then(data=>{
+            let pieData = data.map(d=>({ name: d['地区名称'], value: d['累计确诊'] }));
+            let chart = echarts.init(document.getElementById('pie_chart'));
+            chart.setOption({
+                tooltip: { trigger: 'item', formatter: '{b}: {c} ({d}%)' },
+                legend: { type: 'scroll', orient: 'vertical', right: 10, top: 20, bottom: 20 },
+                series: [
+                    {
+                        name: '累计确诊',
+                        type: 'pie',
+                        radius: '60%',
+                        center: ['40%', '50%'],
+                        data: pieData,
+                        emphasis: {
+                            itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0, 0, 0, 0.5)' }
+                        }
+                    }
+                ]
+            });
+        });
+        // 增长率
+        fetch('/api/growth').then(res=>res.json()).then(data=>{
+            let dates = data.map(d=>d['日期']);
+            let rates = data.map(d=>Math.abs(d['增长率']));
+            let chart = echarts.init(document.getElementById('growth_chart'));
+            chart.setOption({
+                tooltip: { trigger: 'axis' },
+                xAxis: { type: 'category', data: dates },
+                yAxis: { type: 'value', min: 0, axisLabel: { formatter: '{value} %' } },
+                series: [
+                    { name: '增长率', type: 'bar', data: rates }
+                ]
+            });
+        });
+    </script>
+</body>
+</html> 

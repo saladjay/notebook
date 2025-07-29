@@ -53,7 +53,7 @@ setup(
 '''
 setup(
     name='DeepLearningCommonPythonLib',
-    version='0.1',
+    version='0.2',
     packages=find_packages(),
     author='dengyj',
     author_email='dyj394041771@sina.com',

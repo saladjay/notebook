@@ -43,7 +43,7 @@ def base64_to_array(base64_str):
 
 class image_metadata:
     """Class for storing image metadata"""
-
+    '''存储图片原始数据的类'''
     def __init__(self, filepath=None):
         self.filename = None 
         self.filepath = None
@@ -55,7 +55,6 @@ class image_metadata:
                     self.filepath = str(Path(filepath).absolute())
                     self.filename = os.path.basename(self.filepath)
                     self.filedata = None
-
 
     def to_dict(self):
         return {
@@ -70,14 +69,15 @@ class image_metadata:
         self.filepath = str(data_dict["filepath"])
         self.filedata = base64_to_array(data_dict["filedata"]) if data_dict["filedata"] is not None else None
 
-
     def update_image_path(self, image_name_to_path_map : dict):
         self.filepath = image_name_to_path_map.get(self.filename, None)
 
 class region:
+    '''存储图片中感兴趣区域的类'''
     def __init__(self):
         self.label = None
         self.bbox = None
+        self.polygon = None
         self.partial_image = image_metadata()
         self.mask_image = image_metadata()
 
@@ -85,6 +85,7 @@ class region:
         return {
             "label": self.label,
             "bbox": self.bbox,
+            "polygon": self.polygon,
             "partial_image": self.partial_image.to_dict(),
             "mask_image": self.mask_image.to_dict(),
         }
@@ -92,6 +93,7 @@ class region:
     def from_dict(self, data_dict):
         self.label = data_dict["label"]
         self.bbox = data_dict["bbox"]
+        self.polygon = data_dict["polygon"]
         self.partial_image = image_metadata()
         self.partial_image.from_dict(data_dict["partial_image"])
         self.mask_image = image_metadata()

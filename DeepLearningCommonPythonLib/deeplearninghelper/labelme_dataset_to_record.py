@@ -6,7 +6,7 @@ import cv2
 from pathlib import Path
 from ._utils import check_roi_availability, get_empyt_structure
 from ._data import dataset_image, region, image_metadata
-def labelme_dataset_to_record(json_dir, image_dir, output_file):
+def labelme_dataset_to_record(json_dir, image_dir, output_file = None):
     """
     Convert a LabelMe dataset to json format.
 
@@ -39,7 +39,7 @@ def labelme_dataset_to_record(json_dir, image_dir, output_file):
             one_dataset_image.json_file_path = value[0]
             one_dataset_image.image = image_metadata(value[1])
             one_dataset_image.regions = []  
-            image = cv2.imread(value[1])
+            image = cv2.imdecode(np.fromfile(value[1], dtype=np.uint8), -1)
             if image is None:
                 print("Warning: Image {} not found".format(value[1]))
                 continue
@@ -47,12 +47,21 @@ def labelme_dataset_to_record(json_dir, image_dir, output_file):
                 json_data = json.load(f)
                 for i, shape in enumerate(json_data['shapes']):
                     label = shape['label']
-                    points = np.array(shape['points'], dtype=np.int32)
-        
-                    # Get bounding box
-                    x_min, y_min = points.min(axis=0)
-                    x_max, y_max = points.max(axis=0)
-
+                    if shape['shape_type'] == 'polygon':
+                        # 多边形变成外接矩形
+                        points = np.array(shape['points'], dtype=np.int32)
+                        x_min, y_min = points.min(axis=0)
+                        x_max, y_max = points.max(axis=0)
+                        x_min, y_min, x_max, y_max = int(x_min), int(y_min), int(x_max), int(y_max)
+                    elif shape['shape_type'] == 'rectangle':
+                        points = np.array(shape['points'], dtype=np.int32)
+                        # Get bounding box
+                        x_min, y_min = points.min(axis=0)
+                        x_max, y_max = points.max(axis=0)
+                    else:
+                        print("Warning: Shape type {shape['shape_type']} is not supported")
+                        continue
+                    
                     # Check if ROI is within image bounds
                     if not check_roi_availability(image, (x_min, y_min, x_max, y_max), debug=False):
                         x_min = max(0, x_min)
@@ -67,16 +76,20 @@ def labelme_dataset_to_record(json_dir, image_dir, output_file):
                     one_region = region()
                     one_region.label = label
                     one_region.bbox = [x_min, y_min, x_max, y_max]
+                    if shape['shape_type'] == 'polygon':
+                        one_region.polygon = shape['points']
                     one_dataset_image.regions.append(one_region)
             datasets.append(one_dataset_image.to_dict())
-    if os.path.exists(output_file):
+    if output_file is not None and os.path.exists(output_file):
         try:
             datasets = json.load(open(output_file, 'r')) + datasets
         except:
             pass
-    with open(output_file, 'w') as f:
-        # print(datasets)
-        json.dump(datasets, f, indent=4)
+    if output_file is not None:
+        with open(output_file, 'w') as f:
+            # print(datasets)
+            json.dump(datasets, f, indent=4)
+    return datasets
 
 def update_image_path(dataset_json_path, dataset_image_dir):
     """

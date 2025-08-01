@@ -25,12 +25,30 @@ SPDX-License-Identifier: MIT
 #include <iostream>
 #include <vector>
 #include <tbb/tbb.h>
-#include <pstl/algorithm>
-#include <pstl/execution>
+// #include <pstl/algorithm>
+// #include <pstl/execution>
+#include <oneapi/dpl/algorithm>
+#include <oneapi/dpl/execution>
 #include "ch01.h"
 
 using ImagePtr = std::shared_ptr<ch01::Image>;
 void writeImage(ImagePtr image_ptr);
+
+class src_body{
+    const std::vector<ImagePtr> my_limit;
+    int my_next_value;
+public:
+    src_body(std::vector<ImagePtr> l) : my_limit(l), my_next_value(0){}
+    ImagePtr operator()(tbb::flow_control& fc){
+        if(my_next_value < my_limit.size()){
+          // std::cout<<"new image start on "<<std::this_thread::get_id()<<std::endl;
+            return my_limit[my_next_value++];
+        }else{
+            fc.stop();
+            return nullptr;
+        }
+    }
+};
 
 ImagePtr applyGamma(ImagePtr image_ptr, double gamma) {
   auto output_image_ptr = 
@@ -45,7 +63,7 @@ ImagePtr applyGamma(ImagePtr image_ptr, double gamma) {
     [&in_rows, &out_rows, width, gamma](int i) {
       auto in_row = in_rows[i];
       auto out_row = out_rows[i];
-      std::transform(pstl::execution::unseq, in_row, in_row+width, 
+      std::transform(dpl::execution::unseq, in_row, in_row+width, 
         out_row, [gamma](const ch01::Image::Pixel& p) {
           double v = 0.3*p.bgra[2] + 0.59*p.bgra[1] + 0.11*p.bgra[0];
           double res = pow(v, gamma);
@@ -70,7 +88,7 @@ ImagePtr applyTint(ImagePtr image_ptr, const double *tints) {
     [&in_rows, &out_rows, width, tints](int i) {
       auto in_row = in_rows[i];
       auto out_row = out_rows[i];
-      std::transform(pstl::execution::unseq, in_row, in_row+width, 
+      std::transform(dpl::execution::unseq, in_row, in_row+width, 
         out_row, [tints](const ch01::Image::Pixel& p) {
           std::uint8_t b = (double)p.bgra[0] + 
                            (ch01::MAX_BGR_VALUE-p.bgra[0])*tints[0];
@@ -95,15 +113,7 @@ void fig_1_12(std::vector<ImagePtr>& image_vector) {
   tbb::flow::graph g;
 
   int i = 0;
-  tbb::flow::source_node<ImagePtr> src(g, 
-    [&i, &image_vector] (ImagePtr& out) -> bool {
-      if ( i < image_vector.size() ) {
-        out = image_vector[i++];
-        return true;
-      } else {
-        return false;
-      }
-    }, false);
+  tbb::flow::input_node<ImagePtr> src(g, src_body(image_vector));
 
   tbb::flow::function_node<ImagePtr, ImagePtr> gamma(g, 
     tbb::flow::unlimited,
@@ -144,12 +154,10 @@ int main(int argc, char* argv[]) {
     image_vector.push_back(ch01::makeFractalImage(i));
 
   // warmup the scheduler
-  tbb::parallel_for(0, tbb::task_scheduler_init::default_num_threads(), 
-    [](int) {
-      tbb::tick_count t0 = tbb::tick_count::now();
-      while ((tbb::tick_count::now() - t0).seconds() < 0.01);
-    }
-  );
+  tbb::parallel_for(0, tbb::info::default_concurrency(), [](int) {
+    tbb::tick_count t0 = tbb::tick_count::now();
+    while ((tbb::tick_count::now() - t0).seconds() < 0.01);
+  });
 
   tbb::tick_count t0 = tbb::tick_count::now();
   fig_1_12(image_vector);

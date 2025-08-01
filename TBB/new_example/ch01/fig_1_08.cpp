@@ -21,7 +21,7 @@ OR OTHER DEALINGS IN THE SOFTWARE.
 
 SPDX-License-Identifier: MIT
 */
-#include <thread>
+
 #include <iostream>
 #include <vector>
 #include <tbb/tbb.h>
@@ -34,56 +34,50 @@ ImagePtr applyTint(ImagePtr image_ptr, const double *tints);
 void writeImage(ImagePtr image_ptr);
 
 class src_body{
-    const std::vector<ImagePtr> my_limit;
+    const int my_limit;
     int my_next_value;
 public:
-    src_body(std::vector<ImagePtr> l) : my_limit(l), my_next_value(0){}
-    ImagePtr operator()(tbb::flow_control& fc){
-        if(my_next_value < my_limit.size()){
-          std::cout<<"new image start on "<<std::this_thread::get_id()<<std::endl;
-            return my_limit[my_next_value++];
+    src_body(int l) : my_limit(l), my_next_value(1){}
+    int operator()(tbb::flow_control& fc){
+        if(my_next_value <= my_limit){
+            return my_next_value++;
         }else{
             fc.stop();
-            return nullptr;
+            return int();
         }
     }
 };
 
 
-void fig_1_10(const std::vector<ImagePtr>& image_vector) {
+void fig_1_10() {
   const double tint_array[] = {0.75, 0, 0};
-
+  int sum = 0;
   tbb::flow::graph g;
-
+  tbb::flow::broadcast_node<int> b(g);
   int i = 0;
-  tbb::flow::input_node<ImagePtr> src(g, src_body(image_vector));
+  tbb::flow::function_node<int, int> squarer(g, tbb::flow::unlimited, [](const int& v){
+    return v*v;
+  });
+  tbb::flow::function_node<int, int> cuber(g, tbb::flow::unlimited, [](const int& v){
+    return v*v*v;
+  });
+  tbb::flow::function_node<int, int> summer(g, 1, [&](const int& v){
+    return sum += v;
+  });
+//   make_edge(b, squarer);
+//   make_edge(b, cuber);
+  make_edge(squarer, summer);
+  make_edge(cuber, summer);
+  tbb::flow::input_node<int> src(g, src_body(10));
+  make_edge(src, squarer);
+  make_edge(src, cuber);
 
-  tbb::flow::function_node<ImagePtr, ImagePtr> gamma(g, 
-    tbb::flow::unlimited,
-    [] (ImagePtr img) -> ImagePtr {
-      return applyGamma(img, 1.4);  
-    }
-  );
-
-  tbb::flow::function_node<ImagePtr, ImagePtr> tint(g, 
-    tbb::flow::unlimited,
-    [tint_array] (ImagePtr img) -> ImagePtr {
-      return applyTint(img, tint_array);
-    }
-  );
-
-  tbb::flow::function_node<ImagePtr> write(g, 
-    tbb::flow::unlimited,
-    [] (ImagePtr img) {
-      writeImage(img);
-    }
-  );
-
-  tbb::flow::make_edge(src, gamma);
-  tbb::flow::make_edge(gamma, tint);
-  tbb::flow::make_edge(tint, write);
+//   for ( int i = 1; i <= 10; ++i ) {
+//     b.try_put(i);
+//   }
   src.activate();
   g.wait_for_all();
+  std::cout<< "Sum is "<<sum<<"\n";
 } 
 
 ImagePtr  applyGamma(ImagePtr image_ptr, double gamma) {
@@ -94,7 +88,7 @@ ImagePtr  applyGamma(ImagePtr image_ptr, double gamma) {
   auto out_rows = output_image_ptr->rows();
   const int height = in_rows.size();
   const int width = in_rows[1] - in_rows[0];
-  // std::cout<<"new image apply gamma on "<<std::this_thread::get_id()<<std::endl;
+
   for ( int i = 0; i < height; ++i ) {
     for ( int j = 0; j < width; ++j ) {
       const ch01::Image::Pixel& p = in_rows[i][j]; 
@@ -115,7 +109,7 @@ ImagePtr applyTint(ImagePtr image_ptr, const double *tints) {
   auto out_rows = output_image_ptr->rows();
   const int height = in_rows.size();
   const int width = in_rows[1] - in_rows[0];
-  // std::cout<<"new image apply tint on "<<std::this_thread::get_id()<<std::endl;
+
   for ( int i = 0; i < height; ++i ) {
     for ( int j = 0; j < width; ++j ) {
       const ch01::Image::Pixel& p = in_rows[i][j]; 
@@ -141,21 +135,22 @@ void writeImage(ImagePtr image_ptr) {
 }
 
 int main(int argc, char* argv[]) {
-  std::vector<ImagePtr> image_vector;
+//   std::vector<ImagePtr> image_vector;
 
-  for ( int i = 2000; i < 20000000; i *= 10 ) 
-    image_vector.push_back(ch01::makeFractalImage(i));
+//   for ( int i = 2000; i < 20000000; i *= 10 ) 
+//     image_vector.push_back(ch01::makeFractalImage(i));
 
-  // warmup the scheduler
-  tbb::parallel_for(0, tbb::info::default_concurrency(), [](int) {
-    tbb::tick_count t0 = tbb::tick_count::now();
-    while ((tbb::tick_count::now() - t0).seconds() < 0.01);
-  });
+//   // warmup the scheduler
+//   tbb::parallel_for(0, tbb::task_scheduler_init::default_num_threads(), [](int) {
+//     tbb::tick_count t0 = tbb::tick_count::now();
+//     while ((tbb::tick_count::now() - t0).seconds() < 0.01);
+//   });
 
-  tbb::tick_count t0 = tbb::tick_count::now();
-  fig_1_10(image_vector);
-  std::cout << "Time : " << (tbb::tick_count::now()-t0).seconds() 
-            << " seconds" << std::endl;
+//   tbb::tick_count t0 = tbb::tick_count::now();
+//   fig_1_10(image_vector);
+//   std::cout << "Time : " << (tbb::tick_count::now()-t0).seconds() 
+//             << " seconds" << std::endl;
+  fig_1_10();
   return 0;
 }
 

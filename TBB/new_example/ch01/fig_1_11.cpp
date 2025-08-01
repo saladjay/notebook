@@ -30,6 +30,22 @@ SPDX-License-Identifier: MIT
 using ImagePtr = std::shared_ptr<ch01::Image>;
 void writeImage(ImagePtr image_ptr);
 
+class src_body{
+    const std::vector<ImagePtr> my_limit;
+    int my_next_value;
+public:
+    src_body(std::vector<ImagePtr> l) : my_limit(l), my_next_value(0){}
+    ImagePtr operator()(tbb::flow_control& fc){
+        if(my_next_value < my_limit.size()){
+          // std::cout<<"new image start on "<<std::this_thread::get_id()<<std::endl;
+            return my_limit[my_next_value++];
+        }else{
+            fc.stop();
+            return nullptr;
+        }
+    }
+};
+
 ImagePtr applyGamma(ImagePtr image_ptr, double gamma) {
   auto output_image_ptr = 
     std::make_shared<ch01::Image>(image_ptr->name() + "_gamma", 
@@ -90,15 +106,7 @@ void fig_1_11(std::vector<ImagePtr>& image_vector) {
   tbb::flow::graph g;
 
   int i = 0;
-  tbb::flow::source_node<ImagePtr> src(g, 
-    [&i, &image_vector] (ImagePtr& out) -> bool {
-      if ( i < image_vector.size() ) {
-        out = image_vector[i++];
-        return true;
-      } else {
-        return false;
-      }
-    }, false);
+  tbb::flow::input_node<ImagePtr> src(g, src_body(image_vector));
 
   tbb::flow::function_node<ImagePtr, ImagePtr> gamma(g, 
     tbb::flow::unlimited,
@@ -139,7 +147,7 @@ int main(int argc, char* argv[]) {
     image_vector.push_back(ch01::makeFractalImage(i));
 
   // warmup the scheduler
-  tbb::parallel_for(0, tbb::task_scheduler_init::default_num_threads(), [](int) {
+  tbb::parallel_for(0, tbb::info::default_concurrency(), [](int) {
     tbb::tick_count t0 = tbb::tick_count::now();
     while ((tbb::tick_count::now() - t0).seconds() < 0.01);
   });

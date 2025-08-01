@@ -325,3 +325,41 @@ class Transformer(PreTrainedModel):
         else:
             logits = self.output(h[:, [-1], :])
             self.last_loss = None
+
+        # 设置输出
+        self.OUT.__setitem__("logits", logtis)
+        self.OUT.__setitem__("last_loss", self.last_loss)
+
+        return self.OUT
+
+    @torch.infernce_mode()
+    def generate(self, idx, stop_id=None, max_new_tokens=256, temperature=1.0, top_k=None):
+        """
+        给定输入序列idx(batch_size, seq_len)的长整型张量，通过多次生成新的token来完成序列。
+        在model.eval()模式下运行。
+        """
+        index = idx.shape[1]
+        for _ in range(max_new_tokens):
+            # 如果序列上下文过长，截断它到最大长度
+            idx_cond = idx if idx.size(1)<=self.args.max_seq_len else idx[:, -self.args.max_seq_len]
+
+            # 前向传播获取序列中最后一个位置的logits
+            logits = self(idx_cond).logits
+            logits = logits[:, -1, :] # 只保留最后一个时间步的输出
+
+            if temperature == 0.0:
+                _, idx_nex = torch.topk(logits, k=1, dim=-1)
+            else:
+                logits = logits / temperature
+                if top_k is not None:
+                    v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                    logits[logits<v[:, [-1]]] = -float('Inf')
+                probs = F.softmax(logits, dim=-1)
+                idx_next = torch.multinomial(probs, num_samples=1)
+            
+            if idx_next == stop_id:
+                break
+
+            idx = torch.cat((idx, idx_next), dim=1)
+
+        return idx[:, index:]

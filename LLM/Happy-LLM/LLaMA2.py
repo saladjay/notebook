@@ -169,8 +169,8 @@ class Attention(nn.Module):
         xq, xk, xv = self.wq(x), self.wk(x), self.wv(x)
         # 调整形状以适应头的维度
         xq = xq.view(bsz, seqlen, self.n_local_heads, self.head_dim)
-        xq = xq.view(bsz, seqlen, self.n_local_kv_heads, self.head_dim)
-        xq = xq.view(bsz, seqlen, self.n_local_kv_heads, self.head_dim)
+        xk = xk.view(bsz, seqlen, self.n_local_kv_heads, self.head_dim)
+        xv = xv.view(bsz, seqlen, self.n_local_kv_heads, self.head_dim)
 
         # 应用RoPE
         xq, xk = apply_rotary_emb(xq, xk, freqs_cos, freqs_sin)
@@ -327,12 +327,12 @@ class Transformer(PreTrainedModel):
             self.last_loss = None
 
         # 设置输出
-        self.OUT.__setitem__("logits", logtis)
+        self.OUT.__setitem__("logits", logits)
         self.OUT.__setitem__("last_loss", self.last_loss)
 
         return self.OUT
 
-    @torch.infernce_mode()
+    @torch.inference_mode()
     def generate(self, idx, stop_id=None, max_new_tokens=256, temperature=1.0, top_k=None):
         """
         给定输入序列idx(batch_size, seq_len)的长整型张量，通过多次生成新的token来完成序列。

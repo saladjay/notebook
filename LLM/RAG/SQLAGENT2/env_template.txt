@@ -1,0 +1,14 @@
+# OpenAI配置
+OPENAI_API_KEY=your_api_key_here
+OPENAI_API_BASE=https://api.openai.com/v1
+MODEL_NAME=gpt-4
+TEMPERATURE=0.0
+
+# 数据库配置
+DATABASE_URI=mysql+pymysql://user:password@localhost:3306/database
+# 或使用 PostgreSQL: postgresql://user:password@localhost:5432/database
+
+# Agent配置
+MAX_ITERATIONS=5
+VERBOSE=true
+

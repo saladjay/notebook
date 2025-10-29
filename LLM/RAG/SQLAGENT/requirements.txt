@@ -1,0 +1,15 @@
+# LangChain核心库
+langchain==0.1.0
+langchain-community==0.0.13
+langchain-openai==0.0.5
+
+# Ollama支持
+ollama==0.1.6
+
+# 数据库相关
+SQLAlchemy==2.0.25
+
+# 其他依赖
+requests==2.31.0
+pydantic==2.5.3
+

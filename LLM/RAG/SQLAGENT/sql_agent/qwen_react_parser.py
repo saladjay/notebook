@@ -145,8 +145,12 @@ class QwenReActOutputParser(AgentOutputParser):
             action = action_match.group(1).strip()
             action_input = action_input_match.group(1).strip()
             
-            # 清理可能的引号
-            action_input = action_input.strip('"\'')
+            # 仅在确认为包裹型引号时去壳，避免误删SQL末尾的引号
+            if (len(action_input) >= 2 and (
+                (action_input[0] == '"' and action_input[-1] == '"') or
+                (action_input[0] == "'" and action_input[-1] == "'")
+            )):
+                action_input = action_input[1:-1]
             
             return AgentAction(
                 tool=action,

@@ -1,0 +1,8 @@
+# OpenAI API配置
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_BASE_URL=https://api.openai.com/v1
+
+# 其他配置
+MODEL_NAME=gpt-3.5-turbo
+TEMPERATURE=0.7
+MAX_TOKENS=1000

@@ -12,7 +12,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logging.getLogger("openai").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 
-callbacks = [LLMLoggingCallback(json_file="generate_data\sft_data7_20251029.json", log_to_file=False, log_to_console=False, save_json=True)]
+callbacks = [LLMLoggingCallback(json_file="generate_data\sft_data7_20251103.json", log_to_file=False, log_to_console=False, save_json=True)]
 
 agent = SQLAgentQwen3()
 
@@ -29,7 +29,7 @@ def generate_sft_data():
             #     break
             subject = line.split(":")[0]
             question = ":".join(line.split(":")[1:])
-            question = "有没有标注区域超出了对应图像边界的异常情况，图片宽100，高100, 返回总数"
+            question = "2028_03_07数据集中每个标签类别分别有种Tag"
             result = agent.query(question, callbacks)
 
 

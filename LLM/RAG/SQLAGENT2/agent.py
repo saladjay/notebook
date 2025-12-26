@@ -348,3 +348,4 @@ class SQLAgent:
         """清空记忆"""
         self.memory.clear()
 
+

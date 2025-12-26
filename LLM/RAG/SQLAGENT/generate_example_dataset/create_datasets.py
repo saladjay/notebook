@@ -52,6 +52,7 @@ def _random_color():
     return color
 
 shortcuts = set(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"])
+used_shortcuts = set()
 def _shortcut():
     global shortcuts
     if len(shortcuts) == 0:
@@ -60,12 +61,11 @@ def _shortcut():
         return None
     shortcut = random.choice(list(shortcuts))
     shortcuts.remove(shortcut)
+    used_shortcuts.add(shortcut)
     return shortcut
 
 productId_set = set()
 modelIndex_set = set()
-
-
 
 def get_pseudo_label_class(nb_classes: int):
     def _get_pseudo_label_class_additional_data():
@@ -116,6 +116,7 @@ hours = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
 minutes = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
 seconds = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59']
 unique_constraint_set_4_path_dataset_id = set()
+partial_path = set()
 def get_pseudo_image(nb_datasets, nb_tags, nb_images):
     def _get_pseudo_image_path():
         global first_folders, second_folders, third_folders, years, months, days, hours, minutes, seconds
@@ -123,6 +124,17 @@ def get_pseudo_image(nb_datasets, nb_tags, nb_images):
         second_folder = random.choice(second_folders)
         third_folder = random.choice(third_folders)
         image_name = f"{random.choice(years)}_{random.choice(months)}_{random.choice(days)}_{random.choice(hours)}_{random.choice(minutes)}_{random.choice(seconds)}_{random.randint(0,9)}{random.randint(0,9)}{random.randint(0,9)}.jpg"
+        partial_path.add(first_folder)
+        partial_path.add(second_folder)
+        partial_path.add(third_folder)
+        value = random.random()
+        if value < 0.25:
+            partial_path.add(f"{first_folder}/{second_folder}")
+        elif value < 0.5:
+            partial_path.add(f"{second_folder}/{third_folder}")
+        else:
+            pass
+
         return f"D:/data/{first_folder}/{second_folder}/{third_folder}/{image_name}.jpg" if third_folder is not None else f"D:/data/{first_folder}/{second_folder}/{image_name}.jpg"
     for i in range(nb_images):
         dataset_id = random.choice(nb_datasets)
@@ -179,6 +191,7 @@ def create_example_dataset(db_file:str = "example_dataset.db", nb_classes:int = 
     # db_file = "example_dataset.db"
     try:
         conn = create_database(db_file)
+        desp_json_file = db_file.replace(".db", ".json")
         create_tables(conn)
         labelClass_list = []
         # 插入类别数据
@@ -252,3 +265,15 @@ def create_example_dataset(db_file:str = "example_dataset.db", nb_classes:int = 
     except Exception as e:
         print(f"Error creating example dataset: {e}")
         conn.close()
+    finally:
+        with open(desp_json_file, 'w') as f:
+            content = {
+                "datasets":dataset_list,
+                "labelClasses":labelClass_list,
+                "tags":tag_list,
+                "partial_paths":list(partial_path),
+                "short_cuts":list(used_shortcuts),
+                "region_ranges": [[0,0,15,15], [20,20,45,45], [25,25,85,85], [15,15,45,65], [0,20,40,60]], 
+                "region_sizes": [10,20,30,40,50,60,70,80],
+            }
+            print(json.dumps(content), file = f)

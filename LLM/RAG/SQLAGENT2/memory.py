@@ -109,3 +109,4 @@ class MemorySystem:
             "knowledge_items": len(self.knowledge_memory)
         }
 
+

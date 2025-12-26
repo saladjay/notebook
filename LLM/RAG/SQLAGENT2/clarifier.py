@@ -103,3 +103,4 @@ class Clarifier:
         
         return response.content.strip()
 
+

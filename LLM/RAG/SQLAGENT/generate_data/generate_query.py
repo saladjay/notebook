@@ -1,4 +1,4 @@
-from ollama_model.ChatModel import call_model
+from models.ChatModel import call_model
 import logging
 import os
 from .generate_query_config import prompt
@@ -19,5 +19,5 @@ def generate_query():
     for subject in subjects:
         new_prompt = prompt.replace("{subject}", subject)
         # call_model(new_prompt, logger, chatModel="Bailian")
-        call_model(new_prompt, logger, chatModel="Ollama")
+        call_model(new_prompt, logger, chatModel="Bailian")
 

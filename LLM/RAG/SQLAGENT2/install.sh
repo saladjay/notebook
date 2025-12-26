@@ -49,3 +49,7 @@ echo "2. 运行验证脚本: python verify_installation.py"
 echo "3. 启动程序: python main.py"
 echo ""
 
+
+
+
+

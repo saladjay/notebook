@@ -281,6 +281,64 @@ class QueryCheckerInput(BaseModel):
     )
 
 
+def check_sql_syntax(query: str, llm: Optional[any] = None) -> str:
+
+    """检查 SQL 语法"""
+    try:
+        print("start to check:", query)
+        #
+        # 1. 基本格式检查
+        query = query.strip()
+        if not query:
+            return " SQL 查询为空，请提供有效的 SQL 语句。"
+        
+        # 2. 安全检查
+        dangerous_keywords = ["INSERT", "UPDATE", "DELETE", "DROP", "ALTER", "CREATE", "TRUNCATE"]
+        query_upper = query.upper()
+        
+        for keyword in dangerous_keywords:
+            if keyword in query_upper:
+                return f" 检查失败：禁止使用 {keyword} 语句！\n\n只允许 SELECT 查询。", False
+        
+        # 3. SELECT 检查
+        if not query_upper.startswith("SELECT"):
+            return f" 检查失败：查询必须以 SELECT 开头。\n\n当前查询: {query[:100]}...", False
+        
+        # 4. 语法检查（简单版本）
+        # 可以使用 sqlparse 库进行更详细的语法检查
+        issues = []
+        
+        # 检查是否有未闭合的括号
+        if query.count("(") != query.count(")"):
+            issues.append("括号未配对")
+        
+        # 检查是否有未闭合的引号
+        if query.count("'") % 2 != 0:
+            issues.append("单引号未配对")
+        if query.count('"') % 2 != 0:
+            issues.append("双引号未配对")
+        
+        # 检查常见的 SQL 关键字拼写
+        # 可以扩展更多检查规则
+        
+        if issues:
+            return f" 检查失败：\n" + "\n".join(f"  - {issue}" for issue in issues), False
+        
+
+        
+        # 返回优化后的 SQL（可以添加格式化）
+        checked_query = query
+        
+        # 添加提示信息
+        result = f"{checked_query}\n\n 语法检查通过！\n 下一步：请使用 sql_db_query 执行此查询以获取实际结果。"
+        
+        return result, True
+        
+    except Exception as e:
+        error_msg = f" 检查过程出错: {str(e)}"
+        logger.error(error_msg)
+        return error_msg, False
+
 class CustomSQLDatabaseQueryChecker(BaseTool):
     """
     自定义的 SQL 语法检查工具
@@ -307,67 +365,33 @@ class CustomSQLDatabaseQueryChecker(BaseTool):
     def _run(self, query: str) -> str:
         """检查 SQL 语法"""
         start_time = datetime.now()
-        
-        try:
-            # 1. 基本格式检查
-            query = query.strip()
-            if not query:
-                return " SQL 查询为空，请提供有效的 SQL 语句。"
-            
-            # 2. 安全检查
-            dangerous_keywords = ["INSERT", "UPDATE", "DELETE", "DROP", "ALTER", "CREATE", "TRUNCATE"]
-            query_upper = query.upper()
-            
-            for keyword in dangerous_keywords:
-                if keyword in query_upper:
-                    return f" 检查失败：禁止使用 {keyword} 语句！\n\n只允许 SELECT 查询。"
-            
-            # 3. SELECT 检查
-            if not query_upper.startswith("SELECT"):
-                return f" 检查失败：查询必须以 SELECT 开头。\n\n当前查询: {query[:100]}..."
-            
-            # 4. 语法检查（简单版本）
-            # 可以使用 sqlparse 库进行更详细的语法检查
-            issues = []
-            
-            # 检查是否有未闭合的括号
-            if query.count("(") != query.count(")"):
-                issues.append("括号未配对")
-            
-            # 检查是否有未闭合的引号
-            if query.count("'") % 2 != 0:
-                issues.append("单引号未配对")
-            if query.count('"') % 2 != 0:
-                issues.append("双引号未配对")
-            
-            # 检查常见的 SQL 关键字拼写
-            # 可以扩展更多检查规则
-            
-            if issues:
-                return f" 检查失败：\n" + "\n".join(f"  - {issue}" for issue in issues)
-            
-            # 5. 使用 LLM 进行智能检查（如果配置了）
-            if self.llm:
-                llm_check_result = self._llm_check(query)
-                if llm_check_result:
-                    return llm_check_result
-            
-            # 6. 检查通过
-            logger.info(f"SQL 语法检查通过")
-            logger.info(f"检查耗时: {(datetime.now() - start_time).total_seconds():.3f}s")
-            
-            # 返回优化后的 SQL（可以添加格式化）
-            checked_query = query
-            
-            # 添加提示信息
-            result = f"{checked_query}\n\n 语法检查通过！\n 下一步：请使用 sql_db_query 执行此查询以获取实际结果。"
-            
+        result, flag = check_sql_syntax(query, None)
+        if not flag:
             return result
+        else:
+            # 4. 使用 LLM 进行智能检查（如果配置了）
+            try:
+                if self.llm:
+                    llm_check_result = self._llm_check(query)
+                    if llm_check_result:
+                        return llm_check_result
+                
+                # 6. 检查通过
+                logger.info(f"SQL 语法检查通过")
+                logger.info(f"检查耗时: {(datetime.now() - start_time).total_seconds():.3f}s")
+                
+                # 返回优化后的 SQL（可以添加格式化）
+                checked_query = query
+                
+                # 添加提示信息
+                result = f"{checked_query}\n\n 语法检查通过！\n 下一步：请使用 sql_db_query 执行此查询以获取实际结果。"
+                
+                return result
             
-        except Exception as e:
-            error_msg = f" 检查过程出错: {str(e)}"
-            logger.error(error_msg)
-            return error_msg
+            except Exception as e:
+                error_msg = f" 检查过程出错: {str(e)}"
+                logger.error(error_msg)
+                return error_msg
     
     def _llm_check(self, query: str) -> Optional[str]:
         """使用 LLM 进行智能语法检查（可选）"""
@@ -564,12 +588,8 @@ def demo_custom_tools():
 
 
 if __name__ == '__main__':
-    try:
-        demo_custom_tools()
-    except KeyboardInterrupt:
-        print("\n\n👋 已取消")
-    except Exception as e:
-        print(f"\n❌ 错误: {str(e)}")
-        import traceback
-        traceback.print_exc()
-
+    
+    sql_list = ["SELECT Id FROM DataSet WHERE Name LIKE '2027_01_31_8'", "SELECT Id FROM DataSet WHERE Name = '2028_07_29' OR Name = '2027_07_05_2'"]
+    for sql in sql_list:
+        print(check_sql_syntax(sql))
+    

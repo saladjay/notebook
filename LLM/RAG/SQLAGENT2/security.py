@@ -136,3 +136,4 @@ class SecurityModule:
         """设置最大返回行数"""
         self.max_rows = max_rows
 
+

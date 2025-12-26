@@ -142,3 +142,4 @@ class QueryExecutor:
         
         return summary
 
+

@@ -34,7 +34,7 @@ class SQLAgentBase:
         self.llm = _get_bailian_llm()
 
         self.llm = LLMWrapper(self.llm, 
-            interceptors=[Qwen3ReActInterceptor(jsonl_file="./generate_data/qwen3_react_history_20251029.jsonl")])
+            interceptors=[Qwen3ReActInterceptor(jsonl_file="./generate_data/qwen3_react_history_20251103.jsonl")])
 
 
         # self.llm = _get_bailian_llm()

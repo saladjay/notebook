@@ -1,5 +1,6 @@
 import random
-
+from copy import deepcopy
+region_values = [500000000,5000000000000,0,0]
 def calculate_iou(box1, box2):
     """
     计算两个矩形的IOU (交并比)
@@ -64,7 +65,7 @@ def generate_partial_overlap_boxes(iou_target=0.3, box_sizes:list[int, int]=[100
             
         # 更新第二个矩形位置
         box2 = [50 + distance, 50 + distance, 
-                50 + distance + box_size, 50 + distance + box_size]
+                50 + distance + box_sizes[0], 50 + distance + box_sizes[1]]
     
     return box1, box2, calculate_iou(box1, box2)
 
@@ -78,8 +79,9 @@ def _iou(region1, region2):
     area2 = region2["w"] * region2["h"]
     return intersection / (area1 + area2 - intersection)
 
-def get_pseudo_label_regions(nb_regions = 1,iou = None, special_wh_ratio = None, width_range = None, height_range = None):
+def get_pseudo_label_regions(nb_regions = 1, iou = None, special_wh_ratio = None, width_range = None, height_range = None):
     regions = []
+    global region_values
     if iou is None:
         for i in range(nb_regions):
             regions.append({
@@ -89,6 +91,10 @@ def get_pseudo_label_regions(nb_regions = 1,iou = None, special_wh_ratio = None,
                 "h": random.randint(0, 100),
                 "severe": random.random() * 10,
             })
+            region_values[0] = min(regions[-1]['x'], region_values[0])
+            region_values[1] = max(regions[-1]['y'], region_values[1])
+            region_values[2] = max(regions[-1]['w'], region_values[2])
+            region_values[3] = max(regions[-1]['h'], region_values[3])
         return regions
     else:
         for i in range(nb_regions // 2 + 1):
@@ -101,4 +107,12 @@ def get_pseudo_label_regions(nb_regions = 1,iou = None, special_wh_ratio = None,
                     "h": box[3] - box[1],
                     "severe": random.random() * 10,
                 })
+                region_values[0] = min(regions[-1]['x'], region_values[0])
+                region_values[1] = max(regions[-1]['y'], region_values[1])
+                region_values[2] = max(regions[-1]['w'], region_values[2])
+                region_values[3] = max(regions[-1]['h'], region_values[3])
         return regions
+    
+def get_pseudo_region_ranges():
+    global region_values
+    return deepcopy(region_values)
